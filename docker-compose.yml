@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  sauron-bot:
+    build: .
+    container_name: sauron-discord-bot
+    restart: unless-stopped
+    environment:
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - DATA_DIR=/app/data
+    volumes:
+      - ./data:/app/data
+    # Healthcheck pro monitorování stavu bota
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "python.*sauron"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s

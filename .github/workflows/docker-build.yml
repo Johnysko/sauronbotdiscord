@@ -1,0 +1,26 @@
+name: Docker Build Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Build Docker image
+      run: docker build -t sauron-bot:test .
+      
+    - name: Verify Python dependencies
+      run: |
+        docker run --rm sauron-bot:test pip list
+        
+    - name: Check for syntax errors
+      run: |
+        docker run --rm sauron-bot:test python -m py_compile "sauron dc bot.py"

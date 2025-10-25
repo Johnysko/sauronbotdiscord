@@ -1,0 +1,41 @@
+# Lokální soubory a složky
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+
+# Lokální databáze (nechceme commitovat do Dockeru)
+*.json
+sauron_db.json
+data/
+
+# Token soubory
+*token*.txt
+*.env
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Logs
+*.log
+
+# Virtual environment
+venv/
+env/
+ENV/

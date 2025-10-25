@@ -1,0 +1,714 @@
+import discord
+from discord.ext import commands
+import random
+import json
+import os
+
+# Konfigurace bota
+intents = discord.Intents.default()
+intents.message_content = True
+intents.messages = True
+intents.guilds = True
+
+bot = commands.Bot(command_prefix='!', intents=intents)
+
+# Cesta k databázi - pro Docker/Coolify
+DATA_DIR = os.getenv('DATA_DIR', os.path.dirname(os.path.abspath(__file__)) if __file__ else '.')
+DB_FILE = os.path.join(DATA_DIR, 'sauron_db.json')
+
+# Vytvoř složku, pokud neexistuje
+os.makedirs(DATA_DIR, exist_ok=True)
+
+# ID kanálů, kde se BUDE zobrazovat Sauron (whitelist)
+POVOLENE_KANALY = [
+    1418609726186586184,
+    1418616294646743171,
+    1418617290471243818,
+    1418615240744108185,
+    1418615287015800832,
+    1418618157668765736,
+    1418624588665065683,
+    1418629007510868189
+]
+
+# Hlavní postavy (dobré postavy)
+HLAVNI_POSTAVY = [
+    "Frodo",
+    "Sam",
+    "Gandalf",
+    "Aragorn",
+    "Legolas",    
+    "Pippin",
+    "Boromir",    
+    "Elrond",
+    "Faramir"
+]
+
+# Záporné postavy
+ZLE_POSTAVY = [
+    "Glum",
+    "Saruman",
+    "Skřet",
+    "Nazgûl",    
+    "Lurtz",    
+]
+
+# Story mód - Lokace a jejich úrovně
+LOKACE = [
+    {"nazev": "Kraj (Shire)", "min_body": 0, "max_body": 19, "emoji": "🌾", "popis": "Začínáš svou cestu v poklidném Hobitíně"},
+    {"nazev": "Roklinka (Rivendell)", "min_body": 20, "max_body": 39, "emoji": "🏰", "popis": "Dorazil jsi do elfského útočiště, Roklinky."},
+    {"nazev": "Rohan", "min_body": 40, "max_body": 59, "emoji": "🐎", "popis": "Vítá tě král Theodén, země jezdců je ti k dispozici."},
+    {"nazev": "Gondor", "min_body": 60, "max_body": 79, "emoji": "⚔️", "popis": "Blížíš se k finální bitvě. Minas Tirith tě volá."},
+    {"nazev": "Černá brána", "min_body": 80, "max_body": 99, "emoji": "🚪", "popis": "Stojíš před branami Mordoru"},
+    {"nazev": "Mordor", "min_body": 100, "max_body": 999999, "emoji": "🌋", "popis": "Vstupuješ do země temnoty!"}
+]
+
+
+def nacti_databazi():
+    """Načte databázi ze souboru JSON."""
+    if os.path.exists(DB_FILE):
+        try:
+            with open(DB_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except:
+            return {}
+    return {}
+
+
+def uloz_databazi(data):
+    """Uloží databázi do souboru JSON."""
+    with open(DB_FILE, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
+
+def pridej_body(user_id, user_name, body):
+    """Přidá body uživateli do databáze."""
+    db = nacti_databazi()
+    user_id_str = str(user_id)
+    
+    if user_id_str not in db:
+        db[user_id_str] = {
+            'name': user_name,
+            'body': 0,
+            'prsteny': 0
+        }
+    
+    stare_body = db[user_id_str]['body']
+    db[user_id_str]['body'] += body
+    
+    # Zabránění minusovým bodům - minimum je 0
+    if db[user_id_str]['body'] < 0:
+        db[user_id_str]['body'] = 0
+    
+    db[user_id_str]['name'] = user_name  # Aktualizace jména
+    
+    # Kontrola, jestli hráč dosáhl 100 bodů (dokončil příběh)
+    nove_body = db[user_id_str]['body']
+    
+    if nove_body >= 100 and stare_body < 100:
+        # Hráč dokončil příběh!
+        db[user_id_str]['prsteny'] = db[user_id_str].get('prsteny', 0) + 1
+        db[user_id_str]['body'] = 0  # Reset bodů
+        uloz_databazi(db)
+        return {'body': 0, 'prsten_ziskan': True, 'celkem_prstenu': db[user_id_str]['prsteny']}
+    
+    uloz_databazi(db)
+    return {'body': db[user_id_str]['body'], 'prsten_ziskan': False}
+
+
+def ziskej_body(user_id):
+    """Získá aktuální počet bodů uživatele."""
+    db = nacti_databazi()
+    user_id_str = str(user_id)
+    
+    if user_id_str in db:
+        return db[user_id_str]['body']
+    return 0
+
+
+def ziskej_lokaci(body):
+    """Určí lokaci podle počtu bodů."""
+    for lokace in LOKACE:
+        if lokace['min_body'] <= body <= lokace['max_body']:
+            return lokace
+    return LOKACE[0]  # Default Roklinka
+
+
+def ziskej_statistiky(user_id):
+    """Získá kompletní statistiky hráče."""
+    db = nacti_databazi()
+    user_id_str = str(user_id)
+    
+    if user_id_str in db:
+        return {
+            'body': db[user_id_str].get('body', 0),
+            'prsteny': db[user_id_str].get('prsteny', 0),
+            'name': db[user_id_str].get('name', 'Neznámý')
+        }
+    return {'body': 0, 'prsteny': 0, 'name': 'Neznámý'}
+
+
+class SauronView(discord.ui.View):
+    """View s tlačítky pro výběr postavy."""
+    
+    def __init__(self, spravna_postava, zla_postava, poradi):
+        super().__init__(timeout=300)  # 5 minut timeout
+        self.spravna_postava = spravna_postava
+        self.zla_postava = zla_postava
+        
+        # Vytvoření tlačítek podle pořadí - OBĚ ŠEDÉ (secondary) aby hráči museli číst!
+        if poradi == 0:
+            # Správná postava první, zlá druhá
+            button1 = discord.ui.Button(
+                label=spravna_postava,
+                style=discord.ButtonStyle.secondary,
+                custom_id='spravna'
+            )
+            button2 = discord.ui.Button(
+                label=zla_postava,
+                style=discord.ButtonStyle.secondary,
+                custom_id='spatna'
+            )
+        else:
+            # Zlá postava první, správná druhá
+            button1 = discord.ui.Button(
+                label=zla_postava,
+                style=discord.ButtonStyle.secondary,
+                custom_id='spatna'
+            )
+            button2 = discord.ui.Button(
+                label=spravna_postava,
+                style=discord.ButtonStyle.secondary,
+                custom_id='spravna'
+            )
+        
+        button1.callback = self.button1_callback
+        button2.callback = self.button2_callback
+        
+        self.add_item(button1)
+        self.add_item(button2)
+    
+    async def button1_callback(self, interaction: discord.Interaction):
+        """Callback pro první tlačítko."""
+        await self.handle_button_click(interaction, self.children[0].custom_id)
+    
+    async def button2_callback(self, interaction: discord.Interaction):
+        """Callback pro druhé tlačítko."""
+        await self.handle_button_click(interaction, self.children[1].custom_id)
+    
+    async def handle_button_click(self, interaction: discord.Interaction, custom_id: str):
+        """Zpracování kliknutí na tlačítko."""
+        user_id = interaction.user.id
+        user_name = interaction.user.name
+        
+        if custom_id == 'spravna':
+            # Správná volba - přidej +1 bod
+            vysledek = pridej_body(user_id, user_name, 1)
+            
+            # Kontrola, jestli je výsledek dict (nový formát) nebo int (starý)
+            if isinstance(vysledek, dict):
+                nove_body = vysledek['body']
+                prsten_ziskan = vysledek['prsten_ziskan']
+                
+                if prsten_ziskan:
+                    # HRÁČ DOKONČIL PŘÍBĚH!
+                    embed = discord.Embed(
+                        title="🏆 VÝHRA! PRSTEN ZNIČEN! 🏆",
+                        description=(
+                            f"**{user_name}** dokončil(a) epickou cestu a dostal(a) se do Mordoru!\n\n"
+                            f"🌋 Prsten byl shozen do Hory Osudu a zničen!\n\n"
+                            f"💍 Získává **PRSTEN MOCI** do sbírky!\n"
+                            f"✨ Celkem prstenů: **{vysledek['celkem_prstenu']}**\n\n"
+                            f"🔄 Cesta začíná znovu od Roklinky..."
+                        ),
+                        color=discord.Color.gold()
+                    )
+                    embed.set_footer(text="🎉 Gratulujeme k dokončení příběhu!")
+                else:
+                    embed = discord.Embed(
+                        title="✅ Správná volba!",
+                        description=f"**{user_name}** svěřil(a) svůj osud **{self.spravna_postava}ovi**. Získává **+1 bod**!",
+                        color=discord.Color.green()
+                    )
+                    lokace = ziskej_lokaci(nove_body)
+                    embed.add_field(name="Aktuální body", value=f"**{nove_body}** bodů", inline=True)
+                    embed.add_field(name="Lokace", value=f"{lokace['emoji']} **{lokace['nazev']}**", inline=True)
+                    embed.set_footer(text=lokace['popis'])
+            else:
+                # Starý formát (pro zpětnou kompatibilitu)
+                nove_body = vysledek
+                embed = discord.Embed(
+                    title="✅ Správná volba!",
+                    description=f"**{user_name}** svěřil(a) svúj osud **{self.spravna_postava}ovi**. Získává **+1 bod**!",
+                    color=discord.Color.green()
+                )
+                lokace = ziskej_lokaci(nove_body)
+                embed.add_field(name="Aktuální body", value=f"**{nove_body}** bodů", inline=True)
+                embed.add_field(name="Lokace", value=f"{lokace['emoji']} **{lokace['nazev']}**", inline=True)
+        else:
+            # Špatná volba - odečti -1 bod
+            vysledek = pridej_body(user_id, user_name, -1)
+            
+            if isinstance(vysledek, dict):
+                nove_body = vysledek['body']
+            else:
+                nove_body = vysledek
+            
+            embed = discord.Embed(
+                title="❌ Špatná volba!",
+                description=f"**{user_name}** svěřil(a) svůj osud **{self.zla_postava}ovi**! Ztrácí **-1 bod**!",
+                color=discord.Color.red()
+            )
+            lokace = ziskej_lokaci(max(0, nove_body))  # Zajistí, že body nebudou záporné při zobrazení
+            embed.add_field(name="Aktuální body", value=f"**{nove_body}** bodů", inline=True)
+            embed.add_field(name="Lokace", value=f"{lokace['emoji']} **{lokace['nazev']}**", inline=True)
+            embed.set_footer(text=lokace['popis'])
+        
+        # Pošli VEŘEJNOU zprávu s výsledkem
+        await interaction.response.send_message(embed=embed)
+        
+        # Počkej chvíli a pak smaž obě zprávy (původní i výsledkovou)
+        import asyncio
+        await asyncio.sleep(15)  # Prodlouženo na 15 sekund pro přečtení výhry
+        
+        try:
+            # Smaž původní Sauronovu zprávu s tlačítky
+            await interaction.message.delete()
+            # Smaž výsledkovou zprávu
+            response = await interaction.original_response()
+            await response.delete()
+        except:
+            pass  # Pokud už zprávy byly smazány, ignoruj chybu
+
+
+@bot.event
+async def on_ready():
+    """Event při spuštění bota."""
+    print(f'✅ {bot.user.name} je připraven!')
+    print(f'Bot ID: {bot.user.id}')
+    print('------')
+
+
+@bot.event
+async def on_message(message):
+    """Event při každé nové zprávě."""
+    # Ignoruj zprávy od botů
+    if message.author.bot:
+        return
+    
+    # KONTROLA: Zkontroluj, jestli je kanál povolen
+    if POVOLENE_KANALY and message.channel.id not in POVOLENE_KANALY:
+        await bot.process_commands(message)
+        return  # Sauron se nezobrazí v nepovoleném kanálu
+    
+    # 10% šance na zobrazení Sauronovy zprávy
+    if random.random() < 0.10:
+        # Vyber náhodnou hlavní postavu a náhodnou zápornou postavu
+        spravna_postava = random.choice(HLAVNI_POSTAVY)
+        zla_postava = random.choice(ZLE_POSTAVY)
+        
+        # Náhodné pořadí tlačítek (0 = správná první, 1 = zlá první)
+        poradi = random.randint(0, 1)
+        
+        # Vytvoření embedu
+        embed = discord.Embed(
+            title="👁️ SAURON HLEDÁ SVŮJ PRSTEN! 👁️",
+            description=(
+                "Temný pán Sauron se probouzí a hledá svůj Prsten Moci!\n\n"
+                "Musíš se rozhodnout, komu svěříš svůj osud a s kým půjdeš na své cestě k jeho zničení.\n"
+                "**Vyber moudře, tvá volba bude mít následky...**"
+            ),
+            color=discord.Color.dark_red()  # Tmavě červená - barví jen levý pruh embedu
+        )
+        # Thumbnail odstraněn - bot má vlastní ikonu
+        embed.set_footer(text="Vyber si jednu z postav níže")
+        
+        # Vytvoření view s tlačítky
+        view = SauronView(spravna_postava, zla_postava, poradi)
+        
+        # Odeslání zprávy
+        await message.channel.send(embed=embed, view=view)
+    
+    # Zpracování příkazů
+    await bot.process_commands(message)
+
+
+@bot.command(name='body')
+async def zobraz_body(ctx):
+    """Příkaz pro zobrazení bodů a postupu uživatele."""
+    user_id = ctx.author.id
+    stats = ziskej_statistiky(user_id)
+    body = stats['body']
+    prsteny = stats['prsteny']
+    
+    lokace = ziskej_lokaci(body)
+    
+    # Výpočet postupu do další lokace
+    nasledujici_lokace = None
+    body_do_dalsi = 0
+    
+    for lok in LOKACE:
+        if lok['min_body'] > body:
+            nasledujici_lokace = lok
+            body_do_dalsi = lok['min_body'] - body
+            break
+    
+    embed = discord.Embed(
+        title=f"📊 Postup hráče {ctx.author.name}",
+        description=f"💍 **Prstenů získano:** {prsteny}\n",
+        color=discord.Color.blue()
+    )
+    
+    embed.add_field(
+        name="📍 Aktuální lokace",
+        value=f"{lokace['emoji']} **{lokace['nazev']}**\n_{lokace['popis']}_",
+        inline=False
+    )
+    
+    embed.add_field(
+        name="⭐ Body v tomto kole",
+        value=f"**{body}** bodů",
+        inline=True
+    )
+    
+    if nasledujici_lokace:
+        embed.add_field(
+            name="🎯 Další lokace",
+            value=f"{nasledujici_lokace['emoji']} {nasledujici_lokace['nazev']}\n(zbývá **{body_do_dalsi}** bodů)",
+            inline=True
+        )
+    else:
+        embed.add_field(
+            name="🎯 Další krok",
+            value=f"🌋 Dosáhni **100 bodů** pro zničení prstenu!",
+            inline=True
+        )
+    
+    embed.set_footer(text="Používej !zebricek pro aktuální žebříček.")
+    
+    message = await ctx.send(embed=embed)
+    
+    # Počkej 20 sekund a smaž zprávu
+    import asyncio
+    await asyncio.sleep(20)
+    try:
+        await message.delete()
+        await ctx.message.delete()  # Smaž i příkaz uživatele
+    except:
+        pass
+
+
+@bot.command(name='zebricek')
+async def zobraz_zebricek(ctx):
+    """Příkaz pro zobrazení žebříčku hráčů podle prstenů."""
+    db = nacti_databazi()
+    
+    if not db:
+        await ctx.send("Zatím nikdo nehrál!")
+        return
+    
+    # Seřazení podle prstenů (hlavní), pak podle bodů
+    serazeni = sorted(
+        db.items(), 
+        key=lambda x: (x[1].get('prsteny', 0), x[1].get('body', 0)), 
+        reverse=True
+    )
+    
+    embed = discord.Embed(
+        title="🏆 Žebříček Pánů Prstenů",
+        description="Legendární hrdinové, kteří zničili prsten:",
+        color=discord.Color.gold()
+    )
+    
+    # Zobraz jen hráče s alespoň 1 prstenem
+    prsteny_count = 0
+    for i, (user_id, data) in enumerate(serazeni[:10], 1):  # Top 10
+        prsteny = data.get('prsteny', 0)
+        if prsteny > 0:
+            prsteny_count += 1
+            medaile = "🥇" if i == 1 else "🥈" if i == 2 else "🥉" if i == 3 else f"{i}."
+            lokace = ziskej_lokaci(data.get('body', 0))
+            embed.add_field(
+                name=f"{medaile} {data['name']}",
+                value=f"💍 **{prsteny}** {'prsten' if prsteny == 1 else 'prsteny' if prsteny < 5 else 'prstenů'} | {lokace['emoji']} {data.get('body', 0)} bodů",
+                inline=False
+            )
+    
+    if prsteny_count == 0:
+        embed.add_field(
+            name="🌟 Žádní vítězové",
+            value="Nikdo ještě nedokončil cestu do Mordoru!\nBuď první, kdo zničí prsten a získá 100 bodů!",
+            inline=False
+        )
+    
+    embed.set_footer(text="Dosáhni 100 bodů pro zničení prstenu a vstup do síně slávy!")
+    
+    message = await ctx.send(embed=embed)
+    
+    # Počkej 20 sekund a smaž zprávu
+    import asyncio
+    await asyncio.sleep(20)
+    try:
+        await message.delete()
+        await ctx.message.delete()  # Smaž i příkaz uživatele
+    except:
+        pass
+
+
+@bot.command(name='sauron_test')
+@commands.has_permissions(administrator=True)
+async def sauron_test(ctx):
+    """Příkaz pro adminy - manuálně vyvolá Sauronovu výzvu pro testování."""
+    # Vyber náhodnou hlavní postavu a náhodnou zápornou postavu
+    spravna_postava = random.choice(HLAVNI_POSTAVY)
+    zla_postava = random.choice(ZLE_POSTAVY)
+    
+    # Náhodné pořadí tlačítek (0 = správná první, 1 = zlá první)
+    poradi = random.randint(0, 1)
+    
+    # Vytvoření embedu
+    embed = discord.Embed(
+        title="👁️ SAURON HLEDÁ SVŮJ PRSTEN! 👁️",
+        description=(
+            "Temný pán Sauron se probouzí a hledá svůj Prsten Moci!\n\n"
+            "Musíš se rozhodnout, komu svěříš svůj osud a s kým půjdeš na své cestě k jeho zničení.\n"
+            "**Vyber moudře, tvá volba bude mít následky...**"
+        ),
+        color=discord.Color.dark_red()
+    )
+    embed.set_footer(text="⚠️ TESTOVACÍ REŽIM - Vyvolání adminem | Vyber si jednu z postav níže")
+    
+    # Vytvoření view s tlačítky
+    view = SauronView(spravna_postava, zla_postava, poradi)
+    
+    # Odeslání zprávy
+    await ctx.send(embed=embed, view=view)
+    
+    # Smaž příkaz
+    try:
+        await ctx.message.delete()
+    except:
+        pass
+
+
+@bot.event
+async def on_command_error(ctx, error):
+    """Zpracování chyb příkazů."""
+    if isinstance(error, commands.MissingPermissions):
+        if ctx.command.name == 'sauron_test':
+            await ctx.send("❌ Pouze administrátoři mohou použít tento příkaz!", delete_after=5)
+            try:
+                await ctx.message.delete()
+            except:
+                pass
+
+
+class ConfirmView(discord.ui.View):
+    """View s tlačítky pro potvrzení smazání databáze."""
+    
+    def __init__(self, user_id):
+        super().__init__(timeout=30)  # 30 sekund timeout
+        self.user_id = user_id
+        self.value = None
+    
+    @discord.ui.button(label="✅ ANO, smazat vše", style=discord.ButtonStyle.danger)
+    async def confirm(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Potvrzení smazání."""
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("❌ Pouze autor příkazu může potvrdit!", ephemeral=True)
+            return
+        
+        self.value = True
+        self.stop()
+        await interaction.response.defer()
+    
+    @discord.ui.button(label="❌ NE, zrušit", style=discord.ButtonStyle.secondary)
+    async def cancel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Zrušení akce."""
+        if interaction.user.id != self.user_id:
+            await interaction.response.send_message("❌ Pouze autor příkazu může zrušit!", ephemeral=True)
+            return
+        
+        self.value = False
+        self.stop()
+        await interaction.response.defer()
+
+
+@bot.command(name='reset_db')
+@commands.has_permissions(administrator=True)
+async def reset_databaze(ctx):
+    """Příkaz pro adminy - smaže celou databázi po potvrzení."""
+    # Vytvoření potvrzovací zprávy
+    embed = discord.Embed(
+        title="⚠️ VAROVÁNÍ - Smazání databáze",
+        description=(
+            "Chystáš se **SMAZAT CELOU DATABÁZI**!\n\n"
+            "⚠️ Tato akce:\n"
+            "• Smaže **všechny body** všech hráčů\n"
+            "• Smaže **všechny prsteny** všech hráčů\n"
+            "• **NELZE VRÁTIT ZPĚT**\n\n"
+            "Opravdu chceš pokračovat?"
+        ),
+        color=discord.Color.red()
+    )
+    embed.set_footer(text="Máš 30 sekund na rozhodnutí")
+    
+    # Vytvoření view s tlačítky
+    view = ConfirmView(ctx.author.id)
+    
+    # Odeslání potvrzovací zprávy
+    message = await ctx.send(embed=embed, view=view)
+    
+    # Počkej na odpověď
+    await view.wait()
+    
+    # Smaž příkaz
+    try:
+        await ctx.message.delete()
+    except:
+        pass
+    
+    if view.value is None:
+        # Timeout - žádná odpověď
+        embed_timeout = discord.Embed(
+            title="⏱️ Časový limit vypršel",
+            description="Smazání databáze bylo zrušeno (žádná odpověď).",
+            color=discord.Color.orange()
+        )
+        await message.edit(embed=embed_timeout, view=None)
+        await message.delete(delay=5)
+        
+    elif view.value:
+        # Potvrzeno - smaž databázi
+        try:
+            # Smaž soubor databáze
+            if os.path.exists(DB_FILE):
+                os.remove(DB_FILE)
+            
+            embed_success = discord.Embed(
+                title="✅ Databáze smazána",
+                description=(
+                    "Databáze byla **úspěšně smazána**!\n\n"
+                    "• Všechny body a prsteny byly vymazány\n"
+                    "• Hra začíná znovu od začátku\n"
+                    "• Nová databáze se vytvoří automaticky při první hře"
+                ),
+                color=discord.Color.green()
+            )
+            await message.edit(embed=embed_success, view=None)
+            await message.delete(delay=10)
+            
+            print(f"🗑️ Databáze smazána administrátorem: {ctx.author.name} ({ctx.author.id})")
+            
+        except Exception as e:
+            embed_error = discord.Embed(
+                title="❌ Chyba",
+                description=f"Při mazání databáze došlo k chybě:\n```{str(e)}```",
+                color=discord.Color.red()
+            )
+            await message.edit(embed=embed_error, view=None)
+            await message.delete(delay=10)
+            print(f"❌ Chyba při mazání DB: {e}")
+    
+    else:
+        # Zrušeno
+        embed_cancel = discord.Embed(
+            title="❌ Zrušeno",
+            description="Smazání databáze bylo zrušeno. Žádné změny nebyly provedeny.",
+            color=discord.Color.blue()
+        )
+        await message.edit(embed=embed_cancel, view=None)
+        await message.delete(delay=5)
+
+
+@bot.command(name='help_sauron')
+async def napoveda(ctx):
+    """Příkaz pro zobrazení nápovědy."""
+    embed = discord.Embed(
+        title="📖 Nápověda - Sauron Bot",
+        description="Vítej v epické cestě za zničením prstenu!",
+        color=discord.Color.purple()
+    )
+    
+    embed.add_field(
+        name="🎮 Jak hra funguje?",
+        value=(
+            "• S **10% pravděpodobností** se objeví Sauronova výzva\n"
+            "• Vyber si, komu svěříš svůj osud\n"
+            "• **Pozor!** Obě tlačítka mají stejnou barvu - musíš číst jména!\n"
+            "• Za správnou volbu (dobrá postava) získáš **+1 bod**\n"
+            "• Za špatnou volbu (zlá postava) ztratíš **-2 body**"
+        ),
+        inline=False
+    )
+    
+    embed.add_field(
+        name="🗺️ Příběhový mód - Cesta do Mordoru",
+        value=(
+            "🌾 **0-19 bodů:** Kraj (začátek cesty)\n"
+            "🏰 **20-39 bodů:** Roklinka\n"
+            "🐎 **40-59 bodů:** Rohan\n"
+            "⚔️ **60-79 bodů:** Gondor\n"
+            "🚪 **80-99 bodů:** Černá brána\n"
+            "🌋 **100 bodů:** Mordor - **VÝHRA! Získáváš PRSTEN!** 💍"
+        ),
+        inline=False
+    )
+    
+    embed.add_field(
+        name="💍 Prsteny Moci",
+        value=(
+            "• Při dosažení **100 bodů** zničíš prsten a získáš jej do sbírky\n"
+            "• Body se vynulují a začínáš novou cestu\n"
+            "• Prsteny zůstávají navždy ve tvé sbírce\n"
+            "• Staň se legendou s nejvíce prsteny!"
+        ),
+        inline=False
+    )
+    
+    embed.add_field(
+        name="📋 Příkazy",
+        value=(
+            "`!body` - Zobrazí tvůj postup a lokaci\n"
+            "`!zebricek` - Žebříček nositelů prstenů\n"
+            "`!help_sauron` - Zobrazí tuto nápovědu"
+        ),
+        inline=False
+    )
+    
+    embed.set_footer(text="🎯 Cíl: Dostaň se do Mordoru a zniž prsten!")
+    
+    message = await ctx.send(embed=embed)
+    
+    # Počkej 20 sekund a smaž zprávu
+    import asyncio
+    await asyncio.sleep(20)
+    try:
+        await message.delete()
+        await ctx.message.delete()  # Smaž i příkaz uživatele
+    except:
+        pass
+
+
+# Spuštění bota
+if __name__ == '__main__':
+    print("🚀 Spouštím Sauron bota...")
+    print("------")
+    
+    # Načti token z proměnné prostředí (bezpečné pro VPS/Coolify)
+    TOKEN = os.getenv('DISCORD_BOT_TOKEN')
+    
+    if not TOKEN:
+        print("❌ CHYBA: Discord bot token není nastaven!")
+        print("📝 Možnosti nastavení:")
+        print("   1. Lokálně: Nastav TOKEN přímo v kódu (řádek níže)")
+        print("   2. VPS/Coolify: Nastav proměnnou prostředí DISCORD_BOT_TOKEN")
+        print("   3. Získej token na: https://discord.com/developers/applications")
+        print()
+        print("⚠️  Pro testování můžeš odkomentovat řádek níže a vložit token:")
+        print("   # TOKEN = 'VÁŠ_BOT_TOKEN'")
+        exit(1)
+    
+    print("✅ Token načten úspěšně")
+    print("🤖 Připojuji se k Discordu...")
+    bot.run(TOKEN)
