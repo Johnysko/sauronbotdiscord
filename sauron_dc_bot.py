@@ -460,32 +460,43 @@ async def zobraz_zebricek(ctx):
         reverse=True
     )
     
+    # Rozdělení do sekcí
+    vitezove = [(uid, d) for uid, d in serazeni if d.get('prsteny', 0) > 0]
+    hraci = [(uid, d) for uid, d in serazeni if d.get('prsteny', 0) == 0]
+    
     embed = discord.Embed(
         title="🏆 Žebříček Pánů Prstenů",
-        description="Legendární hrdinové, kteří zničili prsten:",
         color=discord.Color.gold()
     )
     
-    # Zobraz jen hráče s alespoň 1 prstenem
-    prsteny_count = 0
-    for i, (user_id, data) in enumerate(serazeni[:10], 1):  # Top 10
-        prsteny = data.get('prsteny', 0)
-        if prsteny > 0:
-            prsteny_count += 1
+    # Sekce: Vítězové s prsteny
+    if vitezove:
+        vitez_text = "**🏅 Legendární hrdinové, kteří zničili prsten:**\n\n"
+        for i, (user_id, data) in enumerate(vitezove[:10], 1):  # Top 10 vítězů
+            prsteny = data.get('prsteny', 0)
+            body = data.get('body', 0)
             medaile = "🥇" if i == 1 else "🥈" if i == 2 else "🥉" if i == 3 else f"{i}."
-            lokace = ziskej_lokaci(data.get('body', 0))
-            embed.add_field(
-                name=f"{medaile} {data['name']}",
-                value=f"💍 **{prsteny}** {'prsten' if prsteny == 1 else 'prsteny' if prsteny < 5 else 'prstenů'} | {lokace['emoji']} {data.get('body', 0)} bodů",
-                inline=False
-            )
+            lokace = ziskej_lokaci(body)
+            vitez_text += f"{medaile} **{data['name']}** - 💍 {prsteny} {'prsten' if prsteny == 1 else 'prsteny' if prsteny < 5 else 'prstenů'} | {lokace['emoji']} {body} bodů\n"
+        embed.description = vitez_text
     
-    if prsteny_count == 0:
+    # Sekce: Aktuální hráči na cestě
+    if hraci:
+        hraci_text = ""
+        for i, (user_id, data) in enumerate(hraci[:10], 1):  # Top 10 aktuálních hráčů
+            body = data.get('body', 0)
+            lokace = ziskej_lokaci(body)
+            pozice = "🥇" if i == 1 else "🥈" if i == 2 else "🥉" if i == 3 else f"{i}."
+            hraci_text += f"{pozice} **{data['name']}** - {lokace['emoji']} **{body}** bodů ({lokace['nazev']})\n"
+        
         embed.add_field(
-            name="🌟 Žádní vítězové",
-            value="Nikdo ještě nedokončil cestu do Mordoru!\nBuď první, kdo zničí prsten a získá 100 bodů!",
+            name="⚔️ Aktuální hráči na cestě:",
+            value=hraci_text if hraci_text else "Nikdo není na cestě.",
             inline=False
         )
+    
+    if not vitezove and not hraci:
+        embed.description = "🌟 Zatím nikdo nehrál! Buď první, kdo se vydá na cestu do Mordoru!"
     
     embed.set_footer(text="Dosáhni 100 bodů pro zničení prstenu a vstup do síně slávy!")
     
