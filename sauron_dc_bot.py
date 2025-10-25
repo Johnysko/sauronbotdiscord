@@ -213,7 +213,7 @@ class SauronView(discord.ui.View):
     async def handle_button_click(self, interaction: discord.Interaction, custom_id: str):
         """Zpracování kliknutí na tlačítko."""
         user_id = interaction.user.id
-        user_name = interaction.user.name
+        user_name = interaction.user.display_name
         
         # Zkontroluj, jestli uživatel už kliknul
         if user_id in self.responded_users:
@@ -400,7 +400,7 @@ async def zobraz_body(ctx):
             break
     
     embed = discord.Embed(
-        title=f"📊 Postup hráče {ctx.author.name}",
+        title=f"📊 Postup hráče {ctx.author.display_name}",
         description=f"💍 **Prstenů získano:** {prsteny}\n",
         color=discord.Color.blue()
     )
