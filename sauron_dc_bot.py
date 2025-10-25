@@ -168,6 +168,7 @@ class SauronView(discord.ui.View):
         super().__init__(timeout=300)  # 5 minut timeout
         self.spravna_postava = spravna_postava
         self.zla_postava = zla_postava
+        self.responded_users = set()  # Sada uživatelů, kteří už odpověděli
         
         # Vytvoření tlačítek podle pořadí - OBĚ ŠEDÉ (secondary) aby hráči museli číst!
         if poradi == 0:
@@ -214,6 +215,17 @@ class SauronView(discord.ui.View):
         user_id = interaction.user.id
         user_name = interaction.user.name
         
+        # Zkontroluj, jestli uživatel už kliknul
+        if user_id in self.responded_users:
+            await interaction.response.send_message(
+                "❌ Už jsi v této výzvě odpověděl(a)! Nemůžeš kliknout znovu.",
+                ephemeral=True
+            )
+            return
+        
+        # Přidej uživatele do seznamu, kteří odpověděli
+        self.responded_users.add(user_id)
+        
         if custom_id == 'spravna':
             # Správná volba - přidej +1 bod
             vysledek = pridej_body(user_id, user_name, 1)
@@ -258,8 +270,29 @@ class SauronView(discord.ui.View):
                 lokace = ziskej_lokaci(nove_body)
                 embed.add_field(name="Aktuální body", value=f"**{nove_body}** bodů", inline=True)
                 embed.add_field(name="Lokace", value=f"{lokace['emoji']} **{lokace['nazev']}**", inline=True)
+            
+            # Pošli VEŘEJNOU zprávu s výsledkem
+            await interaction.response.send_message(embed=embed)
+            
+            # SPRÁVNÁ VOLBA = HRA KONČÍ PRO VŠECHNY - vypni tlačítka
+            for child in self.children:
+                child.disabled = True
+            await interaction.message.edit(view=self)
+            
+            # Počkej chvíli a pak smaž obě zprávy (původní i výsledkovou)
+            import asyncio
+            await asyncio.sleep(15)  # Prodlouženo na 15 sekund pro přečtení výhry
+            
+            try:
+                # Smaž původní Sauronovu zprávu s tlačítky
+                await interaction.message.delete()
+                # Smaž výsledkovou zprávu
+                response = await interaction.original_response()
+                await response.delete()
+            except:
+                pass  # Pokud už zprávy byly smazány, ignoruj chybu
         else:
-            # Špatná volba - odečti -1 bod
+            # Špatná volba - odečti -1 bod, ale HRA POKRAČUJE pro ostatní
             vysledek = pridej_body(user_id, user_name, -1)
             
             if isinstance(vysledek, dict):
@@ -269,29 +302,29 @@ class SauronView(discord.ui.View):
             
             embed = discord.Embed(
                 title="❌ Špatná volba!",
-                description=f"**{user_name}** svěřil(a) svůj osud **{self.zla_postava}ovi**! Ztrácí **-1 bod**!",
+                description=f"**{user_name}** svěřil(a) svůj osud **{self.zla_postava}ovi**! Ztrácí **-1 bod**!\n\n_Pro tebe toto kolo končí. Ostatní mohou pokračovat._",
                 color=discord.Color.red()
             )
             lokace = ziskej_lokaci(max(0, nove_body))  # Zajistí, že body nebudou záporné při zobrazení
             embed.add_field(name="Aktuální body", value=f"**{nove_body}** bodů", inline=True)
             embed.add_field(name="Lokace", value=f"{lokace['emoji']} **{lokace['nazev']}**", inline=True)
             embed.set_footer(text=lokace['popis'])
-        
-        # Pošli VEŘEJNOU zprávu s výsledkem
-        await interaction.response.send_message(embed=embed)
-        
-        # Počkej chvíli a pak smaž obě zprávy (původní i výsledkovou)
-        import asyncio
-        await asyncio.sleep(15)  # Prodlouženo na 15 sekund pro přečtení výhry
-        
-        try:
-            # Smaž původní Sauronovu zprávu s tlačítky
-            await interaction.message.delete()
-            # Smaž výsledkovou zprávu
-            response = await interaction.original_response()
-            await response.delete()
-        except:
-            pass  # Pokud už zprávy byly smazány, ignoruj chybu
+            
+            # Pošli DOČASNOU zprávu s výsledkem (ephemeral by bylo lepší, ale nemůžeme po send_message)
+            await interaction.response.send_message(embed=embed)
+            
+            # TLAČÍTKA ZŮSTÁVAJÍ AKTIVNÍ pro ostatní hráče
+            
+            # Počkej chvíli a pak smaž výsledkovou zprávu (původní zpráva zůstává)
+            import asyncio
+            await asyncio.sleep(10)
+            
+            try:
+                # Smaž jen výsledkovou zprávu
+                response = await interaction.original_response()
+                await response.delete()
+            except:
+                pass  # Pokud už zpráva byla smazána, ignoruj chybu
 
 
 @bot.event
