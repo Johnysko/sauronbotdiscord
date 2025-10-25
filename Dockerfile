@@ -20,9 +20,9 @@ ENV DATA_DIR=/app/data
 # Nastav port (volitelné - Discord bot nepotřebuje exposed port)
 # EXPOSE 8080
 
-# Healthcheck - zkontroluj, jestli proces běží
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD pgrep -f "python.*sauron" || exit 1
+# Healthcheck - jednodušší verze
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD pgrep python > /dev/null || exit 1
 
 # Spusť Python skript
 CMD ["python", "-u", "sauron_dc_bot.py"]

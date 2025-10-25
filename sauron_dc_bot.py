@@ -3,6 +3,19 @@ from discord.ext import commands
 import random
 import json
 import os
+from datetime import datetime
+
+# Načti token z environment variable
+TOKEN = os.getenv('DISCORD_BOT_TOKEN')
+
+if not TOKEN:
+    print("❌ ERROR: DISCORD_BOT_TOKEN environment variable is not set!")
+    print("📝 Please set it in Coolify Environment Variables.")
+    print("🔗 Get your token at: https://discord.com/developers/applications")
+    exit(1)
+
+print(f"🚀 Starting Sauron Bot at {datetime.now()}")
+print(f"📁 Data directory: {os.getenv('DATA_DIR', '/app/data')}")
 
 # Konfigurace bota
 intents = discord.Intents.default()
@@ -692,23 +705,6 @@ async def napoveda(ctx):
 
 # Spuštění bota
 if __name__ == '__main__':
-    print("🚀 Spouštím Sauron bota...")
-    print("------")
-    
-    # Načti token z proměnné prostředí (bezpečné pro VPS/Coolify)
-    TOKEN = os.getenv('DISCORD_BOT_TOKEN')
-    
-    if not TOKEN:
-        print("❌ CHYBA: Discord bot token není nastaven!")
-        print("📝 Možnosti nastavení:")
-        print("   1. Lokálně: Nastav TOKEN přímo v kódu (řádek níže)")
-        print("   2. VPS/Coolify: Nastav proměnnou prostředí DISCORD_BOT_TOKEN")
-        print("   3. Získej token na: https://discord.com/developers/applications")
-        print()
-        print("⚠️  Pro testování můžeš odkomentovat řádek níže a vložit token:")
-        print("   # TOKEN = 'VÁŠ_BOT_TOKEN'")
-        exit(1)
-    
-    print("✅ Token načten úspěšně")
-    print("🤖 Připojuji se k Discordu...")
+    print("✅ Token loaded successfully")
+    print("🤖 Connecting to Discord...")
     bot.run(TOKEN)
