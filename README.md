@@ -24,8 +24,7 @@ Discord bot inspirovaný Pánem Prstenů. Hráči sbírají body odpovídáním 
 - `!body` - Zobrazí tvůj postup a aktuální lokaci
 - `!zebricek` - Žebříček hráčů podle počtu prstenů
 - `!help_sauron` - Nápověda ke hře
-- `!sauron_test` - (Admin) Manuální vyvolání Sauronovy výzvy
-- `!reset_db` - (Admin) Smazání databáze po potvrzení
+
 
 ---
 
