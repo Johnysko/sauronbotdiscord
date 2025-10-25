@@ -174,8 +174,9 @@ class SauronView(discord.ui.View):
         self.spravna_postava = spravna_postava
         self.zla_postava = zla_postava
         self.responded_users = set()  # Sada uživatelů, kteří už odpověděli
-        self.lock = asyncio.Lock()  # 🔒 Zámek pro prevenci race condition
-        self.vyzva_uzavrena = False  # Flag pro uzavřenou výzvu (někdo kliknul na správnou)
+        self.response_messages = []  # Seznam všech výsledkových zpráv
+        self.cleanup_task = None  # Task pro úklid zpráv
+        self.first_correct_answer = False  # Flag pro první správnou odpověď
         
         # Vytvoření tlačítek podle pořadí - OBĚ ŠEDÉ (secondary) aby hráči museli číst!
         if poradi == 0:
@@ -222,32 +223,17 @@ class SauronView(discord.ui.View):
         user_id = interaction.user.id
         user_name = interaction.user.display_name
         
-        # 🔒 ZAMKNI celou sekci pro prevenci race condition
-        async with self.lock:
-            # PRVNÍ KONTROLA: Je výzva už uzavřená? (někdo kliknul na správnou)
-            if self.vyzva_uzavrena:
-                await interaction.response.send_message(
-                    "⏱️ Tato výzva už byla vyřešena! Někdo byl rychlejší.",
-                    ephemeral=True
-                )
-                return
-            
-            # DRUHÁ KONTROLA: Už tento uživatel kliknul?
-            if user_id in self.responded_users:
-                await interaction.response.send_message(
-                    "❌ Už jsi v této výzvě odpověděl(a)! Nemůžeš kliknout znovu.",
-                    ephemeral=True
-                )
-                return
-            
-            # Přidej uživatele do seznamu, kteří odpověděli
-            self.responded_users.add(user_id)
-            
-            # Pokud je to SPRÁVNÁ odpověď, uzavři výzvu OKAMŽITĚ
-            if custom_id == 'spravna':
-                self.vyzva_uzavrena = True
+        # Zkontroluj, jestli uživatel už kliknul
+        if user_id in self.responded_users:
+            await interaction.response.send_message(
+                "❌ Už jsi v této výzvě odpověděl(a)! Nemůžeš kliknout znovu.",
+                ephemeral=True
+            )
+            return
         
-        # Zpracování odpovědi (mimo zámek)
+        # Přidej uživatele do seznamu, kteří odpověděli
+        self.responded_users.add(user_id)
+        
         if custom_id == 'spravna':
             # Správná volba - přidej +1 bod
             vysledek = pridej_body(user_id, user_name, 1)
@@ -295,23 +281,14 @@ class SauronView(discord.ui.View):
             
             # Pošli VEŘEJNOU zprávu s výsledkem
             await interaction.response.send_message(embed=embed)
+            response = await interaction.original_response()
+            self.response_messages.append(response)  # Ulož zprávu pro pozdější smazání
             
-            # SPRÁVNÁ VOLBA = HRA KONČÍ PRO VŠECHNY - vypni tlačítka
-            for child in self.children:
-                child.disabled = True
-            await interaction.message.edit(view=self)
-            
-            # Počkej chvíli a pak smaž obě zprávy (původní i výsledkovou)
-            await asyncio.sleep(15)  # Prodlouženo na 15 sekund pro přečtení výhry
-            
-            try:
-                # Smaž původní Sauronovu zprávu s tlačítky
-                await interaction.message.delete()
-                # Smaž výsledkovou zprávu
-                response = await interaction.original_response()
-                await response.delete()
-            except:
-                pass  # Pokud už zprávy byly smazány, ignoruj chybu
+            # Pokud je to PRVNÍ správná odpověď, naplánuj úklid
+            if not self.first_correct_answer:
+                self.first_correct_answer = True
+                # Vytvoř task pro smazání zpráv po 3 sekundách (doba pro další hráče)
+                self.cleanup_task = asyncio.create_task(self.cleanup_messages(interaction.message))
         else:
             # Špatná volba - odečti -1 bod, ale HRA POKRAČUJE pro ostatní
             vysledek = pridej_body(user_id, user_name, -1)
@@ -331,20 +308,41 @@ class SauronView(discord.ui.View):
             embed.add_field(name="Lokace", value=f"{lokace['emoji']} **{lokace['nazev']}**", inline=True)
             embed.set_footer(text=lokace['popis'])
             
-            # Pošli DOČASNOU zprávu s výsledkem (ephemeral by bylo lepší, ale nemůžeme po send_message)
+            # Pošli DOČASNOU zprávu s výsledkem
             await interaction.response.send_message(embed=embed)
+            response = await interaction.original_response()
+            self.response_messages.append(response)  # Ulož i špatné odpovědi pro úklid
             
             # TLAČÍTKA ZŮSTÁVAJÍ AKTIVNÍ pro ostatní hráče
-            
-            # Počkej chvíli a pak smaž výsledkovou zprávu (původní zpráva zůstává)
-            await asyncio.sleep(10)
-            
+    
+    async def cleanup_messages(self, original_message):
+        """Smaže všechny zprávy po 3 sekundách od první správné odpovědi."""
+        await asyncio.sleep(3)  # Počkej 3 sekundy na další hráče
+        
+        # Vypni tlačítka
+        for child in self.children:
+            child.disabled = True
+        
+        try:
+            await original_message.edit(view=self)
+        except:
+            pass
+        
+        # Počkej dalších 12 sekund (celkem 15s) pro přečtení výsledků
+        await asyncio.sleep(12)
+        
+        # Smaž původní zprávu
+        try:
+            await original_message.delete()
+        except:
+            pass
+        
+        # Smaž všechny výsledkové zprávy
+        for msg in self.response_messages:
             try:
-                # Smaž jen výsledkovou zprávu
-                response = await interaction.original_response()
-                await response.delete()
+                await msg.delete()
             except:
-                pass  # Pokud už zpráva byla smazána, ignoruj chybu
+                pass
 
 
 @bot.event
