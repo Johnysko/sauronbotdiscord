@@ -477,7 +477,15 @@ async def zobraz_zebricek(ctx):
             body = data.get('body', 0)
             medaile = "🥇" if i == 1 else "🥈" if i == 2 else "🥉" if i == 3 else f"{i}."
             lokace = ziskej_lokaci(body)
-            vitez_text += f"{medaile} **{data['name']}** - 💍 {prsteny} {'prsten' if prsteny == 1 else 'prsteny' if prsteny < 5 else 'prstenů'} | {lokace['emoji']} {body} bodů\n"
+            
+            # Získej aktuální display_name ze serveru
+            try:
+                member = await ctx.guild.fetch_member(int(user_id))
+                jmeno = member.display_name
+            except:
+                jmeno = data.get('name', 'Neznámý')
+            
+            vitez_text += f"{medaile} **{jmeno}** - 💍 {prsteny} {'prsten' if prsteny == 1 else 'prsteny' if prsteny < 5 else 'prstenů'} | {lokace['emoji']} {body} bodů\n"
         embed.description = vitez_text
     
     # Sekce: Aktuální hráči na cestě
@@ -487,7 +495,15 @@ async def zobraz_zebricek(ctx):
             body = data.get('body', 0)
             lokace = ziskej_lokaci(body)
             pozice = "🥇" if i == 1 else "🥈" if i == 2 else "🥉" if i == 3 else f"{i}."
-            hraci_text += f"{pozice} **{data['name']}** - {lokace['emoji']} **{body}** bodů ({lokace['nazev']})\n"
+            
+            # Získej aktuální display_name ze serveru
+            try:
+                member = await ctx.guild.fetch_member(int(user_id))
+                jmeno = member.display_name
+            except:
+                jmeno = data.get('name', 'Neznámý')
+            
+            hraci_text += f"{pozice} **{jmeno}** - {lokace['emoji']} **{body}** bodů ({lokace['nazev']})\n"
         
         embed.add_field(
             name="⚔️ Aktuální hráči na cestě:",
