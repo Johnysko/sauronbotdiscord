@@ -175,6 +175,7 @@ class SauronView(discord.ui.View):
         self.zla_postava = zla_postava
         self.responded_users = set()  # Sada uživatelů, kteří už odpověděli
         self.lock = asyncio.Lock()  # 🔒 Zámek pro prevenci race condition
+        self.vyzva_uzavrena = False  # Flag pro uzavřenou výzvu (někdo kliknul na správnou)
         
         # Vytvoření tlačítek podle pořadí - OBĚ ŠEDÉ (secondary) aby hráči museli číst!
         if poradi == 0:
@@ -223,7 +224,15 @@ class SauronView(discord.ui.View):
         
         # 🔒 ZAMKNI celou sekci pro prevenci race condition
         async with self.lock:
-            # Zkontroluj, jestli uživatel už kliknul
+            # PRVNÍ KONTROLA: Je výzva už uzavřená? (někdo kliknul na správnou)
+            if self.vyzva_uzavrena:
+                await interaction.response.send_message(
+                    "⏱️ Tato výzva už byla vyřešena! Někdo byl rychlejší.",
+                    ephemeral=True
+                )
+                return
+            
+            # DRUHÁ KONTROLA: Už tento uživatel kliknul?
             if user_id in self.responded_users:
                 await interaction.response.send_message(
                     "❌ Už jsi v této výzvě odpověděl(a)! Nemůžeš kliknout znovu.",
@@ -233,8 +242,12 @@ class SauronView(discord.ui.View):
             
             # Přidej uživatele do seznamu, kteří odpověděli
             self.responded_users.add(user_id)
+            
+            # Pokud je to SPRÁVNÁ odpověď, uzavři výzvu OKAMŽITĚ
+            if custom_id == 'spravna':
+                self.vyzva_uzavrena = True
         
-        # Zpracování odpovědi (mimo zámek, aby se nezpomalovalo)
+        # Zpracování odpovědi (mimo zámek)
         if custom_id == 'spravna':
             # Správná volba - přidej +1 bod
             vysledek = pridej_body(user_id, user_name, 1)
