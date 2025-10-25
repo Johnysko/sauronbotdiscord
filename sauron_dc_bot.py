@@ -32,6 +32,10 @@ DB_FILE = os.path.join(DATA_DIR, 'sauron_db.json')
 # Vytvoř složku, pokud neexistuje
 os.makedirs(DATA_DIR, exist_ok=True)
 
+# Počítadlo zpráv pro Sauronovu výzvu (náhodný interval)
+message_counter = 0
+next_sauron_trigger = random.randint(10, 15)  # První trigger mezi 10-15 zprávami
+
 # ID kanálů, kde se BUDE zobrazovat Sauron (whitelist)
 POVOLENE_KANALY = [
     1418609726186586184,
@@ -338,6 +342,8 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     """Event při každé nové zprávě."""
+    global message_counter, next_sauron_trigger
+    
     # Ignoruj zprávy od botů
     if message.author.bot:
         return
@@ -347,8 +353,11 @@ async def on_message(message):
         await bot.process_commands(message)
         return  # Sauron se nezobrazí v nepovoleném kanálu
     
-    # 15% šance na zobrazení Sauronovy zprávy
-    if random.random() < 0.15:
+    # Zvýš počítadlo zpráv
+    message_counter += 1
+    
+    # Zkontroluj, jestli je čas na Sauronovu výzvu (každých 10-15 zpráv)
+    if message_counter >= next_sauron_trigger:
         # Vyber náhodnou hlavní postavu a náhodnou zápornou postavu
         spravna_postava = random.choice(HLAVNI_POSTAVY)
         zla_postava = random.choice(ZLE_POSTAVY)
@@ -374,6 +383,10 @@ async def on_message(message):
         
         # Odeslání zprávy
         await message.channel.send(embed=embed, view=view)
+        
+        # Reset počítadla a nastav nový náhodný trigger (10-15 zpráv)
+        message_counter = 0
+        next_sauron_trigger = random.randint(10, 15)
     
     # Zpracování příkazů
     await bot.process_commands(message)
