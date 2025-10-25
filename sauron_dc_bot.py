@@ -347,8 +347,8 @@ async def on_message(message):
         await bot.process_commands(message)
         return  # Sauron se nezobrazí v nepovoleném kanálu
     
-    # 10% šance na zobrazení Sauronovy zprávy
-    if random.random() < 0.10:
+    # 15% šance na zobrazení Sauronovy zprávy
+    if random.random() < 0.15:
         # Vyber náhodnou hlavní postavu a náhodnou zápornou postavu
         spravna_postava = random.choice(HLAVNI_POSTAVY)
         zla_postava = random.choice(ZLE_POSTAVY)
