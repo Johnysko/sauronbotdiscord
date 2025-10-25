@@ -4,6 +4,7 @@ import random
 import json
 import os
 from datetime import datetime
+import asyncio
 
 # Načti token z environment variable
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
@@ -173,6 +174,7 @@ class SauronView(discord.ui.View):
         self.spravna_postava = spravna_postava
         self.zla_postava = zla_postava
         self.responded_users = set()  # Sada uživatelů, kteří už odpověděli
+        self.lock = asyncio.Lock()  # 🔒 Zámek pro prevenci race condition
         
         # Vytvoření tlačítek podle pořadí - OBĚ ŠEDÉ (secondary) aby hráči museli číst!
         if poradi == 0:
@@ -219,17 +221,20 @@ class SauronView(discord.ui.View):
         user_id = interaction.user.id
         user_name = interaction.user.display_name
         
-        # Zkontroluj, jestli uživatel už kliknul
-        if user_id in self.responded_users:
-            await interaction.response.send_message(
-                "❌ Už jsi v této výzvě odpověděl(a)! Nemůžeš kliknout znovu.",
-                ephemeral=True
-            )
-            return
+        # 🔒 ZAMKNI celou sekci pro prevenci race condition
+        async with self.lock:
+            # Zkontroluj, jestli uživatel už kliknul
+            if user_id in self.responded_users:
+                await interaction.response.send_message(
+                    "❌ Už jsi v této výzvě odpověděl(a)! Nemůžeš kliknout znovu.",
+                    ephemeral=True
+                )
+                return
+            
+            # Přidej uživatele do seznamu, kteří odpověděli
+            self.responded_users.add(user_id)
         
-        # Přidej uživatele do seznamu, kteří odpověděli
-        self.responded_users.add(user_id)
-        
+        # Zpracování odpovědi (mimo zámek, aby se nezpomalovalo)
         if custom_id == 'spravna':
             # Správná volba - přidej +1 bod
             vysledek = pridej_body(user_id, user_name, 1)
@@ -284,7 +289,6 @@ class SauronView(discord.ui.View):
             await interaction.message.edit(view=self)
             
             # Počkej chvíli a pak smaž obě zprávy (původní i výsledkovou)
-            import asyncio
             await asyncio.sleep(15)  # Prodlouženo na 15 sekund pro přečtení výhry
             
             try:
@@ -320,7 +324,6 @@ class SauronView(discord.ui.View):
             # TLAČÍTKA ZŮSTÁVAJÍ AKTIVNÍ pro ostatní hráče
             
             # Počkej chvíli a pak smaž výsledkovou zprávu (původní zpráva zůstává)
-            import asyncio
             await asyncio.sleep(10)
             
             try:
