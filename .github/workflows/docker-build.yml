@@ -23,4 +23,4 @@ jobs:
         
     - name: Check for syntax errors
       run: |
-        docker run --rm sauron-bot:test python -m py_compile "sauron dc bot.py"
+        docker run --rm sauron-bot:test python -m py_compile sauron_dc_bot.py

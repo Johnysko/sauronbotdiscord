@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Kopíruj Python skript do kontejneru
-COPY "sauron dc bot.py" .
+COPY sauron_dc_bot.py .
 
 # Vytvoř adresář pro persistentní data (databáze)
 RUN mkdir -p /app/data
@@ -25,4 +25,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD pgrep -f "python.*sauron" || exit 1
 
 # Spusť Python skript
-CMD ["python", "-u", "sauron dc bot.py"]
+CMD ["python", "-u", "sauron_dc_bot.py"]
