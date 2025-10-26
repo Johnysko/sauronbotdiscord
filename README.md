@@ -4,7 +4,7 @@ Discord bot inspirovaný Pánem Prstenů. Hráči sbírají body odpovídáním 
 
 ## 🎮 Jak hra funguje
 
-- S 10% pravděpodobností se po každé zprávě objeví Sauronova výzva
+- V rozmezí 10-15 zpráv (odpovídá zhruba 10-15% šanci) se po zprávě objeví Sauronova výzva
 - Hráči si vybírají mezi dvěma postavami (jedna dobrá, jedna zlá)
 - Správná volba = +1 bod, špatná volba = -1 bod
 - Při dosažení 100 bodů získává hráč Prsten Moci a začíná znovu
