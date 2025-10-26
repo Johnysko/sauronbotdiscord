@@ -73,8 +73,8 @@ ZLE_POSTAVY = [
 
 # Story mód - Lokace a jejich úrovně
 LOKACE = [
-    {"nazev": "Kraj (Shire)", "min_body": 0, "max_body": 19, "emoji": "🌾", "popis": "Začínáš svou cestu v poklidném Hobitíně"},
-    {"nazev": "Roklinka (Rivendell)", "min_body": 20, "max_body": 39, "emoji": "🏰", "popis": "Dorazil jsi do elfského útočiště, Roklinky."},
+    {"nazev": "Kraj", "min_body": 0, "max_body": 19, "emoji": "🌾", "popis": "Začínáš svou cestu v poklidném Hobitíně"},
+    {"nazev": "Roklinka", "min_body": 20, "max_body": 39, "emoji": "🏰", "popis": "Dorazil jsi do elfského útočiště, Roklinky."},
     {"nazev": "Rohan", "min_body": 40, "max_body": 59, "emoji": "🐎", "popis": "Vítá tě král Theodén, země jezdců je ti k dispozici."},
     {"nazev": "Gondor", "min_body": 60, "max_body": 79, "emoji": "⚔️", "popis": "Blížíš se k finální bitvě. Minas Tirith tě volá."},
     {"nazev": "Černá brána", "min_body": 80, "max_body": 99, "emoji": "🚪", "popis": "Stojíš před branami Mordoru"},
