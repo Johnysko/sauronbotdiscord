@@ -257,7 +257,7 @@ class SauronView(discord.ui.View):
                             f"🌋 Prsten byl shozen do Hory Osudu a zničen!\n\n"
                             f"💍 Získává **PRSTEN MOCI** do sbírky!\n"
                             f"✨ Celkem prstenů: **{vysledek['celkem_prstenu']}**\n\n"
-                            f"🔄 Cesta začíná znovu od Roklinky..."
+                            f"🔄 Cesta začíná znovu od Kraje..."
                         ),
                         color=discord.Color.gold()
                     )
