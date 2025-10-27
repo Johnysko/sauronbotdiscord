@@ -249,7 +249,21 @@ class SauronView(discord.ui.View):
                 prsten_ziskan = vysledek['prsten_ziskan']
                 
                 if prsten_ziskan:
-                    # HRÁČ DOKONČIL PŘÍBĚH!
+                    # HRÁČ DOKONČIL PŘÍBĚH! - Pošli OKAMŽITĚ výherní zprávu
+                    embed_win = discord.Embed(
+                        title="🏆 VÝHRA! PRSTEN ZNIČEN! 🏆",
+                        description=(
+                            f"**{user_name}** dokončil(a) epickou cestu a dostal(a) se do Mordoru!\n\n"
+                            f"🌋 Prsten byl shozen do Hory Osudu a zničen!\n\n"
+                            f"💍 Získává **PRSTEN MOCI** do sbírky!\n"
+                            f"✨ Celkem prstenů: **{vysledek['celkem_prstenu']}**\n\n"
+                            f"🔄 Cesta začíná znovu od Roklinky..."
+                        ),
+                        color=discord.Color.gold()
+                    )
+                    embed_win.set_footer(text="🎉 Gratulujeme k dokončení příběhu!")
+                    await interaction.channel.send(embed=embed_win)
+                    
                     lokace = ziskej_lokaci(nove_body)
                     self.correct_answers.append({
                         'name': user_name,
@@ -322,7 +336,8 @@ class SauronView(discord.ui.View):
             correct_text = ""
             for player in self.correct_answers:
                 if player.get('prsten', False):
-                    correct_text += f"🏆 **{player['name']}** - 💍 Získal(a) prsten! (Celkem: {player['celkem_prstenu']})\n"
+                    # Prsten - nezobrazuj v souhrnu, už byla samostatná zpráva
+                    correct_text += f"🏆 **{player['name']}** - 💍 Získal(a) PRSTEN! (Reset na 0 bodů)\n"
                 else:
                     correct_text += f"✅ **{player['name']}** - {player['lokace']['emoji']} {player['body']} bodů ({player['lokace']['nazev']})\n"
             
