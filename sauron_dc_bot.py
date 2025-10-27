@@ -174,9 +174,11 @@ class SauronView(discord.ui.View):
         self.spravna_postava = spravna_postava
         self.zla_postava = zla_postava
         self.responded_users = set()  # Sada uživatelů, kteří už odpověděli
-        self.response_messages = []  # Seznam všech výsledkových zpráv
+        self.correct_answers = []  # Seznam hráčů, kteří klikli správně (jméno, body, lokace, prsten)
+        self.wrong_answers = []  # Seznam hráčů, kteří klikli špatně (jméno, body, lokace)
         self.cleanup_task = None  # Task pro úklid zpráv
         self.first_correct_answer = False  # Flag pro první správnou odpověď
+        self.summary_message = None  # Souhrnná zpráva
         
         # Vytvoření tlačítek podle pořadí - OBĚ ŠEDÉ (secondary) aby hráči museli číst!
         if poradi == 0:
@@ -234,6 +236,9 @@ class SauronView(discord.ui.View):
         # Přidej uživatele do seznamu, kteří odpověděli
         self.responded_users.add(user_id)
         
+        # Potvrď interakci bez viditelné zprávy
+        await interaction.response.defer(ephemeral=True)
+        
         if custom_id == 'spravna':
             # Správná volba - přidej +1 bod
             vysledek = pridej_body(user_id, user_name, 1)
@@ -245,50 +250,38 @@ class SauronView(discord.ui.View):
                 
                 if prsten_ziskan:
                     # HRÁČ DOKONČIL PŘÍBĚH!
-                    embed = discord.Embed(
-                        title="🏆 VÝHRA! PRSTEN ZNIČEN! 🏆",
-                        description=(
-                            f"**{user_name}** dokončil(a) epickou cestu a dostal(a) se do Mordoru!\n\n"
-                            f"🌋 Prsten byl shozen do Hory Osudu a zničen!\n\n"
-                            f"💍 Získává **PRSTEN MOCI** do sbírky!\n"
-                            f"✨ Celkem prstenů: **{vysledek['celkem_prstenu']}**\n\n"
-                            f"🔄 Cesta začíná znovu od Roklinky..."
-                        ),
-                        color=discord.Color.gold()
-                    )
-                    embed.set_footer(text="🎉 Gratulujeme k dokončení příběhu!")
-                else:
-                    embed = discord.Embed(
-                        title="✅ Správná volba!",
-                        description=f"**{user_name}** svěřil(a) svůj osud **{self.spravna_postava}ovi**. Získává **+1 bod**!",
-                        color=discord.Color.green()
-                    )
                     lokace = ziskej_lokaci(nove_body)
-                    embed.add_field(name="Aktuální body", value=f"**{nove_body}** bodů", inline=True)
-                    embed.add_field(name="Lokace", value=f"{lokace['emoji']} **{lokace['nazev']}**", inline=True)
-                    embed.set_footer(text=lokace['popis'])
+                    self.correct_answers.append({
+                        'name': user_name,
+                        'body': nove_body,
+                        'lokace': lokace,
+                        'prsten': True,
+                        'celkem_prstenu': vysledek['celkem_prstenu']
+                    })
+                else:
+                    lokace = ziskej_lokaci(nove_body)
+                    self.correct_answers.append({
+                        'name': user_name,
+                        'body': nove_body,
+                        'lokace': lokace,
+                        'prsten': False
+                    })
             else:
                 # Starý formát (pro zpětnou kompatibilitu)
                 nove_body = vysledek
-                embed = discord.Embed(
-                    title="✅ Správná volba!",
-                    description=f"**{user_name}** svěřil(a) svúj osud **{self.spravna_postava}ovi**. Získává **+1 bod**!",
-                    color=discord.Color.green()
-                )
                 lokace = ziskej_lokaci(nove_body)
-                embed.add_field(name="Aktuální body", value=f"**{nove_body}** bodů", inline=True)
-                embed.add_field(name="Lokace", value=f"{lokace['emoji']} **{lokace['nazev']}**", inline=True)
-            
-            # Pošli VEŘEJNOU zprávu s výsledkem
-            await interaction.response.send_message(embed=embed)
-            response = await interaction.original_response()
-            self.response_messages.append(response)  # Ulož zprávu pro pozdější smazání
+                self.correct_answers.append({
+                    'name': user_name,
+                    'body': nove_body,
+                    'lokace': lokace,
+                    'prsten': False
+                })
             
             # Pokud je to PRVNÍ správná odpověď, naplánuj úklid
             if not self.first_correct_answer:
                 self.first_correct_answer = True
                 # Vytvoř task pro smazání zpráv po 3 sekundách (doba pro další hráče)
-                self.cleanup_task = asyncio.create_task(self.cleanup_messages(interaction.message))
+                self.cleanup_task = asyncio.create_task(self.cleanup_messages(interaction.message, interaction.channel))
         else:
             # Špatná volba - odečti -1 bod, ale HRA POKRAČUJE pro ostatní
             vysledek = pridej_body(user_id, user_name, -1)
@@ -298,24 +291,14 @@ class SauronView(discord.ui.View):
             else:
                 nove_body = vysledek
             
-            embed = discord.Embed(
-                title="❌ Špatná volba!",
-                description=f"**{user_name}** svěřil(a) svůj osud **{self.zla_postava}ovi**! Ztrácí **-1 bod**!\n\n_Pro tebe toto kolo končí. Ostatní mohou pokračovat._",
-                color=discord.Color.red()
-            )
-            lokace = ziskej_lokaci(max(0, nove_body))  # Zajistí, že body nebudou záporné při zobrazení
-            embed.add_field(name="Aktuální body", value=f"**{nove_body}** bodů", inline=True)
-            embed.add_field(name="Lokace", value=f"{lokace['emoji']} **{lokace['nazev']}**", inline=True)
-            embed.set_footer(text=lokace['popis'])
-            
-            # Pošli DOČASNOU zprávu s výsledkem
-            await interaction.response.send_message(embed=embed)
-            response = await interaction.original_response()
-            self.response_messages.append(response)  # Ulož i špatné odpovědi pro úklid
-            
-            # TLAČÍTKA ZŮSTÁVAJÍ AKTIVNÍ pro ostatní hráče
+            lokace = ziskej_lokaci(max(0, nove_body))
+            self.wrong_answers.append({
+                'name': user_name,
+                'body': nove_body,
+                'lokace': lokace
+            })
     
-    async def cleanup_messages(self, original_message):
+    async def cleanup_messages(self, original_message, channel):
         """Smaže všechny zprávy po 3 sekundách od první správné odpovědi."""
         await asyncio.sleep(3)  # Počkej 3 sekundy na další hráče
         
@@ -328,6 +311,44 @@ class SauronView(discord.ui.View):
         except:
             pass
         
+        # Vytvoř souhrnnou zprávu
+        embed = discord.Embed(
+            title="📊 Výsledky výzvy",
+            color=discord.Color.blue()
+        )
+        
+        # Přidej správné odpovědi
+        if self.correct_answers:
+            correct_text = ""
+            for player in self.correct_answers:
+                if player.get('prsten', False):
+                    correct_text += f"🏆 **{player['name']}** - 💍 Získal(a) prsten! (Celkem: {player['celkem_prstenu']})\n"
+                else:
+                    correct_text += f"✅ **{player['name']}** - {player['lokace']['emoji']} {player['body']} bodů ({player['lokace']['nazev']})\n"
+            
+            embed.add_field(
+                name=f"✅ Správná volba: {self.spravna_postava}",
+                value=correct_text,
+                inline=False
+            )
+        
+        # Přidej špatné odpovědi
+        if self.wrong_answers:
+            wrong_text = ""
+            for player in self.wrong_answers:
+                wrong_text += f"❌ **{player['name']}** - {player['lokace']['emoji']} {player['body']} bodů ({player['lokace']['nazev']})\n"
+            
+            embed.add_field(
+                name=f"❌ Špatná volba: {self.zla_postava}",
+                value=wrong_text,
+                inline=False
+            )
+        
+        embed.set_footer(text="Zpráva se automaticky smaže za 12 sekund")
+        
+        # Pošli souhrnnou zprávu
+        self.summary_message = await channel.send(embed=embed)
+        
         # Počkej dalších 12 sekund (celkem 15s) pro přečtení výsledků
         await asyncio.sleep(12)
         
@@ -337,12 +358,11 @@ class SauronView(discord.ui.View):
         except:
             pass
         
-        # Smaž všechny výsledkové zprávy
-        for msg in self.response_messages:
-            try:
-                await msg.delete()
-            except:
-                pass
+        # Smaž souhrnnou zprávu
+        try:
+            await self.summary_message.delete()
+        except:
+            pass
 
 
 @bot.event
