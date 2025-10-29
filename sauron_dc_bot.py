@@ -37,6 +37,7 @@ os.makedirs(DATA_DIR, exist_ok=True)
 message_counter = 0
 next_sauron_trigger = random.randint(10, 15)  # První trigger mezi 10-15 zprávami
 last_message_author = None  # ID posledního autora zprávy
+second_last_author = None  # ID předposledního autora zprávy
 
 # ID kanálů, kde se BUDE zobrazovat Sauron (whitelist)
 POVOLENE_KANALY = [
@@ -392,7 +393,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     """Event při každé nové zprávě."""
-    global message_counter, next_sauron_trigger, last_message_author
+    global message_counter, next_sauron_trigger, last_message_author, second_last_author
     
     # Ignoruj zprávy od botů
     if message.author.bot:
@@ -403,11 +404,25 @@ async def on_message(message):
         await bot.process_commands(message)
         return  # Sauron se nezobrazí v nepovoleném kanálu
     
-    # 🛡️ ANTI-SPAM: Počítej zprávu POUZE pokud je od jiného uživatele než poslední
-    if message.author.id != last_message_author:
-        message_counter += 1
-        last_message_author = message.author.id
-    # Pokud je to stejný autor jako minule, zpráva se NEPOČÍTÁ
+    current_author = message.author.id
+    
+    # 🛡️ ANTI-SPAM: Pokročilá ochrana proti vzájemnému spamování
+    # Zpráva se NEPOČÍTÁ pokud:
+    # 1. Je od stejného autora jako poslední zpráva (původní ochrana)
+    # 2. Je od autora, který se střídá s předposledním (vzájemný spam)
+    
+    if (current_author == last_message_author or 
+        (current_author == second_last_author and second_last_author is not None)):
+        # Zpráva se NEPOČÍTÁ (spam nebo vzájemný spam)
+        await bot.process_commands(message)
+        return
+    
+    # Zpráva se POČÍTÁ - aktualizuj historii autorů
+    message_counter += 1
+    
+    # Posuň historii autorů
+    second_last_author = last_message_author
+    last_message_author = current_author
     
     # Zkontroluj, jestli je čas na Sauronovu výzvu (každých 10-15 zpráv)
     if message_counter >= next_sauron_trigger:
@@ -441,6 +456,7 @@ async def on_message(message):
         message_counter = 0
         next_sauron_trigger = random.randint(10, 15)
         last_message_author = None  # Reset posledního autora
+        second_last_author = None  # Reset předposledního autora
     
     # Zpracování příkazů
     await bot.process_commands(message)
