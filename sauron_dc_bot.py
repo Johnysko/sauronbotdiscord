@@ -35,7 +35,7 @@ os.makedirs(DATA_DIR, exist_ok=True)
 
 # Počítadlo zpráv pro Sauronovu výzvu (náhodný interval)
 message_counter = 0
-next_sauron_trigger = random.randint(10, 15)  # První trigger mezi 10-15 zprávami
+next_sauron_trigger = random.randint(8, 12)  # První trigger mezi 8-12 zprávami
 last_message_author = None  # ID posledního autora zprávy
 second_last_author = None  # ID předposledního autora zprávy
 
@@ -452,9 +452,9 @@ async def on_message(message):
         # Odeslání zprávy
         await message.channel.send(embed=embed, view=view)
         
-        # Reset počítadla a nastav nový náhodný trigger (10-15 zpráv)
+        # Reset počítadla a nastav nový náhodný trigger (8-12 zpráv)
         message_counter = 0
-        next_sauron_trigger = random.randint(10, 15)
+        next_sauron_trigger = random.randint(8, 12)
         last_message_author = None  # Reset posledního autora
         second_last_author = None  # Reset předposledního autora
     
