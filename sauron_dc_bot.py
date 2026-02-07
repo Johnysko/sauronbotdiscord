@@ -61,7 +61,7 @@ POVOLENE_KANALY = [
 BOT_ENABLED = True  # Hra je ve výchozím stavu zapnutá
 
 # Globální proměnná pro číslo sezóny
-CURRENT_SEASON = 1
+CURRENT_SEASON = 2
 
 # Hlavní postavy (dobré postavy)
 HLAVNI_POSTAVY = [
