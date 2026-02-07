@@ -1,4 +1,4 @@
-import discord
+﻿import discord
 from discord.ext import commands
 import random
 import json
@@ -38,6 +38,12 @@ message_counter = 0
 next_sauron_trigger = random.randint(8, 12)  # První trigger mezi 8-12 zprávami
 last_message_author = None  # ID posledního autora zprávy
 second_last_author = None  # ID předposledního autora zprávy
+
+# 🐲 NAZGÛL systém - Průlet a označení hráčů
+sauron_challenge_counter = 0  # Počítadlo Sauronových výzev
+next_nazgul_trigger = random.randint(4, 8)  # Průlet Nazgûla po 4-8 výzvách
+nazgul_marked_players = set()  # Označení hráči s nevýhodou (user_id)
+last_nazgul_marked_players = set()  # Minule označení hráči (aby se neopakovali)
 
 # ID kanálů, kde se BUDE zobrazovat Sauron (whitelist)
 POVOLENE_KANALY = [
@@ -226,6 +232,81 @@ def ziskej_statistiky(user_id):
     return {'body': 0, 'prsteny': 0, 'name': 'Neznámý'}
 
 
+async def delayed_nazgul_prolet(channel):
+    """🐲 Čeká na konec Sauronovy výzvy + cleanup + 10s a pak zobrazí Nazgûla."""
+    # Počkej na:
+    # - 3s (nebo 1.5s) countdown po první správné odpovědi
+    # - 12s zobrazení souhrnné zprávy
+    # - 10s extra pauza
+    # = celkem ~25 sekund
+    await asyncio.sleep(25)
+    await nazgul_prolet(channel)
+
+
+async def nazgul_prolet(channel):
+    """🐲 Nazgûl proletí a označí 3 náhodné hráče."""
+    global nazgul_marked_players, last_nazgul_marked_players
+    
+    db = nacti_databazi()
+    
+    # Vyber 3 náhodné hráče z databáze (pokud existují)
+    if len(db) < 3:
+        # Nedostatek hráčů - Nazgûl neproletí
+        return
+    
+    # Vyber 3 náhodné hráče (ale ne ty, co byli označeni minule)
+    vsichni_hraci = list(db.keys())
+    
+    # Vyfiltruj minule označené hráče
+    dostupni_hraci = [user_id for user_id in vsichni_hraci 
+                      if int(user_id) not in last_nazgul_marked_players]
+    
+    # Pokud je málo dostupných hráčů, povol všechny (edge case)
+    if len(dostupni_hraci) < 3:
+        dostupni_hraci = vsichni_hraci
+    
+    # Vyber 3 náhodné hráče z dostupných
+    vybrani_hraci = random.sample(dostupni_hraci, min(3, len(dostupni_hraci)))
+    
+    # Označ hráče
+    nazgul_marked_players = set(int(user_id) for user_id in vybrani_hraci)
+    
+    # Ulož si pro příště (historie)
+    last_nazgul_marked_players = nazgul_marked_players.copy()
+    
+    # Vytvoř seznam pro embed
+    hraci_seznam = []
+    for user_id_str in vybrani_hraci:
+        stats = ziskej_statistiky(int(user_id_str))
+        lokace = ziskej_lokaci(stats['body'])
+        hraci_seznam.append(f"👤 **{stats['name']}** - {lokace['emoji']} {lokace['nazev']} ({stats['body']} bodů)")
+    
+    # Vytvoř embed zprávu
+    embed = discord.Embed(
+        title="🐲 NAZGÛL PROLETĚL NAD STŘEDOZEMÍ!",
+        description=(
+            "Temný stín přelétá oblohu! Nazgûl, služebník Saurona, \n"
+            "hledá Prsten a označil tyto cestovatele...\n\n"
+            + "\n".join(hraci_seznam) +
+            "\n\n⚠️ **V PŘÍŠTÍ Sauronově výzvě budou mít NEVÝHODU:**\n"
+            "⏰ Pouze **1.5 sekundy** na rozhodnutí (místo 3 sekund)\n\n"
+            "🍀 Hodně štěstí, budete ho potřebovat..."
+        ),
+        color=discord.Color.dark_purple()
+    )
+    embed.set_footer(text="Strach z Nazgûla zpomaluje vaše rozhodování...")
+    
+    # Pošli zprávu a ulož si ji
+    message = await channel.send(embed=embed)
+    
+    # Počkej 10 sekund a smaž zprávu
+    await asyncio.sleep(10)
+    try:
+        await message.delete()
+    except:
+        pass  # Zpráva už může být smazaná nebo nedostupná
+
+
 class SauronView(discord.ui.View):
     """View s tlačítky pro výběr postavy."""
     
@@ -378,7 +459,20 @@ class SauronView(discord.ui.View):
     
     async def cleanup_messages(self, original_message, channel):
         """Smaže všechny zprávy po 3 sekundách od první správné odpovědi."""
-        await asyncio.sleep(3)  # Počkej 3 sekundy na další hráče
+        global nazgul_marked_players
+        
+        # Zjisti, jestli jsou mezi hráči označení Nazgûlem
+        marked_players_answering = any(user_id in nazgul_marked_players for user_id in self.responded_users)
+        
+        if marked_players_answering and nazgul_marked_players:
+            # Pokud jsou označení hráči, dej jim pouze 1.5 sekundy
+            await asyncio.sleep(1.5)
+        else:
+            # Normální čas pro všechny
+            await asyncio.sleep(3)  # Počkej 3 sekundy na další hráče
+        
+        # Reset označených hráčů po skončení výzvy
+        nazgul_marked_players.clear()
         
         # Vypni tlačítka
         for child in self.children:
@@ -529,6 +623,16 @@ async def on_message(message):
         next_sauron_trigger = random.randint(8, 12)
         last_message_author = None  # Reset posledního autora
         second_last_author = None  # Reset předposledního autora
+        
+        # 🐲 NAZGÛL systém - Zvyš počítadlo výzev a zkontroluj průlet
+        global sauron_challenge_counter, next_nazgul_trigger
+        sauron_challenge_counter += 1
+        
+        if sauron_challenge_counter >= next_nazgul_trigger:
+            # Čas na průlet Nazgûla! (s zpožděním po dokončení výzvy)
+            asyncio.create_task(delayed_nazgul_prolet(message.channel))
+            sauron_challenge_counter = 0
+            next_nazgul_trigger = random.randint(4, 8)
     
     # Zpracování příkazů
     await bot.process_commands(message)
