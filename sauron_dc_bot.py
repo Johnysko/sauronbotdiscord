@@ -51,36 +51,94 @@ POVOLENE_KANALY = [
     1418629007510868189
 ]
 
+# Globální proměnná pro stav hry
+BOT_ENABLED = True  # Hra je ve výchozím stavu zapnutá
+
+# Globální proměnná pro číslo sezóny
+CURRENT_SEASON = 1
+
 # Hlavní postavy (dobré postavy)
 HLAVNI_POSTAVY = [
+    # Původní hobiti a společenstvo (SEASON 1)
     "Frodo",
     "Sam",
     "Gandalf",
     "Aragorn",
     "Legolas",    
-    "Pippin",
+    "Pipin",
     "Boromir",    
     "Elrond",
-    "Faramir"
+    "Faramir",
+    
+    # Nové postavy - Hobiti
+    "Smíšek",
+    "Bilbo",
+    
+    # Nové postavy - Elfové
+    "Galadriel",
+    "Arwen",    
+    "Haldir",        
+    
+    # Nové postavy - Trpaslíci
+    "Gimli",
+    "Thorin",
+    "Balin",
+    "Dwalin",
+    "Fíli",
+    "Kíli",
+    
+    # Nové postavy - Lidé
+    "Éowyn",
+    "Théoden",
+    "Éomer",    
+    
+    # Nové postavy - Čarodějové a Enti
+    "Radagast",
+    "Stromovous",       
+    
 ]
 
 # Záporné postavy
 ZLE_POSTAVY = [
-    "Glum",
+    # Původní záporáci(SEASON 1)
+    "Glum",  
     "Saruman",
     "Skřet",
     "Nazgûl",    
-    "Lurtz",    
+    "Lurtz",
+    
+    # Nové postavy - Hlavní antagonisté    
+    "Odula",
+    "Balrog",    
+    
+    # Nové postavy - Skřeti a Orkové
+    "Azog",
+    "Bolg",
+    "Gothmog",
+    "Grishnákh",
+    "Shagrat",
+    "Gorbag",
+    "Uglúk",
+    "Mauhúr",   
+    
+    # Nové postavy - Vedlejší antagonisté
+    "Gríma Červivec",       
+    
 ]
 
-# Story mód - Lokace a jejich úrovně
+# Story mód - Lokace a jejich úrovně (podle cesty Společenstva prstenu)
 LOKACE = [
-    {"nazev": "Kraj", "min_body": 0, "max_body": 19, "emoji": "🌾", "popis": "Začínáš svou cestu v poklidném Hobitíně"},
-    {"nazev": "Roklinka", "min_body": 20, "max_body": 39, "emoji": "🏰", "popis": "Dorazil jsi do elfského útočiště, Roklinky."},
-    {"nazev": "Rohan", "min_body": 40, "max_body": 59, "emoji": "🐎", "popis": "Vítá tě král Theodén, země jezdců je ti k dispozici."},
-    {"nazev": "Gondor", "min_body": 60, "max_body": 79, "emoji": "⚔️", "popis": "Blížíš se k finální bitvě. Minas Tirith tě volá."},
-    {"nazev": "Černá brána", "min_body": 80, "max_body": 99, "emoji": "🚪", "popis": "Stojíš před branami Mordoru"},
-    {"nazev": "Mordor", "min_body": 100, "max_body": 999999, "emoji": "🌋", "popis": "Vstupuješ do země temnoty!"}
+    {"nazev": "Kraj", "min_body": 0, "max_body": 9, "emoji": "🌾", "popis": "Začínáš svou cestu v poklidném Hobitíně"},
+    {"nazev": "Hůrka", "min_body": 10, "max_body": 19, "emoji": "🍺", "popis": "Dorazil jsi do hostince Skákavý poník"},
+    {"nazev": "Větrov", "min_body": 20, "max_body": 29, "emoji": "⛰️", "popis": "Noc přečkáš na zřícenině Amon Sûl"},
+    {"nazev": "Roklinka", "min_body": 30, "max_body": 39, "emoji": "🏰", "popis": "Našel jsi útočiště v Elrondově sídle"},
+    {"nazev": "Moria", "min_body": 40, "max_body": 49, "emoji": "⚒️", "popis": "Procházíš temnými doly Khazad-dûm"},
+    {"nazev": "Lothlórien", "min_body": 50, "max_body": 59, "emoji": "🌳", "popis": "Odpočíváš ve zlatém lese paní Galadriel"},
+    {"nazev": "Rohan", "min_body": 60, "max_body": 69, "emoji": "🐎", "popis": "Země jezdců Rohirů tě vítá"},
+    {"nazev": "Helmův žleb", "min_body": 70, "max_body": 79, "emoji": "🛡️", "popis": "Připravuješ se na obranu pevnosti"},
+    {"nazev": "Minas Tirith", "min_body": 80, "max_body": 89, "emoji": "🏛️", "popis": "Bílé město Gondoru stojí před obležením"},
+    {"nazev": "Černá brána", "min_body": 90, "max_body": 99, "emoji": "🚪", "popis": "Stojíš před Morannon, branou do Mordoru"},
+    {"nazev": "Mordor", "min_body": 100, "max_body": 999999, "emoji": "🌋", "popis": "Vystupuješ na Orodruinu, Horu osudu!"}
 ]
 
 
@@ -171,10 +229,10 @@ def ziskej_statistiky(user_id):
 class SauronView(discord.ui.View):
     """View s tlačítky pro výběr postavy."""
     
-    def __init__(self, spravna_postava, zla_postava, poradi):
+    def __init__(self, spravna_postava, vsechny_postavy):
         super().__init__(timeout=300)  # 5 minut timeout
         self.spravna_postava = spravna_postava
-        self.zla_postava = zla_postava
+        self.vsechny_postavy = vsechny_postavy
         self.responded_users = set()  # Sada uživatelů, kteří už odpověděli
         self.correct_answers = []  # Seznam hráčů, kteří klikli správně (jméno, body, lokace, prsten)
         self.wrong_answers = []  # Seznam hráčů, kteří klikli špatně (jméno, body, lokace)
@@ -182,37 +240,31 @@ class SauronView(discord.ui.View):
         self.first_correct_answer = False  # Flag pro první správnou odpověď
         self.summary_message = None  # Souhrnná zpráva
         
-        # Vytvoření tlačítek podle pořadí - OBĚ ŠEDÉ (secondary) aby hráči museli číst!
-        if poradi == 0:
-            # Správná postava první, zlá druhá
-            button1 = discord.ui.Button(
-                label=spravna_postava,
-                style=discord.ButtonStyle.secondary,
-                custom_id='spravna'
-            )
-            button2 = discord.ui.Button(
-                label=zla_postava,
-                style=discord.ButtonStyle.secondary,
-                custom_id='spatna'
-            )
-        else:
-            # Zlá postava první, správná druhá
-            button1 = discord.ui.Button(
-                label=zla_postava,
-                style=discord.ButtonStyle.secondary,
-                custom_id='spatna'
-            )
-            button2 = discord.ui.Button(
-                label=spravna_postava,
-                style=discord.ButtonStyle.secondary,
-                custom_id='spravna'
-            )
+        # Vytvoření 3 tlačítek - VŠECHNY ŠEDÉ (secondary) aby hráči museli číst!
+        # Postavy jsou už zamíchané náhodně
+        button1 = discord.ui.Button(
+            label=vsechny_postavy[0],
+            style=discord.ButtonStyle.secondary,
+            custom_id='spravna' if vsechny_postavy[0] == spravna_postava else 'spatna'
+        )
+        button2 = discord.ui.Button(
+            label=vsechny_postavy[1],
+            style=discord.ButtonStyle.secondary,
+            custom_id='spravna' if vsechny_postavy[1] == spravna_postava else 'spatna'
+        )
+        button3 = discord.ui.Button(
+            label=vsechny_postavy[2],
+            style=discord.ButtonStyle.secondary,
+            custom_id='spravna' if vsechny_postavy[2] == spravna_postava else 'spatna'
+        )
         
         button1.callback = self.button1_callback
         button2.callback = self.button2_callback
+        button3.callback = self.button3_callback
         
         self.add_item(button1)
         self.add_item(button2)
+        self.add_item(button3)
     
     async def button1_callback(self, interaction: discord.Interaction):
         """Callback pro první tlačítko."""
@@ -221,6 +273,10 @@ class SauronView(discord.ui.View):
     async def button2_callback(self, interaction: discord.Interaction):
         """Callback pro druhé tlačítko."""
         await self.handle_button_click(interaction, self.children[1].custom_id)
+    
+    async def button3_callback(self, interaction: discord.Interaction):
+        """Callback pro třetí tlačítko."""
+        await self.handle_button_click(interaction, self.children[2].custom_id)
     
     async def handle_button_click(self, interaction: discord.Interaction, custom_id: str):
         """Zpracování kliknutí na tlačítko."""
@@ -355,8 +411,12 @@ class SauronView(discord.ui.View):
             for player in self.wrong_answers:
                 wrong_text += f"❌ **{player['name']}** - {player['lokace']['emoji']} {player['body']} bodů ({player['lokace']['nazev']})\n"
             
+            # Zjisti špatné postavy (všechny kromě správné)
+            spatne_postavy = [p for p in self.vsechny_postavy if p != self.spravna_postava]
+            spatne_text = ", ".join(spatne_postavy)
+            
             embed.add_field(
-                name=f"❌ Špatná volba: {self.zla_postava}",
+                name=f"❌ Špatné volby: {spatne_text}",
                 value=wrong_text,
                 inline=False
             )
@@ -399,6 +459,11 @@ async def on_message(message):
     if message.author.bot:
         return
     
+    # 🛑 KONTROLA: Pokud je bot vypnutý, nereaguj na zprávy (pouze příkazy)
+    if not BOT_ENABLED:
+        await bot.process_commands(message)
+        return
+    
     # KONTROLA: Zkontroluj, jestli je kanál povolen
     if POVOLENE_KANALY and message.channel.id not in POVOLENE_KANALY:
         await bot.process_commands(message)
@@ -426,12 +491,13 @@ async def on_message(message):
     
     # Zkontroluj, jestli je čas na Sauronovu výzvu (každých 10-15 zpráv)
     if message_counter >= next_sauron_trigger:
-        # Vyber náhodnou hlavní postavu a náhodnou zápornou postavu
+        # Vyber náhodnou hlavní postavu (správná) a 2 náhodné záporné postavy (špatné)
         spravna_postava = random.choice(HLAVNI_POSTAVY)
-        zla_postava = random.choice(ZLE_POSTAVY)
+        zle_postavy = random.sample(ZLE_POSTAVY, 2)  # Vyber 2 různé záporné postavy
         
-        # Náhodné pořadí tlačítek (0 = správná první, 1 = zlá první)
-        poradi = random.randint(0, 1)
+        # Vytvoř seznam všech 3 postav a zamíchej je náhodně
+        vsechny_postavy = [spravna_postava] + zle_postavy
+        random.shuffle(vsechny_postavy)
         
         # Vytvoření embedu
         embed = discord.Embed(
@@ -447,7 +513,7 @@ async def on_message(message):
         embed.set_footer(text="Vyber si jednu z postav níže")
         
         # Vytvoření view s tlačítky
-        view = SauronView(spravna_postava, zla_postava, poradi)
+        view = SauronView(spravna_postava, vsechny_postavy)
         
         # Odeslání zprávy
         await message.channel.send(embed=embed, view=view)
@@ -651,7 +717,7 @@ async def sauron_test(ctx):
 async def on_command_error(ctx, error):
     """Zpracování chyb příkazů."""
     if isinstance(error, commands.MissingPermissions):
-        if ctx.command.name == 'sauron_test':
+        if ctx.command.name in ['sauron_test', 'konec_sezony', 'nova_sezona', 'stav_bota', 'reset_db']:
             await ctx.send("❌ Pouze administrátoři mohou použít tento příkaz!", delete_after=5)
             try:
                 await ctx.message.delete()
@@ -777,6 +843,315 @@ async def reset_databaze(ctx):
         await message.delete(delay=5)
 
 
+@bot.command(name='konec_sezony')
+@commands.has_permissions(administrator=True)
+async def konec_sezony(ctx):
+    """Příkaz pro adminy - ukončí aktuální sezónu a vypne bota."""
+    global BOT_ENABLED, CURRENT_SEASON
+    
+    # Načti databázi
+    db = nacti_databazi()
+    
+    if not db:
+        await ctx.send("❌ Databáze je prázdná, nelze ukončit sezónu!", delete_after=10)
+        try:
+            await ctx.message.delete()
+        except:
+            pass
+        return
+    
+    # Filtruj hráče s alespoň jedním prstenem
+    vitezove = {uid: data for uid, data in db.items() if data.get('prsteny', 0) > 0}
+    
+    if not vitezove:
+        await ctx.send("❌ Žádný hráč nezískal prsten! Nelze ukončit sezónu.", delete_after=10)
+        try:
+            await ctx.message.delete()
+        except:
+            pass
+        return
+    
+    # Seřaď vítěze podle prstenů (hlavní), pak podle bodů
+    serazeni_vitezove = sorted(
+        vitezove.items(),
+        key=lambda x: (x[1].get('prsteny', 0), x[1].get('body', 0)),
+        reverse=True
+    )
+    
+    # Vytvoř výsledkovou zprávu
+    embed = discord.Embed(
+        title=f"🏆 KONEC {CURRENT_SEASON}. SEZÓNY 🏆",
+        description=(
+            f"Sezóna **#{CURRENT_SEASON}** byla úspěšně dokončena!\n\n"
+            f"🎉 **Gratulujeme všem hrdinům, kteří dokázali zničit Prsten Moci!**\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        ),
+        color=discord.Color.gold()
+    )
+    
+    # Přidej TOP 10 vítězů
+    vitez_text = ""
+    for i, (user_id, data) in enumerate(serazeni_vitezove[:10], 1):
+        prsteny = data.get('prsteny', 0)
+        body = data.get('body', 0)
+        
+        # Medaile
+        if i == 1:
+            medaile = "🥇"
+        elif i == 2:
+            medaile = "🥈"
+        elif i == 3:
+            medaile = "🥉"
+        else:
+            medaile = f"{i}."
+        
+        # Získej aktuální display_name ze serveru
+        try:
+            member = await ctx.guild.fetch_member(int(user_id))
+            jmeno = member.display_name
+        except:
+            jmeno = data.get('name', 'Neznámý')
+        
+        # Počet prstenů s českými tvary
+        if prsteny == 1:
+            prsten_text = "prsten"
+        elif 2 <= prsteny <= 4:
+            prsten_text = "prsteny"
+        else:
+            prsten_text = "prstenů"
+        
+        vitez_text += f"{medaile} **{jmeno}** - 💍 **{prsteny}** {prsten_text}\n"
+    
+    embed.add_field(
+        name="🌟 Konečné pořadí - Síň slávy",
+        value=vitez_text,
+        inline=False
+    )
+    
+    # Statistiky
+    celkem_hracu = len(db)
+    celkem_vitezov = len(vitezove)
+    celkem_prstenu = sum(data.get('prsteny', 0) for data in vitezove.values())
+    
+    embed.add_field(
+        name="📊 Statistiky sezóny",
+        value=(
+            f"👥 Celkem hráčů: **{celkem_hracu}**\n"
+            f"🏆 Hráčů s prstenem: **{celkem_vitezov}**\n"
+            f"💍 Celkem zničených prstenů: **{celkem_prstenu}**"
+        ),
+        inline=False
+    )
+    
+    embed.set_footer(text=f"Sezóna #{CURRENT_SEASON} ukončena {datetime.now().strftime('%d.%m.%Y %H:%M')}")
+    
+    # Pošli výsledkovou zprávu (nezmaže se automaticky)
+    await ctx.send(embed=embed)
+    
+    # Vypni bota
+    BOT_ENABLED = False
+    
+    # Info zpráva
+    info_embed = discord.Embed(
+        title="⏸️ Sauron Bot VYPNUT",
+        description=(
+            f"Hra byla **pozastavena** po ukončení {CURRENT_SEASON}. sezóny.\n\n"
+            "🎮 Pro spuštění nové sezóny použij příkaz:\n"
+            "`!nova_sezona`"
+        ),
+        color=discord.Color.orange()
+    )
+    
+    await ctx.send(embed=info_embed)
+    
+    # Smaž příkaz
+    try:
+        await ctx.message.delete()
+    except:
+        pass
+    
+    print(f"⏸️ Sezóna {CURRENT_SEASON} ukončena administrátorem: {ctx.author.name}")
+    print(f"🛑 Bot VYPNUT - čeká na spuštění nové sezóny")
+
+
+@bot.command(name='nova_sezona')
+@commands.has_permissions(administrator=True)
+async def nova_sezona(ctx):
+    """Příkaz pro adminy - spustí novou sezónu a zapne bota."""
+    global BOT_ENABLED, CURRENT_SEASON, message_counter, next_sauron_trigger, last_message_author, second_last_author
+    
+    if BOT_ENABLED:
+        await ctx.send("⚠️ Bot je již zapnutý! Použij `!konec_sezony` pro ukončení aktuální sezóny.", delete_after=10)
+        try:
+            await ctx.message.delete()
+        except:
+            pass
+        return
+    
+    # Vytvoření potvrzovací zprávy
+    view = ConfirmView(ctx.author.id)
+    
+    embed = discord.Embed(
+        title="🎮 Spuštění nové sezóny",
+        description=(
+            f"Chystáš se spustit **{CURRENT_SEASON + 1}. sezónu**!\n\n"
+            "⚠️ Tato akce:\n"
+            "• **SMAŽE všechny body a prsteny** všech hráčů\n"
+            "• Spustí novou sezónu od začátku\n"
+            "• **NELZE VRÁTIT ZPĚT**\n\n"
+            "💡 **TIP:** Před spuštěním nové sezóny si ulož výsledky předchozí!\n\n"
+            "Opravdu chceš pokračovat?"
+        ),
+        color=discord.Color.blue()
+    )
+    embed.set_footer(text="Máš 30 sekund na rozhodnutí")
+    
+    message = await ctx.send(embed=embed, view=view)
+    
+    # Počkej na odpověď
+    await view.wait()
+    
+    # Smaž příkaz
+    try:
+        await ctx.message.delete()
+    except:
+        pass
+    
+    if view.value is None:
+        # Timeout
+        embed_timeout = discord.Embed(
+            title="⏱️ Časový limit vypršel",
+            description="Spuštění nové sezóny bylo zrušeno (žádná odpověď).",
+            color=discord.Color.orange()
+        )
+        await message.edit(embed=embed_timeout, view=None)
+        await message.delete(delay=5)
+        
+    elif view.value:
+        # Potvrzeno - smaž databázi a spusť novou sezónu
+        try:
+            # Smaž soubor databáze
+            if os.path.exists(DB_FILE):
+                os.remove(DB_FILE)
+            
+            # Zvýš číslo sezóny
+            CURRENT_SEASON += 1
+            
+            # Zapni bota
+            BOT_ENABLED = True
+            
+            # Resetuj počítadla
+            message_counter = 0
+            next_sauron_trigger = random.randint(8, 12)
+            last_message_author = None
+            second_last_author = None
+            
+            embed_success = discord.Embed(
+                title=f"✅ {CURRENT_SEASON}. SEZÓNA SPUŠTĚNA! 🎮",
+                description=(
+                    f"**Nová sezóna #{CURRENT_SEASON} úspěšně zahájena!**\n\n"
+                    "🎉 Co se změnilo:\n"
+                    "• Všechny body a prsteny byly vynulovány\n"
+                    "• Databáze byla resetována\n"
+                    "• Hra začíná znovu od začátku\n\n"
+                    f"👁️ **Sauron je opět aktivní!**\n"
+                    "Začni psát zprávy a čekej na výzvy...\n\n"
+                    "📖 Použij `!help_sauron` pro zobrazení pravidel."
+                ),
+                color=discord.Color.green()
+            )
+            embed_success.set_footer(text=f"Sezóna #{CURRENT_SEASON} spuštěna {datetime.now().strftime('%d.%m.%Y %H:%M')}")
+            
+            await message.edit(embed=embed_success, view=None)
+            
+            print(f"✅ Sezóna {CURRENT_SEASON} spuštěna administrátorem: {ctx.author.name}")
+            print(f"🎮 Bot ZAPNUT - hra běží")
+            
+        except Exception as e:
+            embed_error = discord.Embed(
+                title="❌ Chyba",
+                description=f"Při spouštění nové sezóny došlo k chybě:\n```{str(e)}```",
+                color=discord.Color.red()
+            )
+            await message.edit(embed=embed_error, view=None)
+            await message.delete(delay=10)
+            print(f"❌ Chyba při spouštění nové sezóny: {e}")
+    
+    else:
+        # Zrušeno
+        embed_cancel = discord.Embed(
+            title="❌ Zrušeno",
+            description="Spuštění nové sezóny bylo zrušeno. Bot zůstává vypnutý.",
+            color=discord.Color.blue()
+        )
+        await message.edit(embed=embed_cancel, view=None)
+        await message.delete(delay=5)
+
+
+@bot.command(name='stav_bota')
+@commands.has_permissions(administrator=True)
+async def stav_bota(ctx):
+    """Příkaz pro adminy - zobrazí aktuální stav bota."""
+    global BOT_ENABLED, CURRENT_SEASON
+    
+    db = nacti_databazi()
+    celkem_hracu = len(db)
+    celkem_prstenu = sum(data.get('prsteny', 0) for data in db.values())
+    hraci_s_prsteny = len([d for d in db.values() if d.get('prsteny', 0) > 0])
+    
+    stav = "🟢 **ZAPNUT**" if BOT_ENABLED else "🔴 **VYPNUT**"
+    
+    embed = discord.Embed(
+        title="🤖 Stav Sauron Bota",
+        color=discord.Color.green() if BOT_ENABLED else discord.Color.red()
+    )
+    
+    embed.add_field(
+        name="⚙️ Stav hry",
+        value=stav,
+        inline=True
+    )
+    
+    embed.add_field(
+        name="📅 Aktuální sezóna",
+        value=f"Sezóna **#{CURRENT_SEASON}**",
+        inline=True
+    )
+    
+    embed.add_field(
+        name="📊 Statistiky",
+        value=(
+            f"👥 Hráčů: **{celkem_hracu}**\n"
+            f"🏆 S prstenem: **{hraci_s_prsteny}**\n"
+            f"💍 Celkem prstenů: **{celkem_prstenu}**"
+        ),
+        inline=False
+    )
+    
+    if BOT_ENABLED:
+        embed.add_field(
+            name="🎮 Dostupné příkazy",
+            value="`!konec_sezony` - Ukončí aktuální sezónu",
+            inline=False
+        )
+    else:
+        embed.add_field(
+            name="🎮 Dostupné příkazy",
+            value="`!nova_sezona` - Spustí novou sezónu",
+            inline=False
+        )
+    
+    message = await ctx.send(embed=embed)
+    
+    # Smaž po 15 sekundách
+    await asyncio.sleep(15)
+    try:
+        await message.delete()
+        await ctx.message.delete()
+    except:
+        pass
+
+
 @bot.command(name='help_sauron')
 async def napoveda(ctx):
     """Příkaz pro zobrazení nápovědy."""
@@ -801,11 +1176,11 @@ async def napoveda(ctx):
     embed.add_field(
         name="🗺️ Příběhový mód - Cesta do Mordoru",
         value=(
-            "🌾 **0-19 bodů:** Kraj (začátek cesty)\n"
-            "🏰 **20-39 bodů:** Roklinka\n"
-            "🐎 **40-59 bodů:** Rohan\n"
-            "⚔️ **60-79 bodů:** Gondor\n"
-            "🚪 **80-99 bodů:** Černá brána\n"
+            "🌾 **0-9:** Kraj | 🍺 **10-19:** Bri | ⛰️ **20-29:** Zvětrník\n"
+            "🏰 **30-39:** Roklinka | ⚒️ **40-49:** Moria\n"
+            "🌳 **50-59:** Lothlórien | 🐎 **60-69:** Rohan\n"
+            "🛡️ **70-79:** Helmův žleb | 🏛️ **80-89:** Minas Tirith\n"
+            "🚪 **90-99:** Černá brána\n"
             "🌋 **100 bodů:** Mordor - **VÝHRA! Získáváš PRSTEN!** 💍"
         ),
         inline=False
