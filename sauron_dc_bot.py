@@ -239,24 +239,30 @@ class SauronView(discord.ui.View):
         self.cleanup_task = None  # Task pro úklid zpráv
         self.first_correct_answer = False  # Flag pro první správnou odpověď
         self.summary_message = None  # Souhrnná zpráva
+        self.choice_map = {}  # Map custom_id -> True/False (správnost volby)
         
         # Vytvoření 3 tlačítek - VŠECHNY ŠEDÉ (secondary) aby hráči museli číst!
         # Postavy jsou už zamíchané náhodně
         button1 = discord.ui.Button(
             label=vsechny_postavy[0],
             style=discord.ButtonStyle.secondary,
-            custom_id='spravna' if vsechny_postavy[0] == spravna_postava else 'spatna'
+            custom_id='choice_0'
         )
         button2 = discord.ui.Button(
             label=vsechny_postavy[1],
             style=discord.ButtonStyle.secondary,
-            custom_id='spravna' if vsechny_postavy[1] == spravna_postava else 'spatna'
+            custom_id='choice_1'
         )
         button3 = discord.ui.Button(
             label=vsechny_postavy[2],
             style=discord.ButtonStyle.secondary,
-            custom_id='spravna' if vsechny_postavy[2] == spravna_postava else 'spatna'
+            custom_id='choice_2'
         )
+
+        # Unikátní custom_id vyžaduje mapování správné volby
+        self.choice_map['choice_0'] = (vsechny_postavy[0] == spravna_postava)
+        self.choice_map['choice_1'] = (vsechny_postavy[1] == spravna_postava)
+        self.choice_map['choice_2'] = (vsechny_postavy[2] == spravna_postava)
         
         button1.callback = self.button1_callback
         button2.callback = self.button2_callback
@@ -297,7 +303,7 @@ class SauronView(discord.ui.View):
         # Potvrď interakci bez viditelné zprávy
         await interaction.response.defer(ephemeral=True)
         
-        if custom_id == 'spravna':
+        if self.choice_map.get(custom_id, False):
             # Správná volba - přidej +1 bod
             vysledek = pridej_body(user_id, user_name, 1)
             
