@@ -681,12 +681,13 @@ async def zobraz_zebricek(ctx):
 @commands.has_permissions(administrator=True)
 async def sauron_test(ctx):
     """Příkaz pro adminy - manuálně vyvolá Sauronovu výzvu pro testování."""
-    # Vyber náhodnou hlavní postavu a náhodnou zápornou postavu
+    # Vyber náhodnou hlavní postavu (správná) a 2 náhodné záporné postavy (špatné)
     spravna_postava = random.choice(HLAVNI_POSTAVY)
-    zla_postava = random.choice(ZLE_POSTAVY)
+    zle_postavy = random.sample(ZLE_POSTAVY, 2)
     
-    # Náhodné pořadí tlačítek (0 = správná první, 1 = zlá první)
-    poradi = random.randint(0, 1)
+    # Vytvoř seznam všech 3 postav a zamíchej je náhodně
+    vsechny_postavy = [spravna_postava] + zle_postavy
+    random.shuffle(vsechny_postavy)
     
     # Vytvoření embedu
     embed = discord.Embed(
@@ -701,7 +702,7 @@ async def sauron_test(ctx):
     embed.set_footer(text="⚠️ TESTOVACÍ REŽIM - Vyvolání adminem | Vyber si jednu z postav níže")
     
     # Vytvoření view s tlačítky
-    view = SauronView(spravna_postava, zla_postava, poradi)
+    view = SauronView(spravna_postava, vsechny_postavy)
     
     # Odeslání zprávy
     await ctx.send(embed=embed, view=view)
