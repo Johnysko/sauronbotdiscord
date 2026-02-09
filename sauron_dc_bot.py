@@ -63,6 +63,9 @@ BOT_ENABLED = True  # Hra je ve výchozím stavu zapnutá
 # Globální proměnná pro číslo sezóny
 CURRENT_SEASON = 2
 
+# Globální proměnná pro uložení Nazgûl zprávy (smaže se při další Sauron výzvě)
+last_nazgul_message = None
+
 # Hlavní postavy (dobré postavy)
 HLAVNI_POSTAVY = [
     # Původní hobiti a společenstvo (SEASON 1)
@@ -245,7 +248,7 @@ async def delayed_nazgul_prolet(channel):
 
 async def nazgul_prolet(channel):
     """🐲 Nazgûl proletí a označí 3 náhodné hráče."""
-    global nazgul_marked_players, last_nazgul_marked_players
+    global nazgul_marked_players, last_nazgul_marked_players, last_nazgul_message
     
     db = nacti_databazi()
     
@@ -278,33 +281,21 @@ async def nazgul_prolet(channel):
     hraci_seznam = []
     for user_id_str in vybrani_hraci:
         stats = ziskej_statistiky(int(user_id_str))
-        lokace = ziskej_lokaci(stats['body'])
-        hraci_seznam.append(f"👤 **{stats['name']}** - {lokace['emoji']} {lokace['nazev']} ({stats['body']} bodů)")
+        hraci_seznam.append(f"👤 **{stats['name']}**")
     
-    # Vytvoř embed zprávu
+    # Vytvoř embed zprávu - ZKRÁCENÁ VERZE
     embed = discord.Embed(
         title="🐲 NAZGÛL PROLETĚL NAD STŘEDOZEMÍ!",
         description=(
-            "Temný stín přelétá oblohu! Nazgûl, služebník Saurona, \n"
-            "hledá Prsten a označil tyto cestovatele...\n\n"
+            "Nazgûl označil tyto cestovatele:\n\n"
             + "\n".join(hraci_seznam) +
-            "\n\n⚠️ **V PŘÍŠTÍ Sauronově výzvě budou mít NEVÝHODU:**\n"
-            "⏰ Pouze **1.5 sekundy** na rozhodnutí (místo 3 sekund)\n\n"
-            "🍀 Hodně štěstí, budete ho potřebovat..."
+            "\n\n⚠️ **V příští výzvě mají NEVÝHODU** - pouze 1.5 sekundy na rozhodnutí!"
         ),
         color=discord.Color.dark_purple()
     )
-    embed.set_footer(text="Strach z Nazgûla zpomaluje vaše rozhodování...")
     
-    # Pošli zprávu a ulož si ji
-    message = await channel.send(embed=embed)
-    
-    # Počkej 10 sekund a smaž zprávu
-    await asyncio.sleep(10)
-    try:
-        await message.delete()
-    except:
-        pass  # Zpráva už může být smazaná nebo nedostupná
+    # Pošli zprávu a ulož si ji (smaže se při další Sauron výzvě)
+    last_nazgul_message = await channel.send(embed=embed)
 
 
 class SauronView(discord.ui.View):
@@ -459,7 +450,7 @@ class SauronView(discord.ui.View):
     
     async def cleanup_messages(self, original_message, channel):
         """Smaže všechny zprávy po 3 sekundách od první správné odpovědi."""
-        global nazgul_marked_players
+        global nazgul_marked_players, last_nazgul_message
         
         # Zjisti, jestli jsou mezi hráči označení Nazgûlem
         marked_players_answering = any(user_id in nazgul_marked_players for user_id in self.responded_users)
@@ -540,6 +531,13 @@ class SauronView(discord.ui.View):
             await self.summary_message.delete()
         except:
             pass
+        
+        # Smaž i Nazgûl zprávu z minula (pokud existuje)
+        if last_nazgul_message:
+            try:
+                await last_nazgul_message.delete()
+            except:
+                pass
 
 
 @bot.event
