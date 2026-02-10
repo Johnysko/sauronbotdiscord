@@ -41,9 +41,12 @@ second_last_author = None  # ID předposledního autora zprávy
 
 # 🐲 NAZGÛL systém - Průlet a označení hráčů
 sauron_challenge_counter = 0  # Počítadlo Sauronových výzev
-next_nazgul_trigger = random.randint(4, 8)  # Průlet Nazgûla po 4-8 výzvách
+next_nazgul_trigger = random.randint(2, 3)  # Průlet Nazgûla po 2-3 výzvách
 nazgul_marked_players = set()  # Označení hráči s nevýhodou (user_id)
 last_nazgul_marked_players = set()  # Minule označení hráči (aby se neopakovali)
+
+# 🐟 GLUM systém - Riziková zkratka (časovač na pozadí)
+glum_event_channel = None  # Kanál pro Glum eventy (nastaví se při prvním Sauron eventu)
 
 # ID kanálů, kde se BUDE zobrazovat Sauron (whitelist)
 POVOLENE_KANALY = [
@@ -298,6 +301,246 @@ async def nazgul_prolet(channel):
     last_nazgul_message = await channel.send(embed=embed)
 
 
+class GlumChoiceView(discord.ui.View):
+    """View s volbou - jít s Glumem nebo ne."""
+    
+    def __init__(self):
+        super().__init__(timeout=10)  # 10 sekund na rozhodnutí
+        self.choices = {}  # Dictionary: user_id -> True/False (True = jde s Glumem)
+    
+    @discord.ui.button(label="🐟 Jít s Glumem", style=discord.ButtonStyle.danger, emoji="⚠️")
+    async def go_with_glum(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Hráč se rozhodl jít s Glumem."""
+        user_id = interaction.user.id
+        
+        if user_id in self.choices:
+            await interaction.response.send_message(
+                "⚠️ Už jsi se rozhodl(a)!",
+                ephemeral=True
+            )
+            return
+        
+        self.choices[user_id] = True  # True = jde s Glumem
+        # Tiché potvrzení - žádná viditelná zpráva
+        await interaction.response.defer(ephemeral=True)
+    
+    @discord.ui.button(label="🚶 Jít bezpečnou cestou", style=discord.ButtonStyle.success, emoji="✅")
+    async def go_safe(self, interaction: discord.Interaction, button: discord.ui.Button):
+        """Hráč se rozhodl jít bezpečnou cestou."""
+        user_id = interaction.user.id
+        
+        if user_id in self.choices:
+            await interaction.response.send_message(
+                "⚠️ Už jsi se rozhodl(a)!",
+                ephemeral=True
+            )
+            return
+        
+        self.choices[user_id] = False  # False = jde bezpečnou cestou
+        # Tiché potvrzení - žádná viditelná zpráva
+        await interaction.response.defer(ephemeral=True)
+
+
+async def glum_event_timer():
+    """🐟 Background task - spouští Glum event každou hodinu s náhodným rozptylem."""
+    global glum_event_channel
+    
+    await bot.wait_until_ready()  # Počkej na připravenost bota
+    
+    print("🐟 Glum event timer spuštěn!")
+    
+    while not bot.is_closed():
+        # Počkej na první běžný Sauron event, aby se nastavil kanál
+        if glum_event_channel is None:
+            await asyncio.sleep(60)  # Kontroluj každou minutu
+            continue
+        
+        # Vypočítej náhodný interval: 1 hodina ± 10 minut (50-70 minut)
+        wait_minutes = random.uniform(50, 70)
+        wait_seconds = wait_minutes * 60
+        
+        print(f"🐟 Příští Glum event za {wait_minutes:.1f} minut")
+        
+        # Počkej
+        await asyncio.sleep(wait_seconds)
+        
+        # Spusť Glum event
+        try:
+            if glum_event_channel and not bot.is_closed():
+                await glum_event(glum_event_channel)
+        except Exception as e:
+            print(f"❌ Chyba při Glum eventu: {e}")
+
+
+async def glum_event(channel):
+    """🐟 Glum nabídne cestovatelům rizikovou zkratku."""
+    
+    # Vytvoř embed
+    embed = discord.Embed(
+        title="🐟 GLUM SE VYNOŘIL Z TEMNOTY!",
+        description=(
+            '*„Psssst… znám… znám zkratku… dobrá zkratka… '
+            'ano, ano… Glum vás provede…"*\n\n'
+            'Glum nabízí, že vás provede **zkratkou** díky své znalosti Středozemě!\n\n'
+            '**🎲 Máš na výběr:**\n'
+            '⚠️ **Jít s Glumem** - 50% šance na **+5 bodů** | 50% šance na **-3 body**\n'
+            '✅ **Jít bezpečnou cestou** - Získáš jistě **+1 bod**\n\n'
+            '⏰ **Máš 10 sekund na rozhodnutí!**'
+        ),
+        color=discord.Color.gold()
+    )
+    embed.set_footer(text="🐟 Glum event - Riziková zkratka")
+    
+    # Vytvoř view s tlačítky
+    view = GlumChoiceView()
+    
+    # Pošli zprávu
+    message = await channel.send(embed=embed, view=view)
+    
+    # Počkej 10 sekund
+    await asyncio.sleep(10)
+    
+    # Vypni tlačítka
+    for child in view.children:
+        child.disabled = True
+    await message.edit(view=view)
+    
+    # Zpracuj výsledky
+    if not view.choices:
+        # Nikdo nereagoval
+        embed_result = discord.Embed(
+            title="🐟 Glum se ztratil v tmě...",
+            description='*„Nikdo… nikdo nechce… jít s Glumem… smutný Glum…"*',
+            color=discord.Color.dark_gray()
+        )
+        await channel.send(embed=embed_result)
+    else:
+        # Zpracuj jednotlivé volby
+        risky_results = []  # Rizikové volby (s Glumem)
+        safe_results = []   # Bezpečné volby
+        
+        for user_id, went_with_glum in view.choices.items():
+            stats = ziskej_statistiky(user_id)
+            user = await channel.guild.fetch_member(user_id)
+            user_name = user.display_name if user else stats['name']
+            
+            if went_with_glum:
+                # RIZIKO - 50% šance na úspěch
+                success = random.choice([True, False])
+                
+                if success:
+                    # ✅ Glum byl důvěryhodný - +5 bodů
+                    vysledek = pridej_body(user_id, user_name, 5)
+                    
+                    if isinstance(vysledek, dict):
+                        nove_body = vysledek['body']
+                        prsten_ziskan = vysledek.get('prsten_ziskan', False)
+                    else:
+                        nove_body = vysledek
+                        prsten_ziskan = False
+                    
+                    lokace = ziskej_lokaci(nove_body)
+                    
+                    risky_results.append({
+                        'name': user_name,
+                        'success': True,
+                        'body': nove_body,
+                        'lokace': lokace,
+                        'prsten': prsten_ziskan
+                    })
+                else:
+                    # ❌ Glum zradil - -3 body
+                    vysledek = pridej_body(user_id, user_name, -3)
+                    
+                    if isinstance(vysledek, dict):
+                        nove_body = vysledek['body']
+                    else:
+                        nove_body = vysledek
+                    
+                    lokace = ziskej_lokaci(nove_body)
+                    
+                    risky_results.append({
+                        'name': user_name,
+                        'success': False,
+                        'body': nove_body,
+                        'lokace': lokace,
+                        'prsten': False
+                    })
+            else:
+                # BEZPEČNÁ CESTA - +1 bod
+                vysledek = pridej_body(user_id, user_name, 1)
+                
+                if isinstance(vysledek, dict):
+                    nove_body = vysledek['body']
+                    prsten_ziskan = vysledek.get('prsten_ziskan', False)
+                else:
+                    nove_body = vysledek
+                    prsten_ziskan = False
+                
+                lokace = ziskej_lokaci(nove_body)
+                
+                safe_results.append({
+                    'name': user_name,
+                    'body': nove_body,
+                    'lokace': lokace,
+                    'prsten': prsten_ziskan
+                })
+        
+        # Vytvoř výsledkovou zprávu
+        embed_result = discord.Embed(
+            title="🐟 Výsledky Glumovy zkratky",
+            color=discord.Color.blue()
+        )
+        
+        # Rizikové volby
+        if risky_results:
+            risky_text = []
+            for r in risky_results:
+                if r['success']:
+                    emoji = "✅"
+                    text = f"{emoji} **{r['name']}** - Glum byl důvěryhodný! **+5 bodů**"
+                    if r['prsten']:
+                        text += f"\n   🏆 **DOKONČIL(A) CESTU! Získal(a) prsten!**"
+                    text += f"\n   {r['lokace']['emoji']} {r['body']} bodů - {r['lokace']['nazev']}"
+                else:
+                    emoji = "❌"
+                    text = f"{emoji} **{r['name']}** - Glum zradil! **-3 body**\n   {r['lokace']['emoji']} {r['body']} bodů - {r['lokace']['nazev']}"
+                risky_text.append(text)
+            
+            embed_result.add_field(
+                name="⚠️ Riziková zkratka s Glumem",
+                value="\n\n".join(risky_text),
+                inline=False
+            )
+        
+        # Bezpečné volby
+        if safe_results:
+            safe_text = []
+            for s in safe_results:
+                text = f"✅ **{s['name']}** - Bezpečná cesta **+1 bod**"
+                if s['prsten']:
+                    text += f"\n   🏆 **DOKONČIL(A) CESTU! Získal(a) prsten!**"
+                text += f"\n   {s['lokace']['emoji']} {s['body']} bodů - {s['lokace']['nazev']}"
+                safe_text.append(text)
+            
+            embed_result.add_field(
+                name="🚶 Bezpečná cesta",
+                value="\n\n".join(safe_text),
+                inline=False
+            )
+        
+        embed_result.set_footer(text="Příští Glum event přijde za ~1 hodinu | Zpráva se smaže za 15s")
+        
+        await channel.send(embed=embed_result)
+    
+    # Smaž zprávy po 15 sekundách
+    await asyncio.sleep(15)
+    try:
+        await message.delete()
+    except:
+        pass
+
+
 class SauronView(discord.ui.View):
     """View s tlačítky pro výběr postavy."""
     
@@ -546,12 +789,16 @@ async def on_ready():
     print(f'✅ {bot.user.name} je připraven!')
     print(f'Bot ID: {bot.user.id}')
     print('------')
+    
+    # Spusť Glum event timer na pozadí
+    bot.loop.create_task(glum_event_timer())
 
 
 @bot.event
 async def on_message(message):
     """Event při každé nové zprávě."""
     global message_counter, next_sauron_trigger, last_message_author, second_last_author
+    global glum_event_channel
     
     # Ignoruj zprávy od botů
     if message.author.bot:
@@ -613,6 +860,9 @@ async def on_message(message):
         # Vytvoření view s tlačítky
         view = SauronView(spravna_postava, vsechny_postavy)
         
+        # 🐟 Aktualizuj kanál pro Glum eventy (vždy ten, kde byl poslední Sauron event)
+        glum_event_channel = message.channel
+        
         # Odeslání zprávy
         await message.channel.send(embed=embed, view=view)
         
@@ -630,7 +880,7 @@ async def on_message(message):
             # Čas na průlet Nazgûla! (s zpožděním po dokončení výzvy)
             asyncio.create_task(delayed_nazgul_prolet(message.channel))
             sauron_challenge_counter = 0
-            next_nazgul_trigger = random.randint(4, 8)
+            next_nazgul_trigger = random.randint(2, 3)
     
     # Zpracování příkazů
     await bot.process_commands(message)
