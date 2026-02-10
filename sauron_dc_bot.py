@@ -292,7 +292,7 @@ async def nazgul_prolet(channel):
         description=(
             "Nazgûl označil tyto cestovatele:\n\n"
             + "\n".join(hraci_seznam) +
-            "\n\n⚠️ **V příští výzvě mají NEVÝHODU** - pouze 1.5 sekundy na rozhodnutí!"
+            "\n\n⚠️ **Pokud v příští výzvě odpoví jako první** - všichni hráči mají pouze 1.5 sekundy na rozhodnutí!"
         ),
         color=discord.Color.dark_purple()
     )
