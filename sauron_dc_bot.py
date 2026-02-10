@@ -41,7 +41,7 @@ second_last_author = None  # ID předposledního autora zprávy
 
 # 🐲 NAZGÛL systém - Průlet a označení hráčů
 sauron_challenge_counter = 0  # Počítadlo Sauronových výzev
-next_nazgul_trigger = random.randint(2, 3)  # Průlet Nazgûla po 2-3 výzvách
+next_nazgul_trigger = random.randint(3, 5)  # Průlet Nazgûla po 3-5 výzvách
 nazgul_marked_players = set()  # Označení hráči s nevýhodou (user_id)
 last_nazgul_marked_players = set()  # Minule označení hráči (aby se neopakovali)
 
@@ -305,7 +305,7 @@ class GlumChoiceView(discord.ui.View):
     """View s volbou - jít s Glumem nebo ne."""
     
     def __init__(self):
-        super().__init__(timeout=10)  # 10 sekund na rozhodnutí
+        super().__init__(timeout=20)  # 20 sekund na rozhodnutí
         self.choices = {}  # Dictionary: user_id -> True/False (True = jde s Glumem)
     
     @discord.ui.button(label="🐟 Jít s Glumem", style=discord.ButtonStyle.danger, emoji="⚠️")
@@ -385,7 +385,7 @@ async def glum_event(channel):
             '**🎲 Máš na výběr:**\n'
             '⚠️ **Jít s Glumem** - 50% šance na **+5 bodů** | 50% šance na **-3 body**\n'
             '✅ **Jít bezpečnou cestou** - Získáš jistě **+1 bod**\n\n'
-            '⏰ **Máš 10 sekund na rozhodnutí!**'
+            '⏰ **Máš 20 sekund na rozhodnutí!**'
         ),
         color=discord.Color.gold()
     )
@@ -397,8 +397,8 @@ async def glum_event(channel):
     # Pošli zprávu
     message = await channel.send(embed=embed, view=view)
     
-    # Počkej 10 sekund
-    await asyncio.sleep(10)
+    # Počkej 20 sekund
+    await asyncio.sleep(20)
     
     # Vypni tlačítka
     for child in view.children:
@@ -413,7 +413,7 @@ async def glum_event(channel):
             description='*„Nikdo… nikdo nechce… jít s Glumem… smutný Glum…"*',
             color=discord.Color.dark_gray()
         )
-        await channel.send(embed=embed_result)
+        result_message = await channel.send(embed=embed_result)
     else:
         # Zpracuj jednotlivé volby
         risky_results = []  # Rizikové volby (s Glumem)
@@ -531,12 +531,17 @@ async def glum_event(channel):
         
         embed_result.set_footer(text="Příští Glum event přijde za ~1 hodinu | Zpráva se smaže za 15s")
         
-        await channel.send(embed=embed_result)
+        result_message = await channel.send(embed=embed_result)
     
     # Smaž zprávy po 15 sekundách
     await asyncio.sleep(15)
     try:
         await message.delete()
+    except:
+        pass
+    
+    try:
+        await result_message.delete()
     except:
         pass
 
@@ -880,7 +885,7 @@ async def on_message(message):
             # Čas na průlet Nazgûla! (s zpožděním po dokončení výzvy)
             asyncio.create_task(delayed_nazgul_prolet(message.channel))
             sauron_challenge_counter = 0
-            next_nazgul_trigger = random.randint(2, 3)
+            next_nazgul_trigger = random.randint(3, 5)
     
     # Zpracování příkazů
     await bot.process_commands(message)
