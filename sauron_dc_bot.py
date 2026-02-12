@@ -510,6 +510,14 @@ async def glum_event(channel):
                 value="\n\n".join(risky_text),
                 inline=False
             )
+            
+            # Přidej oddělovač, pokud existují i bezpečné volby
+            if safe_results:
+                embed_result.add_field(
+                    name="\u200b",
+                    value="─" * 40,
+                    inline=False
+                )
         
         # Bezpečné volby
         if safe_results:
