@@ -889,9 +889,9 @@ async def on_message(message):
             sauron_challenge_counter = 0
             next_nazgul_trigger = random.randint(3, 5)
     
-    # 🐟 GLUM EVENT - 3% šance po každé zprávě
+    # 🐟 GLUM EVENT - 5% šance po každé zprávě
     if glum_event_channel is not None:  # Pouze pokud už proběhl alespoň jeden Sauron event
-        if random.random() < 0.03:  # 3% šance
+        if random.random() < 0.05:  # 5% šance
             asyncio.create_task(glum_event(message.channel))
     
     # Zpracování příkazů
