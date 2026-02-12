@@ -507,7 +507,7 @@ async def glum_event(channel):
             
             embed_result.add_field(
                 name="⚠️ Riziková zkratka s Glumem",
-                value="\n\n".join(risky_text),
+                value="\n".join(risky_text),
                 inline=False
             )
             
@@ -515,7 +515,7 @@ async def glum_event(channel):
             if safe_results:
                 embed_result.add_field(
                     name="\u200b",
-                    value="─" * 40,
+                    value="─" * 20,
                     inline=False
                 )
         
@@ -528,7 +528,7 @@ async def glum_event(channel):
             
             embed_result.add_field(
                 name="🚶 Bezpečná cesta",
-                value="\n\n".join(safe_text),
+                value="\n".join(safe_text),
                 inline=False
             )
         
