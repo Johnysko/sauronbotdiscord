@@ -341,37 +341,6 @@ class GlumChoiceView(discord.ui.View):
         await interaction.response.defer(ephemeral=True)
 
 
-async def glum_event_timer():
-    """🐟 Background task - spouští Glum event každou hodinu s náhodným rozptylem."""
-    global glum_event_channel
-    
-    await bot.wait_until_ready()  # Počkej na připravenost bota
-    
-    print("🐟 Glum event timer spuštěn!")
-    
-    while not bot.is_closed():
-        # Počkej na první běžný Sauron event, aby se nastavil kanál
-        if glum_event_channel is None:
-            await asyncio.sleep(60)  # Kontroluj každou minutu
-            continue
-        
-        # Vypočítej náhodný interval: 1 hodina ± 10 minut (50-70 minut)
-        wait_minutes = random.uniform(50, 70)
-        wait_seconds = wait_minutes * 60
-        
-        print(f"🐟 Příští Glum event za {wait_minutes:.1f} minut")
-        
-        # Počkej
-        await asyncio.sleep(wait_seconds)
-        
-        # Spusť Glum event
-        try:
-            if glum_event_channel and not bot.is_closed():
-                await glum_event(glum_event_channel)
-        except Exception as e:
-            print(f"❌ Chyba při Glum eventu: {e}")
-
-
 async def glum_event(channel):
     """🐟 Glum nabídne cestovatelům rizikovou zkratku."""
     
@@ -439,6 +408,22 @@ async def glum_event(channel):
                         nove_body = vysledek
                         prsten_ziskan = False
                     
+                    # Pokud hráč získal prsten, pošli OKAMŽITĚ výherní zprávu
+                    if prsten_ziskan:
+                        embed_win = discord.Embed(
+                            title="🏆 VÝHRA! PRSTEN ZNIČEN! 🏆",
+                            description=(
+                                f"**{user_name}** dokončil(a) epickou cestu a dostal(a) se do Mordoru!\n\n"
+                                f"🌋 Prsten byl shozen do Hory Osudu a zničen!\n\n"
+                                f"💍 Získává **PRSTEN MOCI** do sbírky!\n"
+                                f"✨ Celkem prstenů: **{vysledek['celkem_prstenu']}**\n\n"
+                                f"🔄 Cesta začíná znovu od Kraje..."
+                            ),
+                            color=discord.Color.gold()
+                        )
+                        embed_win.set_footer(text="🎉 Gratulujeme k dokončení příběhu!")
+                        await channel.send(embed=embed_win)
+                    
                     lokace = ziskej_lokaci(nove_body)
                     
                     risky_results.append({
@@ -477,6 +462,22 @@ async def glum_event(channel):
                     nove_body = vysledek
                     prsten_ziskan = False
                 
+                # Pokud hráč získal prsten, pošli OKAMŽITĚ výherní zprávu
+                if prsten_ziskan:
+                    embed_win = discord.Embed(
+                        title="🏆 VÝHRA! PRSTEN ZNIČEN! 🏆",
+                        description=(
+                            f"**{user_name}** dokončil(a) epickou cestu a dostal(a) se do Mordoru!\n\n"
+                            f"🌋 Prsten byl shozen do Hory Osudu a zničen!\n\n"
+                            f"💍 Získává **PRSTEN MOCI** do sbírky!\n"
+                            f"✨ Celkem prstenů: **{vysledek['celkem_prstenu']}**\n\n"
+                            f"🔄 Cesta začíná znovu od Kraje..."
+                        ),
+                        color=discord.Color.gold()
+                    )
+                    embed_win.set_footer(text="🎉 Gratulujeme k dokončení příběhu!")
+                    await channel.send(embed=embed_win)
+                
                 lokace = ziskej_lokaci(nove_body)
                 
                 safe_results.append({
@@ -498,10 +499,7 @@ async def glum_event(channel):
             for r in risky_results:
                 if r['success']:
                     emoji = "✅"
-                    text = f"{emoji} **{r['name']}** - Glum byl důvěryhodný! **+5 bodů**"
-                    if r['prsten']:
-                        text += f"\n   🏆 **DOKONČIL(A) CESTU! Získal(a) prsten!**"
-                    text += f"\n   {r['lokace']['emoji']} {r['body']} bodů - {r['lokace']['nazev']}"
+                    text = f"{emoji} **{r['name']}** - Glum byl důvěryhodný! **+5 bodů**\n   {r['lokace']['emoji']} {r['body']} bodů - {r['lokace']['nazev']}"
                 else:
                     emoji = "❌"
                     text = f"{emoji} **{r['name']}** - Glum zradil! **-3 body**\n   {r['lokace']['emoji']} {r['body']} bodů - {r['lokace']['nazev']}"
@@ -517,10 +515,7 @@ async def glum_event(channel):
         if safe_results:
             safe_text = []
             for s in safe_results:
-                text = f"✅ **{s['name']}** - Bezpečná cesta **+1 bod**"
-                if s['prsten']:
-                    text += f"\n   🏆 **DOKONČIL(A) CESTU! Získal(a) prsten!**"
-                text += f"\n   {s['lokace']['emoji']} {s['body']} bodů - {s['lokace']['nazev']}"
+                text = f"✅ **{s['name']}** - Bezpečná cesta **+1 bod**\n   {s['lokace']['emoji']} {s['body']} bodů - {s['lokace']['nazev']}"
                 safe_text.append(text)
             
             embed_result.add_field(
@@ -795,8 +790,7 @@ async def on_ready():
     print(f'Bot ID: {bot.user.id}')
     print('------')
     
-    # Spusť Glum event timer na pozadí
-    bot.loop.create_task(glum_event_timer())
+    # Glum event nyní běží s 3% šancí po každé zprávě (timer odstraněn)
 
 
 @bot.event
@@ -886,6 +880,11 @@ async def on_message(message):
             asyncio.create_task(delayed_nazgul_prolet(message.channel))
             sauron_challenge_counter = 0
             next_nazgul_trigger = random.randint(3, 5)
+    
+    # 🐟 GLUM EVENT - 3% šance po každé zprávě
+    if glum_event_channel is not None:  # Pouze pokud už proběhl alespoň jeden Sauron event
+        if random.random() < 0.03:  # 3% šance
+            asyncio.create_task(glum_event(message.channel))
     
     # Zpracování příkazů
     await bot.process_commands(message)
