@@ -348,17 +348,14 @@ async def glum_event(channel):
     embed = discord.Embed(
         title="🐟 GLUM SE VYNOŘIL Z TEMNOTY!",
         description=(
-            '*„Psssst… znám… znám zkratku… dobrá zkratka… '
-            'ano, ano… Glum vás provede…"*\n\n'
-            'Glum nabízí, že vás provede **zkratkou** díky své znalosti Středozemě!\n\n'
-            '**🎲 Máš na výběr:**\n'
-            '⚠️ **Jít s Glumem** - 50% šance na **+5 bodů** | 50% šance na **-3 body**\n'
-            '✅ **Jít bezpečnou cestou** - Získáš jistě **+1 bod**\n\n'
-            '⏰ **Máš 20 sekund na rozhodnutí!**'
+            '*„Psssst… znám zkratku… Glum vás provede…"*\n\n'
+            '⚠️ **Jít s Glumem** - 50% šance: **+5 bodů** | **-3 body**\n'
+            '✅ **Bezpečná cesta** - **+1 bod**\n\n'
+            '⏰ **20 sekund na rozhodnutí!**'
         ),
         color=discord.Color.gold()
     )
-    embed.set_footer(text="🐟 Glum event - Riziková zkratka")
+    embed.set_footer(text="🐟 Glum event")
     
     # Vytvoř view s tlačítky
     view = GlumChoiceView()
@@ -532,7 +529,7 @@ async def glum_event(channel):
                 inline=False
             )
         
-        embed_result.set_footer(text="Příští Glum event přijde za ~1 hodinu | Zpráva se smaže za 15s")
+        embed_result.set_footer(text="Zpráva se smaže automaticky za 15s")
         
         result_message = await channel.send(embed=embed_result)
     
