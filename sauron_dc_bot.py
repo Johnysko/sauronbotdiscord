@@ -35,7 +35,7 @@ os.makedirs(DATA_DIR, exist_ok=True)
 
 # Počítadlo zpráv pro Sauronovu výzvu (náhodný interval)
 message_counter = 0
-next_sauron_trigger = random.randint(8, 12)  # První trigger mezi 8-12 zprávami
+next_sauron_trigger = random.randint(15, 20)  # První trigger mezi 15-20 zprávami
 last_message_author = None  # ID posledního autora zprávy
 second_last_author = None  # ID předposledního autora zprávy
 
@@ -870,9 +870,9 @@ async def on_message(message):
         # Odeslání zprávy
         await message.channel.send(embed=embed, view=view)
         
-        # Reset počítadla a nastav nový náhodný trigger (8-12 zpráv)
+        # Reset počítadla a nastav nový náhodný trigger (15-20 zpráv)
         message_counter = 0
-        next_sauron_trigger = random.randint(8, 12)
+        next_sauron_trigger = random.randint(15, 20)
         last_message_author = None  # Reset posledního autora
         second_last_author = None  # Reset předposledního autora
         
@@ -888,7 +888,7 @@ async def on_message(message):
     
     # 🐟 GLUM EVENT - 5% šance po každé zprávě
     if glum_event_channel is not None:  # Pouze pokud už proběhl alespoň jeden Sauron event
-        if random.random() < 0.05:  # 5% šance
+        if random.random() < 0.04:  # 4% šance
             asyncio.create_task(glum_event(message.channel))
     
     # Zpracování příkazů
@@ -1410,7 +1410,7 @@ async def nova_sezona(ctx):
             
             # Resetuj počítadla
             message_counter = 0
-            next_sauron_trigger = random.randint(8, 12)
+            next_sauron_trigger = random.randint(15, 20)
             last_message_author = None
             second_last_author = None
             
