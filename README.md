@@ -1,29 +1,27 @@
-# 👁️ Sauron Discord Bot
+# Filmový kvíz Discord Bot
 
-Discord bot inspirovaný Pánem Prstenů. Hráči sbírají body odpovídáním na Sauronovy výzvy a postupují skrz Středozem až do Mordoru, kde získávají Prsteny Moci.
+Discord bot s filmovým kvízem. Po několika zprávách v kanálu vyskočí otázka se 4 možnostmi. Správná odpověď = +1 bod, špatná = −1 bod.
 
-## 🎮 Jak hra funguje
+## Zdroj otázek
 
-- V rozmezí 10-15 zpráv (odpovídá zhruba 10-15% šanci) se po zprávě objeví Sauronova výzva
-- Hráči si vybírají mezi dvěma postavami (jedna dobrá, jedna zlá)
-- Správná volba = +1 bod, špatná volba = -1 bod
-- Při dosažení 100 bodů získává hráč Prsten Moci a začíná znovu
-- Prsteny zůstávají ve sbírce navždy
+Otázky pocházejí z kategorie **Film a seriály** webu [Kvízky](https://kviz.kvizky.cz) ([konkrétní kategorie](https://kviz.kvizky.cz/kategorie.php?id=5)).
 
-## 🗺️ Lokace (Story mód)
+Kvízové otázky je možné dále nekomerčně šířit s odkazem na zdroj [https://kviz.kvizky.cz](https://kviz.kvizky.cz). V ostatních případech jen se souhlasem Clonet Computers.
 
-- 🌾 **0-19 bodů:** Kraj (Shire)
-- 🏰 **20-39 bodů:** Roklinka (Rivendell)
-- 🐎 **40-59 bodů:** Rohan
-- ⚔️ **60-79 bodů:** Gondor
-- 🚪 **80-99 bodů:** Černá brána
-- � **100+ bodů:** Mordor - VÝHRA! 💍
+Snapshot otázek je v `questions.json`. Doplnit jde skriptem `scrape_kvizky.py`.
 
-## � Příkazy
+## Jak hra funguje
 
-- `!body` - Zobrazí tvůj postup a aktuální lokaci
-- `!zebricek` - Žebříček hráčů podle počtu prstenů
-- `!help_sauron` - Nápověda ke hře
+- Po 15–20 platných zprávách v povoleném kanálu se objeví kvízová otázka
+- Hráči vybírají ze 4 možností (jedna je správná)
+- Správná volba = +1 bod, špatná volba = −1 bod (minimum 0)
+- První správná odpověď zavře kolo za 3 sekundy
+
+## Příkazy
+
+- `!body` - Zobrazí tvoje body
+- `!zebricek` - Žebříček hráčů podle bodů
+- `!help_kviz` - Nápověda ke hře
 
 
 ---

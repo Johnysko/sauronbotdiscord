@@ -1,0 +1,2406 @@
+{
+  "source": "https://kviz.kvizky.cz",
+  "category": "Film a seriály",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Kdo to řekl? „Taková hezká a krade...“",
+      "options": [
+        "Servác",
+        "Pankrác",
+        "Bimbác",
+        "Flašinetář"
+      ],
+      "correct": "Pankrác",
+      "note": "Postava z pohádky „Tři veteráni“, jež ztvárnil Rudolf Hrušínský."
+    },
+    {
+      "id": 2,
+      "question": "Kdo to řekl? „Švagrová! Nedojel jsem. Trošičku jsem štrejchnul o barák.“",
+      "options": [
+        "Ředitel",
+        "Tlučhoř",
+        "Jouza",
+        "Oulík"
+      ],
+      "correct": "Jouza",
+      "note": "Když se na scéně pohádky „Ať žijí duchové!“ objevil celý zasádrovaný Jouza s berlemi (Lubomír Lipský), který měl předtím autonehodu."
+    },
+    {
+      "id": 3,
+      "question": "Kdo to řekl? „Jak bys mě asi představila? Milý tatíčku, tohodle chlápka jsem já poznala v base. Krávu má zaparkovanou za parkem, ale jinak je éňo ňéňo.“",
+      "options": [
+        "Kuchtík Ondřej",
+        "Zlatnický učeň František",
+        "Princ Václav",
+        "Honza"
+      ],
+      "correct": "Princ Václav",
+      "note": "V pohádce Bořivoje Zemana „Šíleně smutná princezna“. Roli princezny ztvárnila Helena Vondráčková a prince hrál Václav Neckář."
+    },
+    {
+      "id": 4,
+      "question": "Kdo to řekl? „No tak co zdržujete? My jedeme světit kostel do Švýcarska. Jeď vole!“",
+      "options": [
+        "Psychiatr",
+        "Karel",
+        "Miki Rousek",
+        "Šofér Čenda"
+      ],
+      "correct": "Miki Rousek",
+      "note": "Bylo to ve filmu „Dívka na koštěti“. Slova pronesla filmová postava Miki Rousek, kterého ve filmu hrál Jan Kraus. Avšak konkrétně tuto hlášku, kdy policie dostihla nezbednou trojici výtečníků, pronesl Karel Augusta v roli jednoho z biskupů, do kterých se chlapci proměnili..."
+    },
+    {
+      "id": 5,
+      "question": "Kdo to řekl? „Je to rebel! Při zatýkání tři vojáky těžce zranil, dva zhmoždil a jednoho zesměšnil.“",
+      "options": [
+        "Kaprál",
+        "Chalupník",
+        "Písař",
+        "Rádce"
+      ],
+      "correct": "Kaprál",
+      "note": "Petr Nárožný v roli kaprála si takto „postěžoval“ na Petra Máchala v pohádce „S čerty nejsou žerty“."
+    },
+    {
+      "id": 6,
+      "question": "Kdo to řekl? „Ty špatně navoněná nádhero!“",
+      "options": [
+        "Rádce",
+        "Čert",
+        "Generál",
+        "Loupežník Karaba"
+      ],
+      "correct": "Loupežník Karaba",
+      "note": "Loupežníka Karabu si v pohádce „Tajemství staré bambitky“ zahrál Ondřej Vetchý."
+    },
+    {
+      "id": 7,
+      "question": "Kdo to řekl? „Zůstane tu dívka, co polévku mi solila.“",
+      "options": [
+        "Šlechtic Jan",
+        "Komoří Lang",
+        "Princ Radovan",
+        "Král Hugo"
+      ],
+      "correct": "Princ Radovan",
+      "note": "V pohádce „Princezna se zlatou hvězdou“ si roli prince Radovana zahrál Josef Zíma. Větu pronesl, když hledal toho/tu, která mu prsten v polévce zanechala."
+    },
+    {
+      "id": 8,
+      "question": "Kdo to řekl? „Chleba s tvarohem nebo život!“",
+      "options": [
+        "Sarka Farka",
+        "Rumcajs",
+        "Karaba",
+        "Lotrando"
+      ],
+      "correct": "Lotrando",
+      "note": "Lotranda si v pohádce „Lotrando a Zubejda“ zahrál Jiří Strach."
+    },
+    {
+      "id": 9,
+      "question": "Kdo to řekl? „Jenomže ty sis bral maminku, kdežto mně vnucuješ samý cizí holky.“",
+      "options": [
+        "Princ",
+        "Janek",
+        "Řezbář",
+        "Rybář"
+      ],
+      "correct": "Princ",
+      "note": "Tato slova pronesl princ (Pavel Trávníček) v pohádce „Tři oříšky pro Popelku“. Slova pronesl na bále ke svému otci, králi, když mu „vybírali“ nevěstu."
+    },
+    {
+      "id": 10,
+      "question": "Kdo to řekl? „Máš zaplacený daně uhlíři?“",
+      "options": [
+        "Lórenc",
+        "Ferenc",
+        "Klerenc",
+        "Výběrčí daní"
+      ],
+      "correct": "Výběrčí daní",
+      "note": "Poté, co se výběrčí daní (Josef Hlinomaz) dopoledne probudil a vylezl z chalupy uhlíře, který ho u sebe v noci nechal přespat. Pohádka Bořivoje Zemana „Pyšná princezna“."
+    },
+    {
+      "id": 11,
+      "question": "Kdo to řekl? \"Vstávat a cvičit.\"",
+      "options": [
+        "Hostinský",
+        "Bob",
+        "Človíček",
+        "Maxipes Fík"
+      ],
+      "correct": "Bob",
+      "note": "Bob (namluvil Josef Dvořák) v pohádce Bob a Bobek. Říkal to Bobkovi každé ráno, když králíci vstávali z klobouku."
+    },
+    {
+      "id": 12,
+      "question": "Kdo to řekl? \"Tak dobře, já se půjdu obětovat do hospody a ty zatím hlídej venku.\"",
+      "options": [
+        "Valihrach",
+        "Petr Máchal",
+        "Dařbuján",
+        "Ája"
+      ],
+      "correct": "Petr Máchal",
+      "note": "Petr Máchal (Vladimír Dlouhý) v pohádce S čerty nejsou žerty. Protože čerti do hospody nesměli..."
+    },
+    {
+      "id": 13,
+      "question": "Kdo to řekl? \"Tati, mluvíš jako z dějepisu, zkus to trochu civilně!\"",
+      "options": [
+        "Zlatník Ondra",
+        "Anče",
+        "Chasník Jonáš",
+        "Princ Václav"
+      ],
+      "correct": "Princ Václav",
+      "note": "Princ Václav (Václav Neckář) v pohádce Šíleně smutná princezna. Pohádku (r. 1968) natočil režisér Bořivoj Zeman a hudbu složil Jan Hammer."
+    },
+    {
+      "id": 14,
+      "question": "Kdo to řekl? \"Já vím, co mi chceš říct: Miluj bližního svého. A víš, co já ti na to, Maruško, odpovím? Blbce ze mě nikdo dělat nebude.\"",
+      "options": [
+        "Pán Bůh",
+        "Anděl Petronel",
+        "Jeníček",
+        "Magdalena"
+      ],
+      "correct": "Pán Bůh",
+      "note": "Pán Bůh (Jiří Bartoška) v pohádce Anděl Páně."
+    },
+    {
+      "id": 15,
+      "question": "Kdo to řekl? \"To kyselo je moc kyselý. A ten bramborák je moc bramborovej!\"",
+      "options": [
+        "Mašinka Tomáš",
+        "Pandrhola",
+        "Císařpán",
+        "Trautenberk"
+      ],
+      "correct": "Trautenberk",
+      "note": "Trautenberk (Ilja Prachař) v Krkonošských pohádkách."
+    },
+    {
+      "id": 16,
+      "question": "Kdo to řekl? \"Musíte Edu omluvit. Je to prostý pobíječ much. Flájbój, jak říkají Angličani. Flájbój Eda.\"",
+      "options": [
+        "Číšník Dejmidýško",
+        "Recepční Vítámvás",
+        "Hostinský Hlavsa",
+        "Hoteliér Sup"
+      ],
+      "correct": "Hoteliér Sup",
+      "note": "Když tři veteráni dorazili do cizího království, přivítal je hoteliér jediného hotelu, který se představil jako Sup a portýr s plácačkou na mouchy, který nelenil a neustále mouchy tou plácačkou zabíjel..."
+    },
+    {
+      "id": 17,
+      "question": "Kdo to řekl? \"A nedají si říct a nedají...\"",
+      "options": [
+        "Vláček Kolejáček",
+        "Kovář Mikeš",
+        "Pejsek a kočička",
+        "Manka"
+      ],
+      "correct": "Kovář Mikeš",
+      "note": "Kovář Mikeš (Pavel Kříž) v pohádce O statečném kováři."
+    },
+    {
+      "id": 18,
+      "question": "Jaký druh zvířete je Hagridův mazlíček, Buckbeak?",
+      "options": [
+        "Sova",
+        "Hipogryf",
+        "Phoenix",
+        "Sup"
+      ],
+      "correct": "Hipogryf",
+      "note": null
+    },
+    {
+      "id": 19,
+      "question": "Jak se jmenoval domácí skřítek rodiny Blackových?",
+      "options": [
+        "Dobby",
+        "Krátura",
+        "Winky",
+        "Hookey"
+      ],
+      "correct": "Krátura",
+      "note": null
+    },
+    {
+      "id": 20,
+      "question": "Slzy kterého zvířete jsou jediným známým protijedem na jed baziliška?",
+      "options": [
+        "Hippogriff",
+        "Demiguise",
+        "Billywig",
+        "Fénix"
+      ],
+      "correct": "Fénix",
+      "note": null
+    },
+    {
+      "id": 21,
+      "question": "Jak se jmenuje obrovský pavouk, který téměř zabil Harryho, Rona a Fanga v Zakázaném lese?",
+      "options": [
+        "Aragog",
+        "Shelob",
+        "Villeneueve",
+        "Dennis"
+      ],
+      "correct": "Aragog",
+      "note": null
+    },
+    {
+      "id": 22,
+      "question": "Komu patřily tři zlaté vlasy v pohádce?",
+      "options": [
+        "Zlatovlásce",
+        "Dědovi Vševědovi",
+        "Otesánkovi",
+        "Princu Vladimírovi"
+      ],
+      "correct": "Dědovi Vševědovi",
+      "note": null
+    },
+    {
+      "id": 23,
+      "question": "Co bylo dočasným domovem Budulínka?",
+      "options": [
+        "Zámek",
+        "Stan",
+        "Podmostí",
+        "Liščí nora"
+      ],
+      "correct": "Liščí nora",
+      "note": null
+    },
+    {
+      "id": 24,
+      "question": "Kdo natočil film E.T. mimozemšťan?",
+      "options": [
+        "Miloš Forman",
+        "Peter Jackson",
+        "Quentin Tarantino",
+        "Steven Spielberg"
+      ],
+      "correct": "Steven Spielberg",
+      "note": null
+    },
+    {
+      "id": 25,
+      "question": "Jak se jmenuje autorka Harryho Pottera?",
+      "options": [
+        "R. S. Wesley",
+        "H. R. Granger",
+        "Thomas Enger",
+        "J. K. Rowling"
+      ],
+      "correct": "J. K. Rowling",
+      "note": null
+    },
+    {
+      "id": 26,
+      "question": "Kdo jsou to mudlové?",
+      "options": [
+        "Černokněžníci",
+        "Nesmrtelní",
+        "Nekouzelníci",
+        "Motáci"
+      ],
+      "correct": "Nekouzelníci",
+      "note": null
+    },
+    {
+      "id": 27,
+      "question": "Jak se jmenují tři hlavní hrdinové v sérii Harry Potter?",
+      "options": [
+        "Harry, Snape a Voldemort",
+        "Harry, Randy a Harmiona",
+        "Harry, Draco a Sirius",
+        "Harry, Ronald a Hermiona"
+      ],
+      "correct": "Harry, Ronald a Hermiona",
+      "note": null
+    },
+    {
+      "id": 28,
+      "question": "Který pivovar s nezapomenutelným komínem byl použit pro natáčení filmu Postřižiny?",
+      "options": [
+        "Pivovar v Dalešicích",
+        "Pivovar v Třeboni",
+        "Pivovar v Protivíně",
+        "Pivovar v Benešově"
+      ],
+      "correct": "Pivovar v Dalešicích",
+      "note": "Pivovar Dalešice se nachází v okrese Třebíč v kraji Vysočina v Dalešicích. Vaří se zde Dalešické pivo. Počátky pivovaru sahají do přelomu 16. a 17. století, v průběhu 19. století pak produkce piva dosáhla vrcholu. V sedmdesátých letech 20. století však bylo vaření piva pozastaveno a celý areál počal chátrat."
+    },
+    {
+      "id": 29,
+      "question": "Ve které hororové sérii vystupuje skupina přátel, kteří vyšetřují paranormální jevy?",
+      "options": [
+        "Insidious",
+        "Paranormal Activity",
+        "The Blair Witch Project",
+        "The Conjuring"
+      ],
+      "correct": "Paranormal Activity",
+      "note": null
+    },
+    {
+      "id": 30,
+      "question": "Jak se jmenuje démon, který posedne Regan ve filmu Vymítač ďábla?",
+      "options": [
+        "Pazuzu",
+        "Belzebub",
+        "Leviatan",
+        "Mamon"
+      ],
+      "correct": "Pazuzu",
+      "note": null
+    },
+    {
+      "id": 31,
+      "question": "Jak se ve filmu Osvícení jmenuje hotel, ve kterém se příběh odehrává?",
+      "options": [
+        "Motel Bates",
+        "Hotel Stanley",
+        "Hotel Overlook",
+        "Hotel Cortez"
+      ],
+      "correct": "Hotel Overlook",
+      "note": "Opuštěný horský hotel, odříznutý od světa, to je vhodné místo k zešílení... Neúspěšný spisovatel Jack Torrance přijme práci správce v luxusním, ale odlehlém horském hotelu Overlook, který je přes zimu zcela odříznutý od světa. Pro muže je to vítaná příležitost najít klid na práci. Jenže od první chvíle, kdy Jack s manželkou Wendy a synkem Dannym do hotelu dorazí, se zdá být něco v nepořádku."
+    },
+    {
+      "id": 32,
+      "question": "Kdo režíroval horor Psycho?",
+      "options": [
+        "Stanley Kubrick",
+        "Martin Scorsese",
+        "Steven Spielberg",
+        "Alfred Hitchcock"
+      ],
+      "correct": "Alfred Hitchcock",
+      "note": "Psycho vzniklo podle knihy Roberta Blocha, avšak jeho příběh je inspirován skutečnými událostmi spojenými se schizofrenickým vrahem Edem Geinem (1906–1984), jenž páchal své činy ve Wisconsinu v padesátých letech minulého století. Geinovým případem se inspirovali též tvůrci filmů Deranged (1974), Texaský masakr motorovou pilou (1974) nebo Mlčení jehňátek (1991)"
+    },
+    {
+      "id": 33,
+      "question": "Jak se jmenuje klaun ve filmu \"To\"?",
+      "options": [
+        "Bubbles",
+        "Bozo",
+        "Twisty",
+        "Pennywise"
+      ],
+      "correct": "Pennywise",
+      "note": "Když ve městě Derry ve státě Maine začnou mizet děti, musí skupina mladých chlapců a děvčat čelit svým největším obavám v boji proti zlému klaunovi jménem Pennywise, jehož vražedná a násilnická historie se táhne napříč staletími."
+    },
+    {
+      "id": 34,
+      "question": "Který film je natočen podle románu Stephena Kinga a vystupuje v něm posedlé auto?",
+      "options": [
+        "Pet Sematary",
+        "Christine",
+        "Osvícení",
+        "Carrie"
+      ],
+      "correct": "Christine",
+      "note": "Podivínský student rekonstruuje veterána Plymouth Fury z roku 1958 – ale jakmile sedne za volant, jeho sebevědomí se promění v šílenou bezohlednost."
+    },
+    {
+      "id": 35,
+      "question": "Jak se jmenuje satanský démon ve filmu Dědictví?",
+      "options": [
+        "Paimon",
+        "Behemoth",
+        "Azazel",
+        "Asmodeus"
+      ],
+      "correct": "Paimon",
+      "note": null
+    },
+    {
+      "id": 36,
+      "question": "Kdo režíroval film Noční můra v Elm Street?",
+      "options": [
+        "Sam Raimi",
+        "Tobe Hooper",
+        "Wes Craven",
+        "John Carpenter"
+      ],
+      "correct": "Wes Craven",
+      "note": "Nancy (Heather Langenkamp) prožila smrt svých přátel. Matka a její blízké okolí si myslí, že se zbláznila a vytváří si vlastní postavu, která je zabila. Jenže postupem času napovrch vyplouvají důkazy, že vrahem je Freddy Krueger (Robert Englund), který se jí zjevuje prostřednictvím snů."
+    },
+    {
+      "id": 37,
+      "question": "Jak se jmenuje maskovaný vrah ve filmu Vřískot?",
+      "options": [
+        "Michael Myers",
+        "Jigsaw",
+        "Leatherface",
+        "Ghostface"
+      ],
+      "correct": "Ghostface",
+      "note": "Film Vřískot od mistra hrůzy Wese Cravena byl kritikou pasován na nejlepší hororový thriller 90. let. Obyvatelé malebného městečka (mezi nimi Drew Barrymore, Courteney Cox a Neve Campbell) se postupně stávají obětmi lstivého psychopata s pokřivenou láskou k hororovým filmům. Když maskovaný vrah pokračuje v napodobování filmových masakrů v opravdovém životě, začne byt jasné, že rozluštit tuto záhadu znamená být zavražděn."
+    },
+    {
+      "id": 38,
+      "question": "Jak se jmenuje mluvící sněhulák v Disneyho filmu Frozen?",
+      "options": [
+        "Kristoff",
+        "Elsa",
+        "Olaf",
+        "Sven"
+      ],
+      "correct": "Olaf",
+      "note": null
+    },
+    {
+      "id": 39,
+      "question": "Kdo jsou dva nejlepší přátelé Harryho Pottera?",
+      "options": [
+        "Ron Weasley a Hermiona Grangerová",
+        "Neville Longbottom a Luna Lovegood",
+        "Harry Potter a Draco Malfoy",
+        "Sirius Black a Remus Lupin"
+      ],
+      "correct": "Ron Weasley a Hermiona Grangerová",
+      "note": null
+    },
+    {
+      "id": 40,
+      "question": "Jak se jmenuje kovboj v Toy Story?",
+      "options": [
+        "Rex",
+        "Buzz Lightyear",
+        "Jessie",
+        "Woody"
+      ],
+      "correct": "Woody",
+      "note": null
+    },
+    {
+      "id": 41,
+      "question": "Která herečka si v roce 1976 ve svých 13 letech zahrála prostitutku ve filmu Taxikář?",
+      "options": [
+        "Helen Hunt",
+        "Meryl Streep",
+        "Jodie Foster",
+        "Brooke Shields"
+      ],
+      "correct": "Jodie Foster",
+      "note": "Alicia Christian „Jodie“ Fosterová, nepřechýleně Jodie Foster, je americká herečka, držitelka dvou Oscarů za nejlepší ženský herecký výkon v hlavní roli ve filmech Znásilnění a Mlčení jehňátek, za něž získala také dva Zlaté glóby, režisérka a producentka."
+    },
+    {
+      "id": 42,
+      "question": "Doplňte název filmu: Terminátor 2: Den...",
+      "options": [
+        "temnoty",
+        "zrady",
+        "zúčtování",
+        "spásy"
+      ],
+      "correct": "zúčtování",
+      "note": null
+    },
+    {
+      "id": 43,
+      "question": "Který agent ze stejnojmenného seriálu dovedl udělat takřka nemožné pouze se švýcarským nožem a lepicí páskou?",
+      "options": [
+        "MacKinley",
+        "MacDonald",
+        "MacAngus",
+        "MacGyver"
+      ],
+      "correct": "MacGyver",
+      "note": null
+    },
+    {
+      "id": 44,
+      "question": "Kolik let měl Harrison Ford v době uvedení filmu Indiana Jones a nástroj osudu?",
+      "options": [
+        "70",
+        "75",
+        "80",
+        "65"
+      ],
+      "correct": "80",
+      "note": "Harrison Ford (Indiana Jones) měl v době uvedení tohoto filmu 80 let, což z něj činí nejstarší osobu, která hrála hlavní roli v Disney filmu."
+    },
+    {
+      "id": 45,
+      "question": "Z kterého filmu je \"Takže mám napsat: Je hodný, že se chce odstěhovat...\"",
+      "options": [
+        "Akumulátor",
+        "Vesničko má středisková",
+        "Tmavomodrý svět",
+        "Na samotě u lesa"
+      ],
+      "correct": "Na samotě u lesa",
+      "note": null
+    },
+    {
+      "id": 46,
+      "question": "Hlavní roli ztvárnil ve filmu Zachraňte vojína Ryana (1998)",
+      "options": [
+        "Matt Damon",
+        "Arnold Vosloo",
+        "Vin Diesel",
+        "Tom Hanks"
+      ],
+      "correct": "Tom Hanks",
+      "note": null
+    },
+    {
+      "id": 47,
+      "question": "Kdo ztvárnil hlavní roli ve filmu Poslední Mohykán (1992)?",
+      "options": [
+        "Jean Rochefort",
+        "Wes Studi",
+        "Russell Means",
+        "Daniel Day-Lewis"
+      ],
+      "correct": "Daniel Day-Lewis",
+      "note": null
+    },
+    {
+      "id": 48,
+      "question": "Kdo ztvárnil hlavní roli ve filmu Poslední samuraj (2003)?",
+      "options": [
+        "Colin Farrell",
+        "Tom Cruise",
+        "Ken Watanabe",
+        "Jackie Chan"
+      ],
+      "correct": "Tom Cruise",
+      "note": null
+    },
+    {
+      "id": 49,
+      "question": "Kdo ztvárnil hlavní roli ve filmu Hartova válka (2002)?",
+      "options": [
+        "Bruce Willis",
+        "Brendan Fraser",
+        "Mel Gibson",
+        "Colin Farrell"
+      ],
+      "correct": "Colin Farrell",
+      "note": null
+    },
+    {
+      "id": 50,
+      "question": "Doplňte název filmu: ... element (1997)",
+      "options": [
+        "První",
+        "Nový",
+        "Druhý",
+        "Pátý"
+      ],
+      "correct": "Pátý",
+      "note": null
+    },
+    {
+      "id": 51,
+      "question": "Steven Spielberg není režisérem kterého filmu?",
+      "options": [
+        "Ztracený svět",
+        "Říše slunce",
+        "E. T.",
+        "Schindlerův seznam"
+      ],
+      "correct": "Ztracený svět",
+      "note": null
+    },
+    {
+      "id": 52,
+      "question": "Jak se jmenuje tajemný muž s buřinkou a kouzelnými schopnostmi v českém komediálním seriálu ze 70. let?",
+      "options": [
+        "Pan Tau",
+        "Krakonoš",
+        "Maxipes Fík",
+        "Chaplin"
+      ],
+      "correct": "Pan Tau",
+      "note": null
+    },
+    {
+      "id": 53,
+      "question": "Seriál Nemocnice na kraji města se natáčel původně ve kterém městě?",
+      "options": [
+        "Praha",
+        "Liberec",
+        "Most",
+        "Brno"
+      ],
+      "correct": "Most",
+      "note": null
+    },
+    {
+      "id": 54,
+      "question": "Jak se jmenoval hlavní hrdina a vypravěč ve slavném českém seriálu Bylo nás pět?",
+      "options": [
+        "Pepek Zilvar",
+        "Eda Kemlink",
+        "Petr Bajza",
+        "Čeněk Jirsák"
+      ],
+      "correct": "Petr Bajza",
+      "note": "Petr Bajza, Čenda Jirsák, Bejval Antonín, Éda Kemlink a Zilvar z chudobince jsou populární postavičky z románu Karla Poláčka. Podle něj vznikl televizní seriál, jenž líčí jejich příhody na malém městě ve třicátých letech."
+    },
+    {
+      "id": 55,
+      "question": "Svou největší slávu tehdy zažíval seriál 30 případů majora Zemana. Jak se jmenoval herec, který ztvárnil hlavní roli?",
+      "options": [
+        "František Němec",
+        "Ladislav Mrkvička",
+        "Vladimír Brabec",
+        "Rudolf Jelínek"
+      ],
+      "correct": "Vladimír Brabec",
+      "note": null
+    },
+    {
+      "id": 56,
+      "question": "Jak se jmenovala vesnice, ve které žily rodiny v seriálu Chalupáři?",
+      "options": [
+        "Třešňová",
+        "Pohádka",
+        "Višňová",
+        "Mikulov"
+      ],
+      "correct": "Třešňová",
+      "note": "Seriál komediálních příběhů F. Vlčka a V. P. Borovičky, který již od své premiéry v roce 1975 potěšil řadu diváků mnoha generací, čerpá svůj humor ze symbiózy člověka městského a člověka vesnického. Popularitu získal nejen pro své hvězdné obsazení, ale i pro základní tón, jímž je tolerance, lidská vzájemnost a porozumění."
+    },
+    {
+      "id": 57,
+      "question": "Jaké jméno nesla hlavní postava seriálu Lucie, postrach ulice?",
+      "options": [
+        "Lucie Zedníčková",
+        "Žaneta Fuchsová",
+        "Daniela Kolářová",
+        "Lucie Krausová"
+      ],
+      "correct": "Lucie Krausová",
+      "note": "Dětská pohádková komedie o malé Lucii, protivném vůdci klukovské patry Osvaldovi a dvou kouzelných postavičkách z formely. Lucie je šestiletá holčička, která se už nemůže dočkat, až půjde poprvé do školy."
+    },
+    {
+      "id": 58,
+      "question": "Jak se jmenovala hlavní role v seriálu Žena za pultem?",
+      "options": [
+        "Jiřina Holubová",
+        "Anna Holubová",
+        "Jana Boušková",
+        "Eva Holubová"
+      ],
+      "correct": "Anna Holubová",
+      "note": "Seriál o životě a starostech obyčejné prodavačky Anny Holubové a jejích kolegyň z prodejny potravin. Scénář: Jaroslav Dietl"
+    },
+    {
+      "id": 59,
+      "question": "Jaký je celý název pokračování pohádkového seriálu Arabela?",
+      "options": [
+        "Arabela se vrací",
+        "Arabela se vrací aneb Rumburak králem Říše pohádek",
+        "Arabela 2",
+        "Arabela a Říše pohádek"
+      ],
+      "correct": "Arabela se vrací aneb Rumburak králem Říše pohádek",
+      "note": "Arabela pokračuje dalšími šestadvaceti příběhy, jimiž autoři Miloš Macourek a Václav Vorlíček volně navázali na díly předchozí. Než se podařilo pokračování úspěšného seriálu napsat a natočit, uběhla řada let. Někteří herci z první série se už, bohužel, natáčení nedožili: Vladimír Menšík, Václav Lohniský, Petr Svojtka či Jiří Hrzán."
+    },
+    {
+      "id": 60,
+      "question": "Kdy se vysílala první epizoda seriálu Cirkus Humberto?",
+      "options": [
+        "1988",
+        "1985",
+        "1990",
+        "1995"
+      ],
+      "correct": "1988",
+      "note": "Jeden z nejvýpravnějších seriálů České televize podle slavného románu Eduarda Basse, k němuž složil hudbu Karel Svoboda a ústřední melodii nazpíval Karel Gott. Životní příběhy šesti generací rodu Humberto zobrazují pohnuté osudy lidí, kterým se cirkusová manéž stala osudem."
+    },
+    {
+      "id": 61,
+      "question": "Kevin Costner a Whitney Houston zažili lásku ve filmu:",
+      "options": [
+        "Nechte ho jít",
+        "Na křídlech vážky",
+        "Vztekle tvá",
+        "Osobní strážce"
+      ],
+      "correct": "Osobní strážce",
+      "note": null
+    },
+    {
+      "id": 62,
+      "question": "Jak se jmenuje hlavní hrdina filmu Pomáda, kterého ztvárnil John Travolta?",
+      "options": [
+        "Sonny",
+        "Danny",
+        "Barry",
+        "Doody"
+      ],
+      "correct": "Danny",
+      "note": null
+    },
+    {
+      "id": 63,
+      "question": "Jakou profesi měl tatínek hlavní hrdinky Baby ve filmu Hříšný tanec (1987)?",
+      "options": [
+        "učitel",
+        "politik",
+        "makléř",
+        "lékař"
+      ],
+      "correct": "lékař",
+      "note": "Píše se rok 1963. Beatles v USA ještě nejsou známí a diskotékám kralují latinsko-americké tance. Do letoviska horského hotelu přijíždí na prázdninový pobyt 17-tiletá Frances, všemi přezdívaná Baby, se sestrou Lisou a s rodiči. V hotelu se vyučují klasické tance, či tance z Latinské Ameriky, ale personál vyznává nejraději úplně jiný druh tance - tzv. dirty dancing (hříšný tanec)."
+    },
+    {
+      "id": 64,
+      "question": "Jak se jmenuje druhý díl pětidílné ságy o krásné Angelice?",
+      "options": [
+        "Angelika a král",
+        "Angelika, markýza andělů",
+        "Báječná Angelika",
+        "Nezkrotná Angelika"
+      ],
+      "correct": "Báječná Angelika",
+      "note": null
+    },
+    {
+      "id": 65,
+      "question": "Koho ztvárnil Colin Firth ve filmu Láska nebeská (2003)?",
+      "options": [
+        "spisovatele",
+        "politika",
+        "herce",
+        "zpěváka"
+      ],
+      "correct": "spisovatele",
+      "note": null
+    },
+    {
+      "id": 66,
+      "question": "Jak skončí příběh Williama Thackera a Anny Scottové ve filmu Notting Hill (1999)?",
+      "options": [
+        "tragicky zahynou",
+        "rozejdou se",
+        "odstěhují se do Francie",
+        "zůstanou spolu a stanou se rodiči"
+      ],
+      "correct": "zůstanou spolu a stanou se rodiči",
+      "note": null
+    },
+    {
+      "id": 67,
+      "question": "Kolik Oscarů získal film Titanic (1997)?",
+      "options": [
+        "5",
+        "7",
+        "11",
+        "4"
+      ],
+      "correct": "11",
+      "note": "V ledových vodách Atlantiku skončilo mnoho životů a osudů. Mezi nimi byla i jedna láska, která vlastně ani pořádně nezačala. Americký velkofilm v režii Jamese Camerona, oceněný jedenácti Oscary, katapultoval mezi nejzářivější hvězdy Hollywoodu oba představitele hlavních rolí – Kate Winsletovou a Leonarda DiCapria."
+    },
+    {
+      "id": 68,
+      "question": "V kterém městě se odehrává film Pretty Woman (1990)?",
+      "options": [
+        "Londýn",
+        "Chicago",
+        "New York",
+        "Los Angeles"
+      ],
+      "correct": "Los Angeles",
+      "note": null
+    },
+    {
+      "id": 69,
+      "question": "Americký film Memento z roku 2000 je o muži, který",
+      "options": [
+        "předpovídal budoucnost",
+        "cestoval do minulosti",
+        "trpěl výpadky paměti",
+        "přestal stárnout"
+      ],
+      "correct": "trpěl výpadky paměti",
+      "note": null
+    },
+    {
+      "id": 70,
+      "question": "V seriálu \"Sex ve městě\" si jednoho z nápadníků hlavní postavy Carrie zahrál i zpěvák....",
+      "options": [
+        "Justin Timberlake",
+        "Robbie Williams",
+        "Bono",
+        "Jon Bon Jovi"
+      ],
+      "correct": "Jon Bon Jovi",
+      "note": null
+    },
+    {
+      "id": 71,
+      "question": "Která herečka ztvárnila roli zlé královny v pohádce \"Zakletá jeskyně\" z roku 2022?",
+      "options": [
+        "Martina Zábranská",
+        "Ivana Chýlková",
+        "Táňa Pauhofová",
+        "Petra Dubayová"
+      ],
+      "correct": "Táňa Pauhofová",
+      "note": null
+    },
+    {
+      "id": 72,
+      "question": "„Rodiče, kteří chtějí vidět Idiota, nechť se dostaví do ředitelny.“ V jakém filmu tato výzva zazněla?",
+      "options": [
+        "Škola základ života",
+        "Gympl",
+        "Pelíšky",
+        "Obecná škola"
+      ],
+      "correct": "Obecná škola",
+      "note": null
+    },
+    {
+      "id": 73,
+      "question": "Vzpomenete si na jméno filmového učitele z filmu Obecná škola?",
+      "options": [
+        "Igor Hnízdo",
+        "Luboš Straka",
+        "Jan Hvízdil",
+        "Ivan Hrozný"
+      ],
+      "correct": "Igor Hnízdo",
+      "note": null
+    },
+    {
+      "id": 74,
+      "question": "„No, nepotěšil jste mne, ani já vás nepotěším.“ V kterém filmu zazní tato známá věta?",
+      "options": [
+        "Což takhle dát si špenát",
+        "Vrať se do hrobu!",
+        "Marečku, podejte mi pero!",
+        "Jáchyme, hoď ho do stroje!"
+      ],
+      "correct": "Marečku, podejte mi pero!",
+      "note": null
+    },
+    {
+      "id": 75,
+      "question": "Ve filmu Marečku, podejte mi pero! je jedna výrazná postava, která nepatří zrovna k oblíbencům mezi spolužáky. Jak se jmenuje?",
+      "options": [
+        "Hliník",
+        "Viktor Hujer",
+        "Plha",
+        "Jiří Kroupa"
+      ],
+      "correct": "Viktor Hujer",
+      "note": null
+    },
+    {
+      "id": 76,
+      "question": "„To není učení – to je krocení divé zvěře,“ prohlásí profesorka přírodopisu Suchánková. V jakém filmu?",
+      "options": [
+        "Bota jménem Melichar",
+        "Kulový blesk",
+        "Pelíšky",
+        "Škola základ života"
+      ],
+      "correct": "Škola základ života",
+      "note": null
+    },
+    {
+      "id": 77,
+      "question": "Který film nerežíroval Tim Burton?",
+      "options": [
+        "Piráti z Karibiku",
+        "Ospalá díra",
+        "Střihoruký Edward",
+        "Karlík a továrna na Čokoládu"
+      ],
+      "correct": "Piráti z Karibiku",
+      "note": null
+    },
+    {
+      "id": 78,
+      "question": "V hororu Kruh, kolik dní žili lidé, kteří se podívali na kazetu?",
+      "options": [
+        "3",
+        "7",
+        "5",
+        "30"
+      ],
+      "correct": "7",
+      "note": null
+    },
+    {
+      "id": 79,
+      "question": "Miley Cyrus a Liam Hemsworth se poprvé setkali na place kterého filmu?",
+      "options": [
+        "Hanna Montana",
+        "Poslední píseň",
+        "Bezpečný přístav",
+        "Hunger Games"
+      ],
+      "correct": "Poslední píseň",
+      "note": "Miley Cyrus a Liam Hemsworth se poprvé setkali v roce 2009 při natáčení romantického dramatu Poslední píseň (The Last Song)."
+    },
+    {
+      "id": 80,
+      "question": "Kolik prstů má Mickey Mouse na jedné ruce?",
+      "options": [
+        "4",
+        "2",
+        "3",
+        "5"
+      ],
+      "correct": "4",
+      "note": null
+    },
+    {
+      "id": 81,
+      "question": "Do jakého roku cestují ve filmu Zpátky do budoucnosti?",
+      "options": [
+        "1955",
+        "1990",
+        "1945",
+        "1980"
+      ],
+      "correct": "1955",
+      "note": null
+    },
+    {
+      "id": 82,
+      "question": "Kam cestovala Kevinova rodina ve filmu Sám doma?",
+      "options": [
+        "Londýn",
+        "Praha",
+        "New York",
+        "Paříž"
+      ],
+      "correct": "Paříž",
+      "note": null
+    },
+    {
+      "id": 83,
+      "question": "V jaké fiktivní zemi se odehrává film Deník princezny?",
+      "options": [
+        "Maldevia",
+        "Etrovia",
+        "Caledonia",
+        "Genovia"
+      ],
+      "correct": "Genovia",
+      "note": null
+    },
+    {
+      "id": 84,
+      "question": "Kdo hraje hlavního hrdinu ve filmu DEADPOOL?",
+      "options": [
+        "Ryan Reynolds",
+        "Chris Hemswort",
+        "Ryan Gosling",
+        "Chris Evans"
+      ],
+      "correct": "Ryan Reynolds",
+      "note": null
+    },
+    {
+      "id": 85,
+      "question": "Z kterého filmu pochází písnička \"Severní vítr\"?",
+      "options": [
+        "Jáchyme, hoď ho do stroje",
+        "Jak utopit doktora Mráčka",
+        "Vrchní, prchni!",
+        "Jak básníci přicházejí o iluze"
+      ],
+      "correct": "Vrchní, prchni!",
+      "note": null
+    },
+    {
+      "id": 86,
+      "question": "“Já když kouřím, tak zvracím.” Hláška je z filmu:",
+      "options": [
+        "Vesničko má středisková",
+        "Marečku, podejte mi pero!",
+        "Postřižiny",
+        "Copak je to za vojáka"
+      ],
+      "correct": "Marečku, podejte mi pero!",
+      "note": null
+    },
+    {
+      "id": 87,
+      "question": "Jak jse jmenovala postava z Pána prstenů, kterou ztvárnil herec Orlando Bloom?",
+      "options": [
+        "Aragorn",
+        "Frodo Pytlík",
+        "Sauron",
+        "Legolas"
+      ],
+      "correct": "Legolas",
+      "note": null
+    },
+    {
+      "id": 88,
+      "question": "”Svině klouzavý” - ve kterém americkém filmu tato hláška zazněla?",
+      "options": [
+        "Pretty woman",
+        "Hříšný tanec",
+        "Moderní Popelka",
+        "Pomáda"
+      ],
+      "correct": "Pretty woman",
+      "note": null
+    },
+    {
+      "id": 89,
+      "question": "Jak se jmenovala postava, kterou ztvárnila Meryl Streep ve filmu Mamma Mia?",
+      "options": [
+        "Donnie Sherilová",
+        "Donna Sheridenová",
+        "Dana Sheridenová",
+        "Donna Dinama"
+      ],
+      "correct": "Donna Sheridenová",
+      "note": null
+    },
+    {
+      "id": 90,
+      "question": "Znáte pokračování začátku děsivého příběhu s názvem Studna ze seriálu 30 případů majora Zemana? „Otec byl toho večera poněkud…“",
+      "options": [
+        "zadýchaný.",
+        "unavený.",
+        "roztřesený.",
+        "neklidný."
+      ],
+      "correct": "neklidný.",
+      "note": "Třicet případů majora Zemana a především díl Studna zná asi každý. Podivné kývání starého Brůny, sekera a vražda v kruhu rodinném, jednoduše „obraz jako z apokalypsy“, tak vypadal jeden z nejznámějších dílů seriálu z roku 1978. Věta „otec byl toho večera poněkud neklidný“ sice vešla do dějin, ale v seriálu v této podobě nikdy nezazněla. Dozvíme se jen to, že „otce byl divně tichý, zádumčivý a uzavřený do sebe“."
+    },
+    {
+      "id": 91,
+      "question": "„O tom, co je krasné, rozhodujeme my, strana!“ V kterém filmu zazněla tato věta?",
+      "options": [
+        "Tankový prapor",
+        "Pelíšky",
+        "Občanský průkaz",
+        "Černí baroni"
+      ],
+      "correct": "Černí baroni",
+      "note": "Výrok vyšel z úst herce Bronislava Poloczeka, který představoval kapitána Ořecha."
+    },
+    {
+      "id": 92,
+      "question": "Z kterého filmu pochází tato hláška? „Abych z vás neudělal nezaměstnaného!“",
+      "options": [
+        "Marečku, podejte mi pero!",
+        "Čtyři vraždy stačí, drahoušku",
+        "Zabil jsem Einsteina, pánové!",
+        "Pane, vy jste vdova!"
+      ],
+      "correct": "Pane, vy jste vdova!",
+      "note": "Jde o výrok Miloše Kopeckého jakožto profesora Sommera."
+    },
+    {
+      "id": 93,
+      "question": "Hláška z filmu Vesničko má středisková: „to neděláš dobře s těma sirkama“. Jak se jmenoval muž, který měl v ohrožení intimní partie po vracení vypálených zápalek do krabičky?",
+      "options": [
+        "Jaroslav",
+        "Jindra",
+        "Josef",
+        "Jaromír"
+      ],
+      "correct": "Jaromír",
+      "note": "Rostlinář Jaromír, který je pouze jednou za celý film osloven příjmením Kunc, nakonec pochopí ono „jednou se ti to vymstí“. I sám Vlach si při scéně se vznícením krabičky zápalek vytrpěl své, pyrotechnici byli zrovna na jiném natáčení a on byl nucen improvizovat. Žhavá azbestová destička jej na stehně opravdu popálila."
+    },
+    {
+      "id": 94,
+      "question": "„Držte huby, sestry!“ Díky kterému filmu zlidověla tato slavná hláška?",
+      "options": [
+        "Slunce, seno a pár facek",
+        "Sněženky a machři",
+        "Což takhle dát si špenát",
+        "Babovřesky"
+      ],
+      "correct": "Slunce, seno a pár facek",
+      "note": "Věta zazní v momentě, kdy farář Otík pouští sestrám video o umučení svatého Šebestiána, přičemž dojde k záměně videokazet a na obrazovce se objeví porno. Zajímavé je, že obsah obou videokazet si musel režisér Zdeněk Troška zajistit sám – s náboženskou scénkou nebyl problém, ale kvůli „německému pornu“ jej prý vyslýchala i bezpečnost."
+    },
+    {
+      "id": 95,
+      "question": "Test znalosti Večerníčků: Do které třídy chodili spolužáci Mach a Šebestová?",
+      "options": [
+        "2. B",
+        "3. B",
+        "3. C",
+        "4. D"
+      ],
+      "correct": "3. B",
+      "note": null
+    },
+    {
+      "id": 96,
+      "question": "Test znalosti Večerníčků: Kdo pracoval pro Trautenberka?",
+      "options": [
+        "Anče, Kuba a hajnej",
+        "Anče, Kuba a včelí medvídci",
+        "Anče, Kuba a sojka",
+        "Anče, Kuba a Marnej"
+      ],
+      "correct": "Anče, Kuba a hajnej",
+      "note": null
+    },
+    {
+      "id": 97,
+      "question": "Test znalosti Večerníčků: Která zvířata byla Štaflík a Špagetka?",
+      "options": [
+        "Pejsek a kočička",
+        "Králíci",
+        "Kočky",
+        "Psi"
+      ],
+      "correct": "Psi",
+      "note": null
+    },
+    {
+      "id": 98,
+      "question": "Test znalosti Večerníčků: Jak se jmenoval havran, kamarád malé čarodějnice?",
+      "options": [
+        "Gargamel",
+        "Abraxas",
+        "Asterix",
+        "Krabat"
+      ],
+      "correct": "Abraxas",
+      "note": null
+    },
+    {
+      "id": 99,
+      "question": "Loupežník Rumcajs, jeho žena Manka a jejich syn Cipísek žili v lese…",
+      "options": [
+        "Pohořelci",
+        "Řáholci",
+        "Řeholci",
+        "Dohořelci"
+      ],
+      "correct": "Řáholci",
+      "note": null
+    },
+    {
+      "id": 100,
+      "question": "Test znalosti Večerníčků: Kdo to byl Krkovička?",
+      "options": [
+        "Zedník",
+        "Myslivec",
+        "Starosta",
+        "Řezník"
+      ],
+      "correct": "Řezník",
+      "note": null
+    },
+    {
+      "id": 101,
+      "question": "Kterou z těchto pohádek NEDABOVALA herečka Jiřina Bohdalová?",
+      "options": [
+        "Kubula a Kuba Kubikula",
+        "Pohádky z mechu a kapradí",
+        "Pohádky ovčí babičky",
+        "Rákosníček"
+      ],
+      "correct": "Kubula a Kuba Kubikula",
+      "note": null
+    },
+    {
+      "id": 102,
+      "question": "Jedinou ženskou postavou v Krkonošských pohádkách je Anče. Která herečka ji ztvárnila?",
+      "options": [
+        "Hana Maciuchová",
+        "Jana Boušková",
+        "Libuše Šafránková",
+        "Daniela Kolářová"
+      ],
+      "correct": "Hana Maciuchová",
+      "note": null
+    },
+    {
+      "id": 103,
+      "question": "Byla jednou koťata je Večerníček o dvou zlobivých kocourcích. Jak se jmenovali?",
+      "options": [
+        "Cancourek a Mrkáček",
+        "Cancour a Macek",
+        "Canfourek a Macourek",
+        "Celofán a Myšilov"
+      ],
+      "correct": "Canfourek a Macourek",
+      "note": null
+    },
+    {
+      "id": 104,
+      "question": "Test znalosti Večerníčků: Čím býval kdysi děda Lebeda?",
+      "options": [
+        "Námořníkem",
+        "Vojákem",
+        "Hajným",
+        "Řezníkem"
+      ],
+      "correct": "Námořníkem",
+      "note": null
+    },
+    {
+      "id": 105,
+      "question": "Test znalosti Večerníčků: Jak se jmenovala kamarádka Maxipsa Fíka?",
+      "options": [
+        "Mája",
+        "Ája",
+        "Pája",
+        "Dáda"
+      ],
+      "correct": "Ája",
+      "note": null
+    },
+    {
+      "id": 106,
+      "question": "Jak se jmenovaly příběhy o kocourkovi, který jen co se naučil pít mléko z misky, už se chtěl učit chodit po dvou?",
+      "options": [
+        "O Mikešovi",
+        "O Matějovi",
+        "O Prokešovi",
+        "O Kokešovi"
+      ],
+      "correct": "O Mikešovi",
+      "note": null
+    },
+    {
+      "id": 107,
+      "question": "Jak se jmenoval Večerníček o krtečkovi a jeho přátelích?",
+      "options": [
+        "Krtkova dobrodružství",
+        "Neuvěřitelné příběhy krtka a jeho přátel",
+        "Krtek a jeho lízátko",
+        "Jak krtek ke kalhotkám přišel"
+      ],
+      "correct": "Krtkova dobrodružství",
+      "note": null
+    },
+    {
+      "id": 108,
+      "question": "„Dobrou noc, strýčku Fido! Dobrou noc, děti!“. Ve kterém večerníčku jsme toto mohli slýchat?",
+      "options": [
+        "Vydrýsek",
+        "Pohádky strýčka Fido",
+        "Příběhy Tipa a Tapa",
+        "Strýček Fido a štěňátka"
+      ],
+      "correct": "Příběhy Tipa a Tapa",
+      "note": null
+    },
+    {
+      "id": 109,
+      "question": "Test znalosti Večerníčků: Na čem jezdil hajný Robátko?",
+      "options": [
+        "na divokém praseti Čuňasovi",
+        "na jelenu Větrníkovi",
+        "na jezevci Kadibudkovi",
+        "na jelenu čtrnácterákovi"
+      ],
+      "correct": "na jelenu Větrníkovi",
+      "note": null
+    },
+    {
+      "id": 110,
+      "question": "Test znalosti Večerníčků: Kdo po odvedené práci vždy prohlásil „A je to!“?",
+      "options": [
+        "Bolek a Lolek",
+        "Pat a Mat",
+        "Včelka Mája",
+        "Maxipes Fík"
+      ],
+      "correct": "Pat a Mat",
+      "note": null
+    },
+    {
+      "id": 111,
+      "question": "Test znalosti Večerníčků: Jak se jmenoval kamarád včelky Máji?",
+      "options": [
+        "Čuník",
+        "Bilík",
+        "Vilík",
+        "Gulík"
+      ],
+      "correct": "Vilík",
+      "note": null
+    },
+    {
+      "id": 112,
+      "question": "Kdo namluvil večerníček o králících Bobovi a Bobkovi?",
+      "options": [
+        "Vlastimil Brodský",
+        "František Filipovský",
+        "Jiří Štěpnička",
+        "Josef Dvořák"
+      ],
+      "correct": "Josef Dvořák",
+      "note": null
+    },
+    {
+      "id": 113,
+      "question": "Jak se jmenuje herečka, která namluvila postavu Rákosníčka?",
+      "options": [
+        "Simona Stašová",
+        "Aťka Janoušková",
+        "Jiřina Bohdalová",
+        "Iva Janžurová"
+      ],
+      "correct": "Jiřina Bohdalová",
+      "note": null
+    },
+    {
+      "id": 114,
+      "question": "Jak se jmenuje sněhulák v animované pohádce Ledového království (Frozen)?",
+      "options": [
+        "Kristoff",
+        "Hans",
+        "Gustav",
+        "Olaf"
+      ],
+      "correct": "Olaf",
+      "note": null
+    },
+    {
+      "id": 115,
+      "question": "V jakém americkém městě se odehrává děj rodinného filmu Sám doma 2?",
+      "options": [
+        "Las Vegas",
+        "Los Angeles",
+        "New York",
+        "Washington DC"
+      ],
+      "correct": "New York",
+      "note": null
+    },
+    {
+      "id": 116,
+      "question": "Jaký dárek dostal Harry Potter během svého prvního roku v Bradavicích?",
+      "options": [
+        "Pobertův plánek",
+        "Neviditelný plášť",
+        "Koště Nimbus 2000",
+        "Koště Kulový blesk"
+      ],
+      "correct": "Neviditelný plášť",
+      "note": null
+    },
+    {
+      "id": 117,
+      "question": "Jak se jmenovala hodná princezna, která používala kouzelný prsten?",
+      "options": [
+        "Xénie",
+        "Saxana",
+        "Arabela",
+        "Locika"
+      ],
+      "correct": "Arabela",
+      "note": null
+    },
+    {
+      "id": 118,
+      "question": "Jak se jmenoval čert v pohádce Anděl Páně?",
+      "options": [
+        "Urijáš",
+        "Kleofáš",
+        "Belzebub",
+        "Huhla"
+      ],
+      "correct": "Urijáš",
+      "note": null
+    },
+    {
+      "id": 119,
+      "question": "Ze kterého filmu pochází věta \"Je to rebel!\"?",
+      "options": [
+        "Anděl páně",
+        "Tři bratři",
+        "Kulový blesk",
+        "S čerty nejsou žerty"
+      ],
+      "correct": "S čerty nejsou žerty",
+      "note": null
+    },
+    {
+      "id": 120,
+      "question": "Kdo je Peter Parker?",
+      "options": [
+        "Superman",
+        "Ironman",
+        "Spiderman",
+        "Batman"
+      ],
+      "correct": "Spiderman",
+      "note": null
+    },
+    {
+      "id": 121,
+      "question": "Co říkal čert z filmu Princezna ze mlejna?",
+      "options": [
+        "Já jsem malej, ale šikovnej",
+        "Jsem velkej a blechatej",
+        "Nikdy mě nechytíš",
+        "Jsem pekelník šikovný"
+      ],
+      "correct": "Já jsem malej, ale šikovnej",
+      "note": null
+    },
+    {
+      "id": 122,
+      "question": "Kdo je Spejbl?",
+      "options": [
+        "Tatínek Hurvínka",
+        "Tatínek Šebestové",
+        "Tatínek Jeníčka a Mařenky",
+        "syn Rumcajze"
+      ],
+      "correct": "Tatínek Hurvínka",
+      "note": null
+    },
+    {
+      "id": 123,
+      "question": "Co, dostal Vašek z filmu \"Jak vytrhnout velrybě stoličku\" za zvíře?",
+      "options": [
+        "Rybičku",
+        "Mravence",
+        "Psa",
+        "Lišku"
+      ],
+      "correct": "Psa",
+      "note": null
+    },
+    {
+      "id": 124,
+      "question": "Jak se jmenuje princezna z pohádky Na vlásku?",
+      "options": [
+        "Šmoulinka",
+        "Elza",
+        "Locika",
+        "Sifu"
+      ],
+      "correct": "Locika",
+      "note": null
+    },
+    {
+      "id": 125,
+      "question": "Jakou barvu měl meč Luka Skywalkera než ho digitálně remastrovali?",
+      "options": [
+        "světle zelenou",
+        "fialovou",
+        "světle modrou",
+        "červenou"
+      ],
+      "correct": "světle modrou",
+      "note": null
+    },
+    {
+      "id": 126,
+      "question": "Jak se nazývala planeta, kde v díle \"Klony útočí\" byli vyráběni bitevní droidi?",
+      "options": [
+        "Tatooine",
+        "Geonosis",
+        "Kamino",
+        "Mustafar"
+      ],
+      "correct": "Geonosis",
+      "note": null
+    },
+    {
+      "id": 127,
+      "question": "Ve kterém filmu vystupuje cvrček Jiminy Cricket?",
+      "options": [
+        "Pinocchio",
+        "Paddington",
+        "Marmaduk",
+        "Dumbo"
+      ],
+      "correct": "Pinocchio",
+      "note": null
+    },
+    {
+      "id": 128,
+      "question": "Jak se jmenuje kámen nekonečna, který měl v úschově Dr. Strange?",
+      "options": [
+        "Kámen mudrců",
+        "Kámen času",
+        "Kámen prostoru",
+        "Kámen mysli"
+      ],
+      "correct": "Kámen času",
+      "note": null
+    },
+    {
+      "id": 129,
+      "question": "Kdo je Odinův nevlastní syn?",
+      "options": [
+        "Grinch",
+        "Hulk",
+        "Peter Parker",
+        "Loki"
+      ],
+      "correct": "Loki",
+      "note": null
+    },
+    {
+      "id": 130,
+      "question": "Hulk je ve skutečnosti též:",
+      "options": [
+        "Harry Potter",
+        "Dr. Steven Strange",
+        "Voldemort",
+        "Dr. Bruce Banner"
+      ],
+      "correct": "Dr. Bruce Banner",
+      "note": null
+    },
+    {
+      "id": 131,
+      "question": "Ve filmu Obecná škola nehraje:",
+      "options": [
+        "Libuše Šafránková",
+        "Jan Kačer",
+        "Zdeněk Svěrák",
+        "Jan Tříska"
+      ],
+      "correct": "Jan Kačer",
+      "note": null
+    },
+    {
+      "id": 132,
+      "question": "Seriál The Walking Dead známe v češtině pod názvem:",
+      "options": [
+        "Noc oživlých mrtvol",
+        "Živí mrtví",
+        "Pochodující smrt",
+        "Chodící mrtvoly"
+      ],
+      "correct": "Živí mrtví",
+      "note": null
+    },
+    {
+      "id": 133,
+      "question": "Do čeho Marfuša kousne, když čeká na Mrazíka?",
+      "options": [
+        "do cibule",
+        "do chleba",
+        "do jablka",
+        "do ořechu"
+      ],
+      "correct": "do cibule",
+      "note": null
+    },
+    {
+      "id": 134,
+      "question": "Ze kterého filmu je hláška: „Neřeš, nepřepínej, a hlavně po ničem nepátrej!“",
+      "options": [
+        "Knoflíkáři",
+        "Samotáři",
+        "Příběhy obyčejného šílenství",
+        "Jedna ruka netleská"
+      ],
+      "correct": "Knoflíkáři",
+      "note": null
+    },
+    {
+      "id": 135,
+      "question": "Ze kterého filmu je následující rozhovor: „Víš, Bedřichu, přiznám se. Již několik dní jsem nepil.“ „Nó, tak se koukej polepšit!“",
+      "options": [
+        "Pražská pětka",
+        "Vejška",
+        "Cesta z města",
+        "Kouř"
+      ],
+      "correct": "Kouř",
+      "note": null
+    },
+    {
+      "id": 136,
+      "question": "Odkud pochází hláška: „Každá holka někoho má, dokud není s tebou... Nebo spíš se mnou.“",
+      "options": [
+        "Jedna ruka netleská",
+        "Samotáři",
+        "Knoflíkáři",
+        "Gympl"
+      ],
+      "correct": "Samotáři",
+      "note": null
+    },
+    {
+      "id": 137,
+      "question": "„To je dost, žes nás taky jednou vyvez, žes udělal něco pro rodinu,“ zazní ve filmu...",
+      "options": [
+        "Na samotě u lesa",
+        "Ecce homo Homolka",
+        "Vratné lahve",
+        "Slavnosti sněženek"
+      ],
+      "correct": "Slavnosti sněženek",
+      "note": null
+    },
+    {
+      "id": 138,
+      "question": "Ze kterého filmu je hláška: „Kdyby Krista utopili, tak nosíš tady na krku akvárium.“",
+      "options": [
+        "Dědictví aneb Kurvahošigutntág",
+        "Pupendo",
+        "Pelíšky",
+        "Hodinový manžel"
+      ],
+      "correct": "Pupendo",
+      "note": null
+    },
+    {
+      "id": 139,
+      "question": "Dědictví aneb Kurvahošigutntág sází jednu hlášku za druhou. Která z níže uvedených do něj ale nepatří?",
+      "options": [
+        "Máš místo mozku z piva kostku!",
+        "Kaviárový tousty, to je vůl!",
+        "Mně je tak blbě, že nemám ani tužku.",
+        "Já ťa mám rád aj bez peněz!"
+      ],
+      "correct": "Máš místo mozku z piva kostku!",
+      "note": null
+    },
+    {
+      "id": 140,
+      "question": "„To muselo dát příšernou práci. A přitom taková blbost, co?“ Říká jedna z postav ve filmu Pelíšky. Kdo tuto postavu hrál?",
+      "options": [
+        "Stella Zázvorková",
+        "Miroslav Donutil",
+        "Eva Holubová",
+        "Simona Stašová"
+      ],
+      "correct": "Simona Stašová",
+      "note": null
+    },
+    {
+      "id": 141,
+      "question": "Ze kterého filmu pochází hláška: „Stovku? Za takovou hudlařinu?“",
+      "options": [
+        "Kulový blesk",
+        "Dědictví aneb Kurvahošigutntág",
+        "Vesničko má středisková",
+        "Vrchní, prchni!"
+      ],
+      "correct": "Vrchní, prchni!",
+      "note": null
+    },
+    {
+      "id": 142,
+      "question": "Ze kterého filmu pochází tato věta: „Harry, jdu do baráku!“",
+      "options": [
+        "Nedotknutelní",
+        "Sám doma",
+        "Krotitelé duchů",
+        "Návrat do minulosti"
+      ],
+      "correct": "Sám doma",
+      "note": null
+    },
+    {
+      "id": 143,
+      "question": "Ze kterého filmu pochází tato věta: ‘’Alkohol podávaný v malých dávkách neškodí v jakémkoliv množství.’’",
+      "options": [
+        "Sněženky a machři",
+        "Vrchní, prchni!",
+        "Limonádový Joe",
+        "Čtyři vraždy stačí, drahoušku"
+      ],
+      "correct": "Limonádový Joe",
+      "note": null
+    },
+    {
+      "id": 144,
+      "question": "Ze kterého filmu pochází tato věta: ‘’Ty tvoje banány smrděj jako psí kšíry.’’",
+      "options": [
+        "Sám doma",
+        "Kokosy na sněhu",
+        "Škola ro(c)ku",
+        "Strážci Galaxie"
+      ],
+      "correct": "Kokosy na sněhu",
+      "note": null
+    },
+    {
+      "id": 145,
+      "question": "Ze kterého filmu pochází tato věta: ‘’Prdí taky hadi?’’",
+      "options": [
+        "Jak se krotí krokodýli",
+        "S tebou mě baví svět",
+        "Jak dostat tatínka do polepšovny",
+        "Doktor od jezera hrochů"
+      ],
+      "correct": "S tebou mě baví svět",
+      "note": null
+    },
+    {
+      "id": 146,
+      "question": "Kdo si zahrál vraha ve filmu Sedm s Morganem Freemanem a Bradem Pittem v roli policistů?",
+      "options": [
+        "Denzel Washington",
+        "Kevin Spacey",
+        "David Fincher",
+        "Bruce Willis"
+      ],
+      "correct": "Kevin Spacey",
+      "note": null
+    },
+    {
+      "id": 147,
+      "question": "Jak se jmenuje postava černovlasé dívky z filmu Kruh, která se objevuje na videokazetě s tajemnými scénami?",
+      "options": [
+        "Orphan",
+        "Samara",
+        "Medusa",
+        "Rachel"
+      ],
+      "correct": "Samara",
+      "note": null
+    },
+    {
+      "id": 148,
+      "question": "Ve kterém filmu se objevilo ďábelské dítě jménem Damien?",
+      "options": [
+        "Satan přichází (The Omen)",
+        "Saw",
+        "3:15 zemřeš",
+        "Bláznivý exorcista (Repossessed)"
+      ],
+      "correct": "Satan přichází (The Omen)",
+      "note": null
+    },
+    {
+      "id": 149,
+      "question": "Jaké je zaměstnání Patricka Batemana, zabijáka z filmu Americké psycho?",
+      "options": [
+        "Realitní makléř",
+        "Pojišťovací agent",
+        "Obchodní zástupce",
+        "Investiční bankéř"
+      ],
+      "correct": "Investiční bankéř",
+      "note": null
+    },
+    {
+      "id": 150,
+      "question": "V kterém filmu se objevila postava jménem Freddy Krueger?",
+      "options": [
+        "V zajetí démonů",
+        "Noční můra v Elm Street",
+        "Halloween",
+        "Moucha"
+      ],
+      "correct": "Noční můra v Elm Street",
+      "note": null
+    },
+    {
+      "id": 151,
+      "question": "Když ve městě Derry ve státě Maine začnou mizet děti, musí parta dospívajících čelit svým největším obavám v boji proti Pennywiseovi. Kdo to je?",
+      "options": [
+        "Farář",
+        "Učitel",
+        "Řezník",
+        "Klaun"
+      ],
+      "correct": "Klaun",
+      "note": null
+    },
+    {
+      "id": 152,
+      "question": "Který z těchto herců si zahrál krvelačného upíra ve filmu Interview s upírem?",
+      "options": [
+        "Roger Daltrey",
+        "Tom Cruise",
+        "Nicole Kidman",
+        "Bruce Willis"
+      ],
+      "correct": "Tom Cruise",
+      "note": null
+    },
+    {
+      "id": 153,
+      "question": "Jak se jmenovala vražedkyně, kterou ve filmu Zrůda ztvárnila herečka Charlize Theronová?",
+      "options": [
+        "Olga Hepnarová",
+        "Aileen Wuornosová",
+        "Jane Toppanová",
+        "Belle Gunnessová"
+      ],
+      "correct": "Aileen Wuornosová",
+      "note": null
+    },
+    {
+      "id": 154,
+      "question": "Která z těchto hororových sérií se zabývá paranormálními jevy?",
+      "options": [
+        "Insidious",
+        "Vetřelec (Alien)",
+        "Pátek třináctého",
+        "Saw: Hra o přežití"
+      ],
+      "correct": "Insidious",
+      "note": null
+    },
+    {
+      "id": 155,
+      "question": "V kterém filmu najdeme postavu vraha Normana Batese?",
+      "options": [
+        "28 dní poté",
+        "Psycho",
+        "Ptáci",
+        "Halloween"
+      ],
+      "correct": "Psycho",
+      "note": null
+    },
+    {
+      "id": 156,
+      "question": "Jak se jmenuje vražedkyně, kterou ztvárnila Sharon Stone v erotickém thrilleru Základní instinkt?",
+      "options": [
+        "Catherine Trammellová",
+        "Olga Hepnarová",
+        "Anna Poliatova",
+        "Hanna Ronanová"
+      ],
+      "correct": "Catherine Trammellová",
+      "note": null
+    },
+    {
+      "id": 157,
+      "question": "Kdo režíroval film Osvícení?",
+      "options": [
+        "Stanley Kubrick",
+        "James Cameron",
+        "Wes Craven",
+        "Francis Ford Coppola"
+      ],
+      "correct": "Stanley Kubrick",
+      "note": null
+    },
+    {
+      "id": 158,
+      "question": "Natáčení kterého filmu si společně užili herci Jake Gyllenhaal, Mark Ruffalo a Robert Downey Jr.?",
+      "options": [
+        "Zodiac",
+        "Noční zvířata",
+        "Donnie Darko",
+        "Zmizení"
+      ],
+      "correct": "Zodiac",
+      "note": null
+    },
+    {
+      "id": 159,
+      "question": "Který film měl podtitul „Ve vesmíru váš křik nikdo neuslyší“?",
+      "options": [
+        "Apollo 13",
+        "Vetřelec",
+        "Černočerná tma",
+        "Horizont události"
+      ],
+      "correct": "Vetřelec",
+      "note": null
+    },
+    {
+      "id": 160,
+      "question": "Kdo si zahrál hlavní mužskou roli táty od rodiny v hororu Sinister?",
+      "options": [
+        "Bruce Willis",
+        "Ryan Reynolds",
+        "James Brolin",
+        "Ethan Hawke"
+      ],
+      "correct": "Ethan Hawke",
+      "note": null
+    },
+    {
+      "id": 161,
+      "question": "Jak se jmenuje herec, který ztvárnil postavu vědce ve filmu Moucha z roku 1986, který se postupně promění v hmyz?",
+      "options": [
+        "David Duchovny",
+        "Tom Cruise",
+        "Tom Hanks",
+        "Jeff Goldblum"
+      ],
+      "correct": "Jeff Goldblum",
+      "note": null
+    },
+    {
+      "id": 162,
+      "question": "Která herečka se ve filmovém zpracování Saturnina z roku 1994 rozčiluje: „Servírovat v mém věku jako zákusek rakvičky je prostě ohavné!“?",
+      "options": [
+        "Daniela Kolářová",
+        "Jitka Molavcová",
+        "Lucie Zedníčková",
+        "Jana Synková"
+      ],
+      "correct": "Jitka Molavcová",
+      "note": null
+    },
+    {
+      "id": 163,
+      "question": "Titulkové dilema, zda si pochutnat na rakvičce, nebo věnečku, znáte z filmu Spalovač mrtvol. V kterém městě byste našli krematorium, kde se tento legendární snímek režiséra Juraje Herze natáčel?",
+      "options": [
+        "ve Zlíně",
+        "v Prostějově",
+        "v Pardubicích",
+        "v Pelhřimově"
+      ],
+      "correct": "v Pardubicích",
+      "note": null
+    },
+    {
+      "id": 164,
+      "question": "Který slavný režisér se podílel na scénáři pro snímek Rambo II?",
+      "options": [
+        "James Cameron",
+        "Peter Jackson",
+        "Peter MacDonald",
+        "Steven Spielberg"
+      ],
+      "correct": "James Cameron",
+      "note": null
+    },
+    {
+      "id": 165,
+      "question": "Ze kterého filmu pochází tato věta: „Ty máš svaly, já mám čáry!“",
+      "options": [
+        "Pyšná princezna",
+        "Mrazík",
+        "Aladin",
+        "Princezna ze Mlejna"
+      ],
+      "correct": "Mrazík",
+      "note": null
+    },
+    {
+      "id": 166,
+      "question": "Ze kterého filmu pochází tato věta: „Já, že jsem tajtrlík? Za prvně nevím, co to je, a za druhý mě to uráží!\"",
+      "options": [
+        "Sůl nad zlato",
+        "Princezna se zlatou hvězdou na čele",
+        "Pyšná princezna",
+        "Byl jednou jeden král"
+      ],
+      "correct": "Byl jednou jeden král",
+      "note": null
+    },
+    {
+      "id": 167,
+      "question": "Ze které pohádky pochází tato věta: \"Ani hnout, chlape, sic máš kuli v játrech.\"",
+      "options": [
+        "Princové jsou na draka",
+        "S čerty nejsou žerty",
+        "Šíleně smutná princezna",
+        "Hrátky s čertem"
+      ],
+      "correct": "Hrátky s čertem",
+      "note": null
+    },
+    {
+      "id": 168,
+      "question": "Ze kterého filmu pochází tato věta: „Jsem šťastnej jako tornádo na Manhattanu!’’",
+      "options": [
+        "Coco",
+        "Aladin",
+        "Auta",
+        "Hledá se Nemo"
+      ],
+      "correct": "Auta",
+      "note": null
+    },
+    {
+      "id": 169,
+      "question": "Ze které pohádky pochází tato věta: „Odvolávám, co jsem odvolal a slibuji, co jsem slíbil!“",
+      "options": [
+        "Pyšná princezna",
+        "Byl jednou jeden král",
+        "S čerty nejsou žerty",
+        "Princezna se zlatou hvězdou na čele"
+      ],
+      "correct": "Pyšná princezna",
+      "note": null
+    },
+    {
+      "id": 170,
+      "question": "Ze které pohádky pochází tato věta: „Dorota Máchalová, to je stránka tisíc dvacet sedm, osmý řádek, vlevo dole.“",
+      "options": [
+        "S čerty nejsou žerty",
+        "Anděl páně",
+        "Hrátky s čertem",
+        "Tři oříšky pro Popelku"
+      ],
+      "correct": "S čerty nejsou žerty",
+      "note": null
+    },
+    {
+      "id": 171,
+      "question": "Ze kterého filmu pochází tato věta: „Stárnu. Stárnu tak rychle, že když je v noci ticho, slyším, jak mi kornatěj tepny.’’",
+      "options": [
+        "Tři veteráni",
+        "Šíleně smutná princezna",
+        "Císařův pekař a pekařův císař",
+        "Anděl páně"
+      ],
+      "correct": "Císařův pekař a pekařův císař",
+      "note": null
+    },
+    {
+      "id": 172,
+      "question": "Ze které pohádky pochází tyto věty: „Povídám ti, pojď dolů.\" - \"Povídám ti, pojď nahoru.\"",
+      "options": [
+        "Dařbuján a Pandrhola",
+        "Tři veteráni",
+        "Tři oříšky pro Popelku",
+        "Dívka na koštěti"
+      ],
+      "correct": "Tři oříšky pro Popelku",
+      "note": null
+    },
+    {
+      "id": 173,
+      "question": "Hlavní úvodní písní filmu Křídla Vánoc (2013) je skladba:",
+      "options": [
+        "Cestička",
+        "Cesta z města",
+        "Cesta",
+        "Sněží"
+      ],
+      "correct": "Cesta",
+      "note": null
+    },
+    {
+      "id": 174,
+      "question": "Skladbu k filmu Muži v naději (2011) nazpíval Jiří Macháček se svoji kapelou:",
+      "options": [
+        "Ready Kirken",
+        "Mig21",
+        "Kryštof",
+        "Mirai"
+      ],
+      "correct": "Mig21",
+      "note": null
+    },
+    {
+      "id": 175,
+      "question": "Znělka českého seriálu Hospoda (1996) má oficiální název:",
+      "options": [
+        "Jen tři schody",
+        "Ta naše hospoda",
+        "Hospoda",
+        "Do naší hospody"
+      ],
+      "correct": "Do naší hospody",
+      "note": null
+    },
+    {
+      "id": 176,
+      "question": "Hlavní píseň filmu Snowboarďáci (2004) nazpíval:",
+      "options": [
+        "Kamil Střihavka",
+        "Vilém Čok",
+        "Roman Holý",
+        "Dan Bárta"
+      ],
+      "correct": "Dan Bárta",
+      "note": null
+    },
+    {
+      "id": 177,
+      "question": "Jak se ve filmu Vesničko má středisková jmenoval ústřední postava, kterou hrál maďarský herec János Bán?",
+      "options": [
+        "Karlík",
+        "Otík",
+        "Frantík",
+        "Jiřík"
+      ],
+      "correct": "Otík",
+      "note": null
+    },
+    {
+      "id": 178,
+      "question": "Jaký objekt, kromě jiného, zdědil Bohuš ve filmu Dědictví aneb Kurvahošigutntág?",
+      "options": [
+        "kostel",
+        "autoservis",
+        "cihelnu",
+        "zahradnictví"
+      ],
+      "correct": "cihelnu",
+      "note": null
+    },
+    {
+      "id": 179,
+      "question": "Ve kterém z těchto filmů „měří kodiaka“?",
+      "options": [
+        "Pelíšky",
+        "Obecná škola",
+        "Vrchní, prchni!",
+        "Občanský průkaz"
+      ],
+      "correct": "Pelíšky",
+      "note": null
+    },
+    {
+      "id": 180,
+      "question": "Ve kterém z následujících filmů se objevuje děda Komárek v podání legendárního Josefa Kemra?",
+      "options": [
+        "Golet v údolí",
+        "Na samotě u lesa",
+        "Parta hic",
+        "Marečku, podejte mi pero!"
+      ],
+      "correct": "Na samotě u lesa",
+      "note": null
+    },
+    {
+      "id": 181,
+      "question": "Který z těchto filmů nerežíroval Jiří Menzel?",
+      "options": [
+        "Kolja",
+        "Slavnosti sněženek",
+        "Vesničko má středisková",
+        "Na samotě u lesa"
+      ],
+      "correct": "Kolja",
+      "note": null
+    },
+    {
+      "id": 182,
+      "question": "Nezapomenutelnou figuru si ve filmu Marečku, podejte mi pero! zahrál Václav Lohniský. Jak se postava podlézavého žáka jmenovala?",
+      "options": [
+        "Horák",
+        "Hujer",
+        "Hála",
+        "Hájek"
+      ],
+      "correct": "Hujer",
+      "note": null
+    },
+    {
+      "id": 183,
+      "question": "Hlášku „Nikdy nebo navždy!“ pronesl ve filmu Pelíšky který herec?",
+      "options": [
+        "Jiří Kodet",
+        "Miroslav Donutil",
+        "Bolek Polívka",
+        "Jaroslav Dušek"
+      ],
+      "correct": "Jiří Kodet",
+      "note": null
+    },
+    {
+      "id": 184,
+      "question": "Ze kterého filmu je hláška: Jestlipak si myslíte, soudruzi, že to přežil? No přežil, protože mu to politicky myslelo, vy šmejdi!",
+      "options": [
+        "Černí baroni",
+        "Dobrý voják Švejk",
+        "Copak je to za vojáka...",
+        "Tankový prapor"
+      ],
+      "correct": "Černí baroni",
+      "note": null
+    },
+    {
+      "id": 185,
+      "question": "Ze kterého filmu je hláška: Co blbnete, dyť jsou tady lidi!",
+      "options": [
+        "Tankový prapor",
+        "Poslušně hlásím",
+        "Dobrý voják Švejk",
+        "Hogo fogo Homolka"
+      ],
+      "correct": "Poslušně hlásím",
+      "note": "Často je tato hláška připisována obecně filmu Dobrý voják Švejk (1956), ale přesněji zaznívá až v druhém dílu, Poslušně hlásím."
+    },
+    {
+      "id": 186,
+      "question": "Který film se Sylvestrem Stallonem v jedné z hlavních rolí získal Oscara za nejlepší film?",
+      "options": [
+        "Plán útěku",
+        "Rocky",
+        "Tango a Cash",
+        "Rambo"
+      ],
+      "correct": "Rocky",
+      "note": null
+    },
+    {
+      "id": 187,
+      "question": "Maková panenka má červenou sukýnku a žije v makovém poli. Jednoho dne se tam seznámila s motýlem, který nosí krásný žlutý cylindr. Jak se motýl jmenuje?",
+      "options": [
+        "Hop",
+        "Štaflík",
+        "Vilík",
+        "Emanuel"
+      ],
+      "correct": "Emanuel",
+      "note": null
+    },
+    {
+      "id": 188,
+      "question": "Holčička Ája má Maxipsa Fíka. Proč se zastavil jeho rychlý růst ze štěňátka?",
+      "options": [
+        "snědl kouzelnou pilulku",
+        "nejedl maso",
+        "přestal pít mléko",
+        "vypil sud piva"
+      ],
+      "correct": "vypil sud piva",
+      "note": null
+    },
+    {
+      "id": 189,
+      "question": "Kdo pronesl větu: „Kdyby měl Pán Bůh tak tenký uši, jistě by mu brzy prasknul bubínek.“",
+      "options": [
+        "Veronika Arichteva",
+        "Zuzana Kajnarová",
+        "Jakub Štáfek",
+        "Nikol Štíbrová"
+      ],
+      "correct": "Zuzana Kajnarová",
+      "note": null
+    },
+    {
+      "id": 190,
+      "question": "Kdo pronesl větu: „Já spíš myslím, že lidi tady málo hulej.“",
+      "options": [
+        "Petr Nárožný",
+        "Jiří Macháček",
+        "Mikuláš Křen",
+        "František Němec"
+      ],
+      "correct": "Jiří Macháček",
+      "note": null
+    },
+    {
+      "id": 191,
+      "question": "Který herec pronesl větu: „Rodiče, kteří chtějí vidět Idiota, nechť přijdou do ředitelny.“",
+      "options": [
+        "Zdeněk Svěrák",
+        "Radoslav Budáč",
+        "Jan Tříska",
+        "Rudolf Hrušínský"
+      ],
+      "correct": "Rudolf Hrušínský",
+      "note": null
+    },
+    {
+      "id": 192,
+      "question": "Který herec pronesl větu: \"Víš, co, Sašo, jdi do prdele!\"",
+      "options": [
+        "Jiří Kodet",
+        "Miroslav Donutil",
+        "Boleslav Polívka",
+        "Michael Beran"
+      ],
+      "correct": "Michael Beran",
+      "note": null
+    },
+    {
+      "id": 193,
+      "question": "Kdo pronesl větu: „Prosím tě, co ty víš o chlapech? Za celý život jsi měla jenom jednoho.\"",
+      "options": [
+        "Lenka Vlasáková",
+        "Eliška Balzerová",
+        "Lenka Krobotová",
+        "Eva Leinweberová"
+      ],
+      "correct": "Eliška Balzerová",
+      "note": null
+    },
+    {
+      "id": 194,
+      "question": "Kdo pronesl větu: „To je dost, dědku, žes nás taky jednou vyvez.\"",
+      "options": [
+        "Zdena Hadrbolcová",
+        "Blažena Holišová",
+        "Eva Holubová",
+        "Libuše Šafránková"
+      ],
+      "correct": "Blažena Holišová",
+      "note": null
+    },
+    {
+      "id": 195,
+      "question": "Který herec pronesl větu: „Chlapi, nelejte to pivo z voken, podívejte se, jak vypadám. No předsedo, vopravdu, no, to je sranda, lejt pivo z voken,“",
+      "options": [
+        "Oldřich Vlach",
+        "Miloslav Štibich",
+        "Josef Somr",
+        "František Vláčil"
+      ],
+      "correct": "Oldřich Vlach",
+      "note": null
+    },
+    {
+      "id": 196,
+      "question": "Který český herec musel být v pohádce Tři oříšky pro Popelku kvůli svému přízvuku předabován?",
+      "options": [
+        "Pavel Trávníček (Princ)",
+        "Jan Libíček (Preceptor)",
+        "Libuše Šafránková (Popelka)",
+        "Miloš Vavruška (Lovčí)"
+      ],
+      "correct": "Pavel Trávníček (Princ)",
+      "note": null
+    },
+    {
+      "id": 197,
+      "question": "Co za zvíře mělo v erbu Veselé království, odkud pocházela princezna Helena, v pohádce Šíleně smutná princezna?",
+      "options": [
+        "Divočáka",
+        "Čápa",
+        "Želvu",
+        "Žábu"
+      ],
+      "correct": "Čápa",
+      "note": null
+    },
+    {
+      "id": 198,
+      "question": "Kdo si zahrál Boha v pohádce Anděl Páně i Anděl Páně 2?",
+      "options": [
+        "Jiří Bartoška",
+        "Boleslav Polívka",
+        "Karel Gott",
+        "Josef Abrhám"
+      ],
+      "correct": "Jiří Bartoška",
+      "note": null
+    },
+    {
+      "id": 199,
+      "question": "Po kterém ovoci narostl princezně nos v pohádce Tři veteráni?",
+      "options": [
+        "Po švestce",
+        "Po jablku",
+        "Po hrušce",
+        "Po jahodách"
+      ],
+      "correct": "Po jablku",
+      "note": null
+    },
+    {
+      "id": 200,
+      "question": "Který řád dostal kuchař od princezny Lady v pohádce Princezna se zlatou hvězdou?",
+      "options": [
+        "Řád zlaté šunky",
+        "Řád myšího kožíšku",
+        "Řád zlaté vařečky",
+        "Řád dobré polévky"
+      ],
+      "correct": "Řád myšího kožíšku",
+      "note": null
+    }
+  ]
+}

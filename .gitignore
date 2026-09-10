@@ -8,8 +8,9 @@ __pycache__/
 dist/
 build/
 
-# Databáze (lokální)
+# Databáze (lokální skóre; questions.json je součástí repa)
 *.json
+!questions.json
 sauron_db.json
 data/
 

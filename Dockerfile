@@ -11,8 +11,9 @@ RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Kopíruj Python skript do kontejneru
+# Kopíruj Python skript a databázi otázek do kontejneru
 COPY sauron_dc_bot.py .
+COPY questions.json .
 
 # Vytvoř adresář pro persistentní data (databáze)
 RUN mkdir -p /app/data

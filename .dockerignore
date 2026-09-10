@@ -5,8 +5,7 @@ __pycache__/
 *.pyd
 .Python
 
-# Lokální databáze (nechceme commitovat do Dockeru)
-*.json
+# Lokální skóre hráčů (nekopírovat do image; questions.json se kopíruje explicitně)
 sauron_db.json
 data/
 
