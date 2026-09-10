@@ -218,7 +218,7 @@ class KvizView(discord.ui.View):
         await interaction.response.defer(ephemeral=True)
 
         if self.choice_map.get(custom_id, False):
-            nove_body = pridej_body(user_id, user_name, 1)
+            nove_body = pridej_body(user_id, user_name, 3)
             self.correct_answers.append({
                 "name": user_name,
                 "body": nove_body,
