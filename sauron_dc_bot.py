@@ -37,7 +37,7 @@ os.makedirs(DATA_DIR, exist_ok=True)
 
 # Počítadlo zpráv pro kvízovou výzvu (náhodný interval)
 message_counter = 0
-next_kviz_trigger = random.randint(15, 20)
+next_kviz_trigger = random.randint(10, 15)
 last_message_author = None
 second_last_author = None
 
@@ -352,7 +352,7 @@ async def on_message(message):
         await message.channel.send(embed=embed, view=view)
 
         message_counter = 0
-        next_kviz_trigger = random.randint(15, 20)
+        next_kviz_trigger = random.randint(10, 15)
         last_message_author = None
         second_last_author = None
 
@@ -580,7 +580,7 @@ async def kviz_start(ctx):
 
     BOT_ENABLED = True
     message_counter = 0
-    next_kviz_trigger = random.randint(15, 20)
+    next_kviz_trigger = random.randint(10, 15)
     last_message_author = None
     second_last_author = None
 
@@ -641,7 +641,7 @@ async def napoveda(ctx):
     embed.add_field(
         name="🎮 Jak hra funguje?",
         value=(
-            "• Po **15–20 zprávách** se objeví kvízová otázka\n"
+            "• Po **10–15 zprávách** se objeví kvízová otázka\n"
             "• Vyber jednu ze **4 možností** (všechna tlačítka jsou šedá)\n"
             "• Správná odpověď = **+1 bod**, špatná = **-1 bod** (minimum 0)\n"
             "• První správná odpověď zavře kolo za 3 sekundy"
