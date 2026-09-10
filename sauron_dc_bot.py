@@ -171,7 +171,7 @@ def vytvor_kviz_embed(otazka, test=False):
 
 
 class KvizView(discord.ui.View):
-    """View se 4 šedými tlačítky pro filmový kvíz."""
+    """View se 4 modrými tlačítky pro filmový kvíz."""
 
     def __init__(self, spravna_odpoved, moznosti, note=None):
         super().__init__(timeout=300)
@@ -190,7 +190,7 @@ class KvizView(discord.ui.View):
             custom_id = f"choice_{index}"
             button = discord.ui.Button(
                 label=truncate_label(moznost),
-                style=discord.ButtonStyle.secondary,
+                style=discord.ButtonStyle.primary,
                 custom_id=custom_id,
             )
             self.choice_map[custom_id] = (moznost == spravna_odpoved)
