@@ -237,8 +237,8 @@ class KvizView(discord.ui.View):
             })
 
     async def cleanup_messages(self, original_message, channel):
-        """Po první správné odpovědi počká 3 s, obarví tlačítka a ukáže souhrn."""
-        await asyncio.sleep(3)
+        """Po první správné odpovědi počká 8 s, obarví tlačítka a ukáže souhrn."""
+        await asyncio.sleep(8)
 
         for child in self.children:
             child.disabled = True
@@ -644,7 +644,7 @@ async def napoveda(ctx):
             "• Po **10–15 zprávách** se objeví kvízová otázka\n"
             "• Vyber jednu ze **4 možností** (všechna tlačítka jsou šedá)\n"
             "• Správná odpověď = **+1 bod**, špatná = **-1 bod** (minimum 0)\n"
-            "• První správná odpověď zavře kolo za 3 sekundy"
+            "• První správná odpověď zavře kolo za 8 sekund"
         ),
         inline=False,
     )

@@ -15,7 +15,7 @@ Snapshot otázek je v `questions.json`. Doplnit jde skriptem `scrape_kvizky.py`.
 - Po 15–20 platných zprávách v povoleném kanálu se objeví kvízová otázka
 - Hráči vybírají ze 4 možností (jedna je správná)
 - Správná volba = +1 bod, špatná volba = −1 bod (minimum 0)
-- První správná odpověď zavře kolo za 3 sekundy
+- První správná odpověď zavře kolo za 8 sekund
 
 ## Příkazy
 
